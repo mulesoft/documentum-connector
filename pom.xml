@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.mule.module</groupId>
+    <artifactId>mule-module-documentum</artifactId>
+    <version>1.0</version>
+    <packaging>mule-module</packaging>
+    <name>Mule Cloud Connector</name>
+    
+    <parent>
+        <groupId>org.mule.tools.devkit</groupId>
+        <artifactId>mule-devkit-parent</artifactId>
+        <version>3.3.2</version>
+    </parent>
+
+    <properties>
+        <junit.version>4.9</junit.version>
+        <mockito.version>1.8.2</mockito.version>
+        <mule.devkit.version>3.3.2</mule.devkit.version>
+        <cxf.version>2.5.1</cxf.version>
+        <mule.version>3.3.0</mule.version>
+        <jdk.version>1.6</jdk.version>
+        <category>Standard</category>
+        <licensePath>LICENSE.md</licensePath>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
+    </properties>
+    
+	<repositories>
+	  <repository>
+	    <id>mule-ee-snapshot</id>
+	    <name>EE Repository Snapshots</name>	
+	    <url> https://repository.mulesoft.org/nexus/content/repositories/snapshots </url>
+	    <layout>default</layout>
+	  </repository>
+	  <repository>
+	    <id>mule-ee</id>
+	    <name>EE Repository Releases</name>	
+	    <url> https://repository.mulesoft.org/nexus/content/repositories/releases </url>
+	    <layout>default</layout>
+	  </repository>
+	</repositories>
+
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/documentum-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/documentum-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/documentum-connector</url>
+    </scm>
+
+    <dependencies>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-cxf</artifactId>
+			<version>${mule.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-databinding-jaxb</artifactId>
+			<version>${cxf.version}</version>
+			<scope>provided</scope>
+		</dependency>
+    </dependencies>
+    
+    <!--
+    <build>
+	   	<plugins>
+	       	<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxf.version}</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<configuration>
+						<defaultOptions>
+					    	<bindingFiles>
+					        	<bindingFile>${basedir}/src/main/resources/wsdl/binding.xml</bindingFile>
+					    	</bindingFiles>
+					      	<noAddressBinding>true</noAddressBinding>
+					  	</defaultOptions>
+							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/AgentService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/AgentService.wsdl</wsdlLocation>
+	   							</wsdlOption>
+	   							<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/ContextRegistryService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/ContextRegistryService.wsdl</wsdlLocation>
+	   							</wsdlOption>
+	   							<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/ObjectService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/ObjectService.wsdl</wsdlLocation>
+	   							</wsdlOption>
+	   							<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/VersionControlService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/VersionControlService.wsdl</wsdlLocation>
+	   							</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+	            <groupId>com.mycila.maven-license-plugin</groupId>
+	            <artifactId>maven-license-plugin</artifactId>
+	            <configuration>
+	                <header>LICENSE_HEADER.txt</header>
+	            </configuration>
+	        </plugin>
+		</plugins>
+	</build>
+    -->
+
+</project>

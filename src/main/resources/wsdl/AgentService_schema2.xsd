@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+
+    (c) 2003-2012 MuleSoft, Inc. This software is protected under international
+    copyright law. All use of this software is subject to MuleSoft's Master
+    Subscription Agreement (or other Terms of Service) separately entered
+    into between you and MuleSoft. If such an agreement is not in
+    place, you may not use the software.
+
+-->
+
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://content.core.datamodel.fs.documentum.emc.com/" xmlns:dfs-dm-core-content="http://content.core.datamodel.fs.documentum.emc.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfs-dm-core-context="http://context.core.datamodel.fs.documentum.emc.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dfs-dm-core-profiles="http://profiles.core.datamodel.fs.documentum.emc.com/">
+
+  <xs:complexType name="ActivityInfo">
+    <xs:sequence/>
+    <xs:attribute name="sessionId" type="xs:string" use="required"/>
+    <xs:attribute name="initiatorSessionId" type="xs:string"/>
+    <xs:attribute name="activityId" type="xs:string" use="required"/>
+    <xs:attribute name="autoCloseConnection" type="xs:boolean" use="required"/>
+    <xs:attribute name="closed" type="xs:boolean" use="required"/>
+    <xs:attribute name="targetDeploymentId" type="xs:string"/>
+    <xs:attribute name="initiatorDeploymentId" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ProgressInfo">
+    <xs:sequence/>
+    <xs:attribute name="providerName" type="xs:string"/>
+    <xs:attribute name="maximum" type="xs:int" use="required"/>
+    <xs:attribute name="minimum" type="xs:int" use="required"/>
+    <xs:attribute name="progress" type="xs:int" use="required"/>
+    <xs:attribute name="stepName" type="xs:string"/>
+    <xs:attribute name="stepNumber" type="xs:int" use="required"/>
+    <xs:attribute name="indeterminate" type="xs:boolean" use="required"/>
+    <xs:attribute name="fileName" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>
+
