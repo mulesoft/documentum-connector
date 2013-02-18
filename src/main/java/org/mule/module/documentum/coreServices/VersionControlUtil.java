@@ -19,8 +19,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -34,9 +32,7 @@ import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
 import com.emc.documentum.fs.datamodel.core.OperationOptions;
 import com.emc.documentum.fs.datamodel.core.VersionInfo;
 import com.emc.documentum.fs.datamodel.core.VersionStrategy;
-import com.emc.documentum.fs.datamodel.core.content.BinaryContent;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
-import com.emc.documentum.fs.datamodel.core.content.DataHandlerContent;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.profiles.ContentProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.FormatFilter;
@@ -46,11 +42,10 @@ import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.VersionControlService;
 import com.emc.documentum.fs.services.core.VersionControlServicePort;
 
-import org.apache.cxf.attachment.ByteDataSource;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxb.JAXBDataBinding;
 
-public class VersionControlUtil {
+public class VersionControlUtil extends Util {
     
     private VersionControlServicePort port;
     private ContentTransferMode transferMode;
@@ -163,26 +158,11 @@ public class VersionControlUtil {
         return port.getVersionInfo(objIdSet).get(0);
     }
     
-    private DataHandlerContent getDataHandlerContent(byte[] byteArray, String format) {
-        DataSource byteDataSource = new ByteDataSource(byteArray, format);
-        DataHandler dataHandler = new DataHandler(byteDataSource);
-        DataHandlerContent dataHandlerContent = new DataHandlerContent();
-        dataHandlerContent.setFormat(format);
-        dataHandlerContent.setValue(dataHandler);
-        return dataHandlerContent;
-    }
-
-    private BinaryContent getBinaryContent(byte[] byteArray, String format) {
-        BinaryContent binaryContent = new BinaryContent();
-        binaryContent.setFormat(format);
-        binaryContent.setValue(byteArray);
-        return binaryContent;
-    }
-    
     private void setVersionControlPort(ServiceContext context, String target) throws MalformedURLException, JAXBException {
         String versionControlServiceURL = target + "core/VersionControlService";
-        VersionControlService versionControlService = new VersionControlService(new URL(versionControlServiceURL),
-            new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService"));
+        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService");
+        VersionControlService versionControlService = new VersionControlService(new URL(versionControlServiceURL), qName);
+        
         if (transferMode == ContentTransferMode.MTOM) {
             port = versionControlService.getVersionControlServicePort(new MTOMFeature());
         }
@@ -191,8 +171,7 @@ public class VersionControlUtil {
         }
         
         List<Header> headers = new ArrayList<Header>();
-        Header header = new Header(new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService"), 
-                                   context, new JAXBDataBinding(ServiceContext.class));
+        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
         headers.add(header);
         ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
     }

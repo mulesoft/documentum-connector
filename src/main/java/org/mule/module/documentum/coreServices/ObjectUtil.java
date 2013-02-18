@@ -29,14 +29,11 @@ import com.emc.documentum.fs.services.core.ObjectService;
 import com.emc.documentum.fs.services.core.ObjectServicePort;
 import com.emc.documentum.fs.services.core.SerializableException;
 
-import javax.activation.DataSource;
-import javax.activation.DataHandler;
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.MTOMFeature;
 
-import org.apache.cxf.attachment.ByteDataSource;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxb.JAXBDataBinding;
 
@@ -49,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class ObjectUtil {
+public class ObjectUtil extends Util {
     
     private String repositoryName;
     private ObjectServicePort port;
@@ -320,22 +317,6 @@ public class ObjectUtil {
         return objectPath;
     }
 
-    private DataHandlerContent getDataHandlerContent(byte[] byteArray, String format) {
-        DataSource byteDataSource = new ByteDataSource(byteArray, format);
-        DataHandler dataHandler = new DataHandler(byteDataSource);
-        DataHandlerContent dataHandlerContent = new DataHandlerContent();
-        dataHandlerContent.setFormat(format);
-        dataHandlerContent.setValue(dataHandler);
-        return dataHandlerContent;
-    }
-
-    private BinaryContent getBinaryContent(byte[] byteArray, String format) {
-        BinaryContent binaryContent = new BinaryContent();
-        binaryContent.setFormat(format);
-        binaryContent.setValue(byteArray);
-        return binaryContent;
-    }
-
     private void downloadContent(String url, OutputStream os) throws IOException {
         InputStream inputStream;
         inputStream = new BufferedInputStream(new URL(url).openConnection().getInputStream());
@@ -349,8 +330,9 @@ public class ObjectUtil {
     
     private void setObjectServicePort(ServiceContext context, String target) throws MalformedURLException, JAXBException {
         String objectServiceURL = target + "core/ObjectService";
-        ObjectService objectService = new ObjectService(new URL(objectServiceURL),
-            new QName("http://core.services.fs.documentum.emc.com/", "ObjectService"));
+        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "ObjectService");
+        ObjectService objectService = new ObjectService(new URL(objectServiceURL), qName);
+        
         if (transferMode == ContentTransferMode.MTOM) {
             port = objectService.getObjectServicePort(new MTOMFeature());
         }
@@ -359,8 +341,7 @@ public class ObjectUtil {
         }
         
         List<Header> headers = new ArrayList<Header>();
-        Header header = new Header(new QName("http://core.services.fs.documentum.emc.com/", "ObjectService"), 
-                                   context, new JAXBDataBinding(ServiceContext.class));
+        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
         headers.add(header);
         ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
     }
