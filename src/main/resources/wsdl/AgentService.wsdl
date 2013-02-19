@@ -73,7 +73,7 @@
   </binding>
   <service name="AgentService">
     <port name="AgentServicePort" binding="tns:AgentServicePortBinding">
-      <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+      <soap:address location="http://localhost:9080/services/core/AgentService"/>
     </port>
   </service>
 </definitions>

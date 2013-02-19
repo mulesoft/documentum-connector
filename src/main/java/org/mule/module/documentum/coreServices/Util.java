@@ -23,18 +23,16 @@ import com.emc.documentum.fs.datamodel.core.content.DataHandlerContent;
 
 public class Util {
     
-    protected DataHandlerContent getDataHandlerContent(byte[] byteArray, String format) {
-        DataSource byteDataSource = new ByteDataSource(byteArray, format);
+    protected DataHandlerContent getDataHandlerContent(byte[] byteArray) {
+        DataSource byteDataSource = new ByteDataSource(byteArray);
         DataHandler dataHandler = new DataHandler(byteDataSource);
         DataHandlerContent dataHandlerContent = new DataHandlerContent();
-        dataHandlerContent.setFormat(format);
         dataHandlerContent.setValue(dataHandler);
         return dataHandlerContent;
     }
 
-    protected BinaryContent getBinaryContent(byte[] byteArray, String format) {
+    protected BinaryContent getBinaryContent(byte[] byteArray) {
         BinaryContent binaryContent = new BinaryContent();
-        binaryContent.setFormat(format);
         binaryContent.setValue(byteArray);
         return binaryContent;
     }

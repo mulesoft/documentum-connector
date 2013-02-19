@@ -144,7 +144,6 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
      *
      * @param filePath path to an existing file in the local system.
-     * @param format the format of the file.
      * @param folderPath path to an existing folder in the content server.
      * @param transferMode .
      * @return the ObjectIdentity.
@@ -154,9 +153,9 @@ public class DocumentumConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity createDocument(String filePath, String format, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException, JAXBException {
+    public ObjectIdentity createDocument(String filePath, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException, JAXBException {
         return new ObjectUtil(context, transferMode, server + apiUrl)
-                .createObject("dm_document", filePath, format, null, folderPath);
+                .createObject("dm_document", filePath, null, folderPath);
     }
     
     /**
@@ -175,7 +174,7 @@ public class DocumentumConnector {
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createFolder(String folderName, String folderPath) throws IOException, SerializableException, JAXBException {
         return new ObjectUtil(context, null, server + apiUrl)
-                .createObject("dm_folder", null, null, folderName, folderPath);
+                .createObject("dm_folder", null, folderName, folderPath);
     }
     
     /**
@@ -220,7 +219,6 @@ public class DocumentumConnector {
      *
      * @param objectIdentity .
      * @param newContentFilePath .
-     * @param newFormat .
      * @param transferMode .
      * @param newProperties .
      * @param oldParentFolder .
@@ -233,10 +231,10 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public DataPackage updateDocument(ObjectIdentity objectIdentity, @Optional String newContentFilePath, 
-            @Optional String newFormat, @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, 
+            @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, 
             @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, MalformedURLException, JAXBException {
         return new ObjectUtil(context, transferMode, server + apiUrl)
-        .updateObject(objectIdentity, "dm_document", newContentFilePath, newFormat, newProperties, oldParentFolder, newParentFolder);
+        .updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder);
     }
     
     /**
@@ -258,7 +256,7 @@ public class DocumentumConnector {
     public DataPackage updateFolder(ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, 
             @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, MalformedURLException, JAXBException {
         return new ObjectUtil(context, null, server + apiUrl)
-        .updateObject(objectIdentity, "dm_folder", null, null, newProperties, oldParentFolder, newParentFolder);
+        .updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder);
     }
     
     /**
@@ -355,7 +353,6 @@ public class DocumentumConnector {
      *
      * @param objIdentity identify the object to checkin.
      * @param newContentPath .
-     * @param format .
      * @param versionStrategy .
      * @param labels .
      * @param isRetainLock .
@@ -367,9 +364,9 @@ public class DocumentumConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, String format, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, MalformedURLException, JAXBException {
+    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, MalformedURLException, JAXBException {
         return new VersionControlUtil(context, transferMode, server + apiUrl)
-        .checkin(objIdentity, newContentPath, format, versionStrategy, labels, isRetainLock);
+        .checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock);
     }
     
     /**

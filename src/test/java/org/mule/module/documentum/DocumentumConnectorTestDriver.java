@@ -43,7 +43,7 @@ public class DocumentumConnectorTestDriver {
     
     @Test
     public void testCreateDocument() throws MalformedURLException, IOException, SerializableException, JAXBException {
-        connector.createDocument("/Library/Application Support/Apple/iChat Icons/Flags/Argentina.gif", "gif", "",ContentTransferMode.MTOM);        
+        connector.createDocument("/Library/Application Support/Apple/iChat Icons/Flags/Argentina.gif", "",ContentTransferMode.MTOM);        
     }
     
 }

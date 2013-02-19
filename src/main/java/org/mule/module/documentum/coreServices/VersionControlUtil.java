@@ -15,13 +15,13 @@ package org.mule.module.documentum.coreServices;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
+import javax.xml.ws.handler.HandlerResolver;
+import javax.xml.ws.handler.PortInfo;
 import javax.xml.ws.soap.MTOMFeature;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
@@ -41,9 +41,6 @@ import com.emc.documentum.fs.datamodel.core.profiles.PageModifierFilter;
 import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.VersionControlService;
 import com.emc.documentum.fs.services.core.VersionControlServicePort;
-
-import org.apache.cxf.headers.Header;
-import org.apache.cxf.jaxb.JAXBDataBinding;
 
 public class VersionControlUtil extends Util {
     
@@ -81,7 +78,7 @@ public class VersionControlUtil extends Util {
         return resultDp;
     }
     
-    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, String format, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException {
+    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException {
         ObjectIdentitySet objIdSet = new ObjectIdentitySet();
         objIdSet.getIdentities().add(objIdentity);
         
@@ -101,10 +98,10 @@ public class VersionControlUtil extends Util {
         byte[] byteArray = new byte[(int) file.length()];
         
         if (transferMode == ContentTransferMode.MTOM) {
-            checkinObj.getContents().add(getDataHandlerContent(byteArray, format));
+            checkinObj.getContents().add(getDataHandlerContent(byteArray));
         }
         else if (transferMode == ContentTransferMode.BASE_64) {
-            checkinObj.getContents().add(getBinaryContent(byteArray, format));
+            checkinObj.getContents().add(getBinaryContent(byteArray));
         }
         
         DataPackage resultDp = port.checkin(checkinPackage, versionStrategy, isRetainLock, labels, operationOptions);
@@ -158,10 +155,21 @@ public class VersionControlUtil extends Util {
         return port.getVersionInfo(objIdSet).get(0);
     }
     
-    private void setVersionControlPort(ServiceContext context, String target) throws MalformedURLException, JAXBException {
-        String versionControlServiceURL = target + "core/VersionControlService";
-        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService");
-        VersionControlService versionControlService = new VersionControlService(new URL(versionControlServiceURL), qName);
+    private void setVersionControlPort(final ServiceContext context, String target) throws MalformedURLException, JAXBException {
+        VersionControlService versionControlService = new VersionControlService();
+        versionControlService.setHandlerResolver(new HandlerResolver() {
+                    @SuppressWarnings("rawtypes")
+                    public List<Handler> getHandlerChain(PortInfo info) {
+                        List<Handler> handlerList = new ArrayList<Handler>();
+                        Handler handler = new DfsSoapHeaderHandler(context);
+                        handlerList.add(handler);
+                        return handlerList;
+                    }
+        });
+        
+//        String versionControlServiceURL = target + "core/VersionControlService?wsdl";
+//        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService");
+//        VersionControlService versionControlService = new VersionControlService(new URL(versionControlServiceURL), qName);
         
         if (transferMode == ContentTransferMode.MTOM) {
             port = versionControlService.getVersionControlServicePort(new MTOMFeature());
@@ -170,10 +178,10 @@ public class VersionControlUtil extends Util {
             port = versionControlService.getVersionControlServicePort();
         }
         
-        List<Header> headers = new ArrayList<Header>();
-        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
-        headers.add(header);
-        ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
+//        List<Header> headers = new ArrayList<Header>();
+//        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
+//        headers.add(header);
+//        ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
     }
 
 }

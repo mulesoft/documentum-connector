@@ -30,12 +30,10 @@ import com.emc.documentum.fs.services.core.ObjectServicePort;
 import com.emc.documentum.fs.services.core.SerializableException;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
+import javax.xml.ws.handler.HandlerResolver;
+import javax.xml.ws.handler.PortInfo;
 import javax.xml.ws.soap.MTOMFeature;
-
-import org.apache.cxf.headers.Header;
-import org.apache.cxf.jaxb.JAXBDataBinding;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -58,7 +56,7 @@ public class ObjectUtil extends Util {
         this.repositoryName = ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getRepositoryName();
     }
         
-    public ObjectIdentity createObject(String type, String filePath, String format, String name, String folderPath) throws IOException, SerializableException {
+    public ObjectIdentity createObject(String type, String filePath, String name, String folderPath) throws IOException, SerializableException {
         
         byte[] byteArray = null;
         Map<String, String> properties = new HashMap<String, String>();
@@ -74,10 +72,10 @@ public class ObjectUtil extends Util {
             properties.put("object_name", file.getName());
             
             if (transferMode == ContentTransferMode.MTOM) {
-                dataObject.getContents().add(getDataHandlerContent(byteArray, format));
+                dataObject.getContents().add(getDataHandlerContent(byteArray));
             }
             else if (transferMode == ContentTransferMode.BASE_64) {
-                dataObject.getContents().add(getBinaryContent(byteArray, format));
+                dataObject.getContents().add(getBinaryContent(byteArray));
             }
         }
         else { 
@@ -151,7 +149,7 @@ public class ObjectUtil extends Util {
         return outputFile;
     }
     
-    public DataPackage updateObject(ObjectIdentity objectIdentity, String type, String newContentFilePath, String newFormat, 
+    public DataPackage updateObject(ObjectIdentity objectIdentity, String type, String newContentFilePath, 
             Map<String, String> newProperties, ObjectIdentity oldParentFolder, ObjectIdentity newParentFolder) throws SerializableException {
         
         byte[] byteArray = null;
@@ -164,16 +162,16 @@ public class ObjectUtil extends Util {
         OperationOptions operationOptions = new OperationOptions();
         operationOptions.getProfiles().add(propertyProfile);
         
-        if (newContentFilePath != null && newFormat != null) {
+        if (newContentFilePath != null) {
             File file = new File(newContentFilePath);
             byteArray = new byte[(int) file.length()];
             newProperties.put("object_name", file.getName());
             
             if (transferMode == ContentTransferMode.MTOM) {
-                dataObject.getContents().add(getDataHandlerContent(byteArray, newFormat));
+                dataObject.getContents().add(getDataHandlerContent(byteArray));
             }
             else if (transferMode == ContentTransferMode.BASE_64) {
-                dataObject.getContents().add(getBinaryContent(byteArray, newFormat));
+                dataObject.getContents().add(getBinaryContent(byteArray));
             }
         }
         
@@ -328,10 +326,21 @@ public class ObjectUtil extends Util {
         }
     }
     
-    private void setObjectServicePort(ServiceContext context, String target) throws MalformedURLException, JAXBException {
-        String objectServiceURL = target + "core/ObjectService";
-        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "ObjectService");
-        ObjectService objectService = new ObjectService(new URL(objectServiceURL), qName);
+    private void setObjectServicePort(final ServiceContext context, String target) throws MalformedURLException, JAXBException {
+        ObjectService objectService = new ObjectService();
+        objectService.setHandlerResolver(new HandlerResolver() {
+                    @SuppressWarnings("rawtypes")
+                    public List<Handler> getHandlerChain(PortInfo info) {
+                        List<Handler> handlerList = new ArrayList<Handler>();
+                        Handler handler = new DfsSoapHeaderHandler(context);
+                        handlerList.add(handler);
+                        return handlerList;
+                    }
+        });
+        
+//        String objectServiceURL = target + "core/ObjectService?wsdl";
+//        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "ObjectService");
+//        ObjectService objectService = new ObjectService(new URL(objectServiceURL), qName);
         
         if (transferMode == ContentTransferMode.MTOM) {
             port = objectService.getObjectServicePort(new MTOMFeature());
@@ -340,9 +349,10 @@ public class ObjectUtil extends Util {
             port = objectService.getObjectServicePort();
         }
         
-        List<Header> headers = new ArrayList<Header>();
-        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
-        headers.add(header);
-        ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
+//        List<Header> headers = new ArrayList<Header>();
+//        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
+//        headers.add(header);
+//        ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
     }
+    
 }

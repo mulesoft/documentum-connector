@@ -439,7 +439,7 @@
 
  @since 6.0]]></documentation>
         <port binding="tns:ObjectServicePortBinding" name="ObjectServicePort">
-            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+            <soap:address location="http://localhost:9080/services/core/ObjectService"/>
         </port>
     </service>
 </definitions>
