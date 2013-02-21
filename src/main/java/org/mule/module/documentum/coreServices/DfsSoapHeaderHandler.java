@@ -65,7 +65,6 @@ public class DfsSoapHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPElement sc = soapHeader.addChildElement("ServiceContext", "", "http://context.core.datamodel.fs.documentum.emc.com/");
                 sc.addNamespaceDeclaration("", "http://context.core.datamodel.fs.documentum.emc.com/");
 
-                //this is how Documentum does it!
                 SecureRandom secureRandom = new SecureRandom();
                 int seedByteCount = 20;
                 byte seed[] = secureRandom.generateSeed(seedByteCount);

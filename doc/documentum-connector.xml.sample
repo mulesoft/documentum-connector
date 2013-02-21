@@ -1,3 +1,0 @@
-<!-- BEGIN_INCLUDE(documentum-connector:create-document) -->
-    <documentum-connector:create-document filePath="/user/usa.gif" folderPath="/repo/folder1/" transferMode="MTOM"/>
-<!-- END_INCLUDE(documentum-connector:create-document) -->

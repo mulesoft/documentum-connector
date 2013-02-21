@@ -13,13 +13,28 @@
 
 package org.mule.module.documentum.coreServices;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 
 import org.apache.cxf.attachment.ByteDataSource;
 
+import com.emc.documentum.fs.datamodel.core.DataObject;
+import com.emc.documentum.fs.datamodel.core.DataPackage;
+import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
+import com.emc.documentum.fs.datamodel.core.ObjectPath;
+import com.emc.documentum.fs.datamodel.core.ReferenceRelationship;
 import com.emc.documentum.fs.datamodel.core.content.BinaryContent;
 import com.emc.documentum.fs.datamodel.core.content.DataHandlerContent;
+import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
+import com.emc.documentum.fs.datamodel.core.properties.StringProperty;
 
 public class Util {
     
@@ -35,6 +50,60 @@ public class Util {
         BinaryContent binaryContent = new BinaryContent();
         binaryContent.setValue(byteArray);
         return binaryContent;
+    }
+    
+    protected ReferenceRelationship createRelationship(ObjectIdentity folderIdentity) {        
+        ReferenceRelationship folderRelationship = new ReferenceRelationship();
+        folderRelationship.setName("folder");
+        folderRelationship.setTarget(folderIdentity);
+        folderRelationship.setTargetRole("parent");
+        return folderRelationship;
+    }
+    
+    protected DataObject createDataObject(ObjectIdentity objIdentity, String type) {        
+        DataObject dataObject = new DataObject();
+        dataObject.setIdentity(objIdentity);
+        dataObject.setType(type);
+        return dataObject;
+    }
+    
+    protected void addProperties(DataObject dataObject, Map<String, String> properties) {
+        PropertySet propertySet = new PropertySet();
+        for(Entry<String, String> myEntry: properties.entrySet()) {
+            StringProperty objNameProperty = new StringProperty();
+            objNameProperty.setName(myEntry.getKey());
+            objNameProperty.setValue(myEntry.getValue());
+            propertySet.getProperties().add(objNameProperty);
+        }
+        dataObject.setProperties(propertySet);
+    }
+    
+    protected ObjectIdentity createObjectIdentity(String repositoryName) {
+        ObjectIdentity objIdentity = new ObjectIdentity();
+        objIdentity.setRepositoryName(repositoryName);
+        return objIdentity;
+    }
+    
+    protected DataPackage createDataPackage(DataObject dataObject) {
+        DataPackage dataPackage = new DataPackage();
+        dataPackage.getDataObjects().add(dataObject);
+        return dataPackage;
+    }
+    
+    protected ObjectPath createObjectPath(String folderPath) {
+        ObjectPath objectPath = new ObjectPath();
+        objectPath.setPath(folderPath);
+        return objectPath;
+    }
+
+    protected void downloadContent(String url, OutputStream os) throws IOException {
+        InputStream inputStream;
+        inputStream = new BufferedInputStream(new URL(url).openConnection().getInputStream());
+        int bytesRead;
+        byte[] buffer = new byte[16384];
+        while ((bytesRead = inputStream.read(buffer)) > 0) {
+            os.write(buffer, 0, bytesRead);
+        }
     }
 
 }

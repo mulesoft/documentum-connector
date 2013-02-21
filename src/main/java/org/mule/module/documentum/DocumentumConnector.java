@@ -14,11 +14,8 @@ package org.mule.module.documentum;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.bind.JAXBException;
 
 import org.mule.api.ConnectionException;
 import org.mule.api.MuleException;
@@ -56,7 +53,7 @@ import com.emc.documentum.fs.services.core.SerializableException;
  * 
  * @author MuleSoft, Inc.
  */
-@Connector(name="documentum-connector", schemaVersion="1.0", friendlyName="Documentum Connector")
+@Connector(name="documentum", schemaVersion="1.0", friendlyName="Documentum")
 public class DocumentumConnector {
     
     /**
@@ -141,19 +138,18 @@ public class DocumentumConnector {
     /**
      * Create Document
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param filePath path to an existing file in the local system.
      * @param folderPath path to an existing folder in the content server.
      * @param transferMode .
      * @return the ObjectIdentity.
-     * @throws JAXBException .
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity createDocument(String filePath, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException, JAXBException {
+    public ObjectIdentity createDocument(String filePath, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException {
         return new ObjectUtil(context, transferMode, server + apiUrl)
                 .createObject("dm_document", filePath, null, folderPath);
     }
@@ -161,18 +157,17 @@ public class DocumentumConnector {
     /**
      * Create Folder
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param folderName of the folder to create.
      * @param folderPath path to an existing folder in the content server.
      * @return the ObjectIdentity.
-     * @throws JAXBException .
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity createFolder(String folderName, String folderPath) throws IOException, SerializableException, JAXBException {
+    public ObjectIdentity createFolder(String folderName, String folderPath) throws IOException, SerializableException {
         return new ObjectUtil(context, null, server + apiUrl)
                 .createObject("dm_folder", null, folderName, folderPath);
     }
@@ -180,42 +175,39 @@ public class DocumentumConnector {
     /**
      * Create Path
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param folderPath path to create in the content server.
      * @return the ObjectIdentity.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity createPath(String folderPath) throws MalformedURLException, SerializableException, JAXBException {
+    public ObjectIdentity createPath(String folderPath) throws SerializableException {
         return new ObjectUtil(context, null, server + apiUrl).createPath(folderPath);
     }
     
     /**
      * Get Object
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objectIdentity the ObjectIdentity of the object to download.
      * @param outputPath where to download the file.
      * @return the File.
-     * @throws JAXBException .
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public File getObject(ObjectIdentity objectIdentity, String outputPath) throws SerializableException, IOException, JAXBException {
+    public File getObject(ObjectIdentity objectIdentity, String outputPath) throws SerializableException, IOException {
         return new ObjectUtil(context, null, server + apiUrl).getObject(objectIdentity, outputPath);
     }
     
     /**
      * Update Document
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objectIdentity .
      * @param newContentFilePath .
@@ -224,15 +216,14 @@ public class DocumentumConnector {
      * @param oldParentFolder .
      * @param newParentFolder .
      * @return the DataPackage.
-     * @throws JAXBException .
+     * @throws IOException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public DataPackage updateDocument(ObjectIdentity objectIdentity, @Optional String newContentFilePath, 
             @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, 
-            @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, MalformedURLException, JAXBException {
+            @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
         return new ObjectUtil(context, transferMode, server + apiUrl)
         .updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder);
     }
@@ -240,21 +231,20 @@ public class DocumentumConnector {
     /**
      * Update Folder
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objectIdentity .
      * @param newProperties .
      * @param oldParentFolder .
      * @param newParentFolder .
      * @return the DataPackage.
-     * @throws JAXBException .
+     * @throws IOException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public DataPackage updateFolder(ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, 
-            @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, MalformedURLException, JAXBException {
+            @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
         return new ObjectUtil(context, null, server + apiUrl)
         .updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder);
     }
@@ -262,94 +252,84 @@ public class DocumentumConnector {
     /**
      * Delete Object
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param path .
      * @return true if the deletion was successful.
-     * @throws JAXBException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean deleteObject(String path) throws MalformedURLException, JAXBException {
+    public boolean deleteObject(String path) {
         return new ObjectUtil(context, null, server + apiUrl).deleteObject(path);
     }
     
     /**
      * Copy Object
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param sourceObjectPathString identify the object to copy.
      * @param targetLocPathString identify the folder to copy to.
      * @return the DataPackage.
-     * @throws JAXBException .
-     * @throws MalformedURLException .
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage copyObject(String sourceObjectPathString, String targetLocPathString) throws MalformedURLException, SerializableException, JAXBException {
+    public DataPackage copyObject(String sourceObjectPathString, String targetLocPathString) throws SerializableException {
         return new ObjectUtil(context, null, server + apiUrl).copyObject(sourceObjectPathString, targetLocPathString);
     }
     
     /**
      * Move Object
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param sourceObjectPathString identify the object to move.
      * @param targetLocPathString identify the folder to move from.
      * @param sourceLocPathString identify the folder to move to.
      * @return the DataPackage.
-     * @throws JAXBException .
-     * @throws MalformedURLException .
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage moveObject(String sourceObjectPathString, String targetLocPathString, String sourceLocPathString) throws MalformedURLException, SerializableException, JAXBException {
+    public DataPackage moveObject(String sourceObjectPathString, String targetLocPathString, String sourceLocPathString) throws SerializableException {
         return new ObjectUtil(context, null, server + apiUrl).moveObject(sourceObjectPathString, targetLocPathString, sourceLocPathString);
     }
     
     /**
      * Get checkout info
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to get the checkout info.
      * @return the CheckoutInfo.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public CheckoutInfo getCheckoutInfo(ObjectIdentity objIdentity) throws SerializableException, MalformedURLException, JAXBException {
+    public CheckoutInfo getCheckoutInfo(ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl).getCheckoutInfo(objIdentity);
     }
     
     /**
      * Checkout
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to checkout.
      * @return the DataPackage.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage checkout(ObjectIdentity objIdentity) throws SerializableException, MalformedURLException, JAXBException {
+    public DataPackage checkout(ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl).checkout(objIdentity);
     }
     
     /**
      * Checkin
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to checkin.
      * @param newContentPath .
@@ -358,13 +338,12 @@ public class DocumentumConnector {
      * @param isRetainLock .
      * @param transferMode .
      * @return the DataPackage.
-     * @throws JAXBException .
+     * @throws IOException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, MalformedURLException, JAXBException {
+    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, IOException {
         return new VersionControlUtil(context, transferMode, server + apiUrl)
         .checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock);
     }
@@ -372,17 +351,15 @@ public class DocumentumConnector {
     /**
      * Cancel Checkout
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to cancel the checkout.
      * @return true if the cancellation was successful.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean cancelCheckout(ObjectIdentity objIdentity) throws MalformedURLException, JAXBException {
+    public boolean cancelCheckout(ObjectIdentity objIdentity) {
         return new VersionControlUtil(context, null, server + apiUrl)
         .cancelCheckout(objIdentity);
     }
@@ -390,17 +367,15 @@ public class DocumentumConnector {
     /**
      * Delete Version
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to delete.
      * @return true if the deletion was successful.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean deleteVersion(ObjectIdentity objIdentity) throws MalformedURLException, JAXBException {
+    public boolean deleteVersion(ObjectIdentity objIdentity) {
         return new VersionControlUtil(context, null, server + apiUrl)
         .deleteVersion(objIdentity);
     }
@@ -408,17 +383,15 @@ public class DocumentumConnector {
     /**
      * Delete All Versions
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to delete.
      * @return true if the deletion was successful.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean deleteAllVersions(ObjectIdentity objIdentity) throws MalformedURLException, JAXBException {
+    public boolean deleteAllVersions(ObjectIdentity objIdentity) {
         return new VersionControlUtil(context, null, server + apiUrl)
         .deleteAllVersions(objIdentity);
     }
@@ -426,17 +399,15 @@ public class DocumentumConnector {
     /**
      * Get Current
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to get the current version.
      * @return the DataObject.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataObject getCurrent(ObjectIdentity objIdentity) throws MalformedURLException, SerializableException, JAXBException {
+    public DataObject getCurrent(ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl)
         .getCurrent(objIdentity);
     }
@@ -444,17 +415,15 @@ public class DocumentumConnector {
     /**
      * Get Version Info
      *
-     * {@sample.xml ../../../doc/documentum-connector.xml.sample documentum-connector:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to get the version info.
      * @return the VersionInfo.
-     * @throws JAXBException .
      * @throws SerializableException .
-     * @throws MalformedURLException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public VersionInfo getVersionInfo(ObjectIdentity objIdentity) throws MalformedURLException, SerializableException, JAXBException {
+    public VersionInfo getVersionInfo(ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl)
         .getVersionInfo(objIdentity);
     }

@@ -14,11 +14,13 @@
 package org.mule.module.documentum.coreServices;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
@@ -47,7 +49,7 @@ public class VersionControlUtil extends Util {
     private VersionControlServicePort port;
     private ContentTransferMode transferMode;
 
-    public VersionControlUtil(ServiceContext serviceContext, ContentTransferMode transferMode, String target) throws MalformedURLException, JAXBException {
+    public VersionControlUtil(ServiceContext serviceContext, ContentTransferMode transferMode, String target) {
         this.transferMode = transferMode;
         setVersionControlPort(serviceContext, target);
     }
@@ -78,7 +80,7 @@ public class VersionControlUtil extends Util {
         return resultDp;
     }
     
-    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException {
+    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException, IOException {
         ObjectIdentitySet objIdSet = new ObjectIdentitySet();
         objIdSet.getIdentities().add(objIdentity);
         
@@ -96,6 +98,10 @@ public class VersionControlUtil extends Util {
         
         File file = new File(newContentPath);
         byte[] byteArray = new byte[(int) file.length()];
+        
+        InputStream fis = new FileInputStream(file);
+        fis.read(byteArray);
+        fis.close();
         
         if (transferMode == ContentTransferMode.MTOM) {
             checkinObj.getContents().add(getDataHandlerContent(byteArray));
@@ -155,7 +161,7 @@ public class VersionControlUtil extends Util {
         return port.getVersionInfo(objIdSet).get(0);
     }
     
-    private void setVersionControlPort(final ServiceContext context, String target) throws MalformedURLException, JAXBException {
+    private void setVersionControlPort(final ServiceContext context, String target) {
         VersionControlService versionControlService = new VersionControlService();
         versionControlService.setHandlerResolver(new HandlerResolver() {
                     @SuppressWarnings("rawtypes")
@@ -166,22 +172,14 @@ public class VersionControlUtil extends Util {
                         return handlerList;
                     }
         });
-        
-//        String versionControlServiceURL = target + "core/VersionControlService?wsdl";
-//        QName qName = new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService");
-//        VersionControlService versionControlService = new VersionControlService(new URL(versionControlServiceURL), qName);
-        
+                
         if (transferMode == ContentTransferMode.MTOM) {
             port = versionControlService.getVersionControlServicePort(new MTOMFeature());
         }
         else {
             port = versionControlService.getVersionControlServicePort();
         }
-        
-//        List<Header> headers = new ArrayList<Header>();
-//        Header header = new Header(qName, context, new JAXBDataBinding(ServiceContext.class));
-//        headers.add(header);
-//        ((BindingProvider)port).getRequestContext().put(Header.HEADER_LIST, headers);
+        ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, target + "core/VersionControlService");
     }
 
 }
