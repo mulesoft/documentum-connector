@@ -16,10 +16,9 @@ package org.mule.module.documentum.coreServices;
 import com.emc.documentum.fs.datamodel.core.*;
 import com.emc.documentum.fs.datamodel.core.profiles.ContentTransferProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.ContentProfile;
-import com.emc.documentum.fs.datamodel.core.profiles.DeleteProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.FormatFilter;
+import com.emc.documentum.fs.datamodel.core.profiles.Profile;
 import com.emc.documentum.fs.datamodel.core.profiles.PropertyFilterMode;
-import com.emc.documentum.fs.datamodel.core.profiles.PropertyProfile;
 import com.emc.documentum.fs.datamodel.core.content.*;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
@@ -52,231 +51,78 @@ public class ObjectUtil extends Util {
     }
         
     public ObjectIdentity createObject(String type, String filePath, String name, String folderPath) throws IOException, SerializableException {
-        
         Map<String, String> properties = new HashMap<String, String>();
-        
-        ObjectIdentity objIdentity = createObjectIdentity(repositoryName);
-        DataObject dataObject = createDataObject(objIdentity, type);
-        DataPackage dataPackage = createDataPackage(dataObject);
-        
+        DataObject dataObject = createDataObject(createObjectIdentity(repositoryName), type);
         if (type.equals("dm_document")) {
             File file = new File(filePath);
-            byte[] byteArray = new byte[(int) file.length()];
-            
-            InputStream fis = new FileInputStream(file);
-            fis.read(byteArray);
-            fis.close();
-           
+            addContent(dataObject, transferMode, fileToByteArray(file));
             properties.put("object_name", file.getName());
             properties.put("a_content_type", file.getName().substring((file.getName().indexOf('.') + 1)));
-            
-            if (transferMode == ContentTransferMode.MTOM) {
-                dataObject.getContents().add(getDataHandlerContent(byteArray));
-            }
-            else if (transferMode == ContentTransferMode.BASE_64) {
-                dataObject.getContents().add(getBinaryContent(byteArray));
-            }
         }
         else { 
             properties.put("object_name", name);
         }
-        
         addProperties(dataObject, properties);
-
-        ObjectPath objectPath = createObjectPath(folderPath);
-        
-        ObjectIdentity folderIdentity = createObjectIdentity(repositoryName);
-        folderIdentity.setObjectPath(objectPath);
-        folderIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
-        
-        ReferenceRelationship folderRelationship = createRelationship(folderIdentity);
-        dataObject.getRelationships().add(folderRelationship);
-        
-        dataPackage = port.create(dataPackage, null);
-        
-        return dataPackage.getDataObjects().get(0).getIdentity();
-        
+        dataObject.getRelationships().add(createRelationship(createFolderIdentity(repositoryName, createObjectPath(folderPath))));
+        return port.create(createDataPackage(dataObject), null).getDataObjects().get(0).getIdentity();
     }
     
     public ObjectIdentity createPath(String folderPath) throws SerializableException {
-        ObjectPath objectPath = createObjectPath(folderPath);
-        
-        return port.createPath(objectPath, repositoryName);
+        return port.createPath(createObjectPath(folderPath), repositoryName);
     }
     
     public File getObject(ObjectIdentity objectIdentity, String outputPath) throws IOException, SerializableException {
-        File outputFile = new File(outputPath);
-        
-        ObjectIdentitySet objectIdentitySet = new ObjectIdentitySet();
-        objectIdentitySet.getIdentities().add(objectIdentity);
-        
-        ContentTransferProfile contentTransferProfile = new ContentTransferProfile();
-        contentTransferProfile.setTransferMode(transferMode);
-        
-        ContentProfile contentProfile = new ContentProfile();
-        contentProfile.setFormatFilter(FormatFilter.ANY);
-        
-        OperationOptions operationOptions = new OperationOptions();
-        operationOptions.getProfiles().add(contentTransferProfile);
-        operationOptions.getProfiles().add(contentProfile);
-
-        DataPackage dp = port.get(objectIdentitySet, operationOptions);
-
-        Content content = dp.getDataObjects().get(0).getContents().get(0);
-        OutputStream os = new FileOutputStream(outputFile);
-        
-        if (content instanceof UrlContent) {
-            UrlContent urlContent = (UrlContent) content;
-            downloadContent(urlContent.getUrl(), os);
-        }
-        else if (content instanceof BinaryContent) {
-            BinaryContent binaryContent = (BinaryContent) content;
-            os.write(binaryContent.getValue());
-        }
-        else if (content instanceof DataHandlerContent) {
-            DataHandlerContent dataHandlerContent = (DataHandlerContent) content;
-            InputStream inputStream = dataHandlerContent.getValue().getInputStream();
-            if (inputStream != null) {
-                int byteRead;
-                while ((byteRead = inputStream.read()) != -1) {
-                    os.write(byteRead);
-                }
-                inputStream.close();
-            }
-        }
-        os.close();
-        return outputFile;
+        List<Profile> profiles = new ArrayList<Profile>();
+        ContentTransferProfile contentTransferProfile = createContentTransferProfile(transferMode);
+        ContentProfile contentProfile = createContentProfile(FormatFilter.ANY);
+        profiles.add(contentTransferProfile);
+        profiles.add(contentProfile);
+        return contentToFile(port.get(createObjectIdentitySet(objectIdentity), createOperationOptions(profiles)).getDataObjects().get(0).getContents().get(0), new File(outputPath));
     }
     
-    public DataPackage updateObject(ObjectIdentity objectIdentity, String type, String newContentFilePath, 
-            Map<String, String> newProperties, ObjectIdentity oldParentFolder, ObjectIdentity newParentFolder) throws SerializableException, IOException {        
+    public ObjectIdentity updateObject(ObjectIdentity objectIdentity, String type, String newContentFilePath, Map<String, String> newProperties, ObjectIdentity oldParentFolder, ObjectIdentity newParentFolder) throws SerializableException, IOException {        
         DataObject dataObject = createDataObject(objectIdentity, type);
-        DataPackage dataPackage = createDataPackage(dataObject);
-        
-        PropertyProfile propertyProfile = new PropertyProfile();
-        propertyProfile.setFilterMode(PropertyFilterMode.ALL_NON_SYSTEM);
-        OperationOptions operationOptions = new OperationOptions();
-        operationOptions.getProfiles().add(propertyProfile);
-        
         if (newContentFilePath != null) {
             File file = new File(newContentFilePath);
-            byte[] byteArray = new byte[(int) file.length()];
+            addContent(dataObject, transferMode, fileToByteArray(file));
             Map<String, String> properties = new HashMap<String, String>();
-            
-            InputStream fis = new FileInputStream(file);
-            fis.read(byteArray);
-            fis.close();
-            
-            if (transferMode == ContentTransferMode.MTOM) {
-                dataObject.getContents().add(getDataHandlerContent(byteArray));
-            }
-            else if (transferMode == ContentTransferMode.BASE_64) {
-                dataObject.getContents().add(getBinaryContent(byteArray));
-            }
-            
             properties.put("object_name", file.getName());
             properties.put("a_content_type", file.getName().substring((file.getName().indexOf('.') + 1)));
             addProperties(dataObject, properties);
         }
-        
         if (newProperties != null) {
             addProperties(dataObject, newProperties);
         }
-
         if (oldParentFolder != null && newParentFolder != null) {
-            ReferenceRelationship removeRelationship = createRelationship(oldParentFolder);
-            dataObject.getRelationships().add(removeRelationship);
-            removeRelationship.setIntentModifier(RelationshipIntentModifier.REMOVE);
-    
-            ReferenceRelationship addRelationship = createRelationship(newParentFolder);
-            dataObject.getRelationships().add(addRelationship);
+            dataObject.getRelationships().add(createRelationship(oldParentFolder, RelationshipIntentModifier.REMOVE));
+            dataObject.getRelationships().add(createRelationship(newParentFolder));
         }
-        
-        return port.update(dataPackage, operationOptions);
+        return port.update(createDataPackage(dataObject), createOperationOptions(createPropertyProfile(PropertyFilterMode.ALL_NON_SYSTEM))).getDataObjects().get(0).getIdentity();
     }
     
-    public boolean deleteObject(String path) {
-        ObjectPath docPath = createObjectPath(path);
-        
-        ObjectIdentity objIdentity = createObjectIdentity(repositoryName);
-        objIdentity.setObjectPath(docPath);
-        objIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
-        
-        ObjectIdentitySet objectIdSet = new ObjectIdentitySet();
-        objectIdSet.getIdentities().add(objIdentity);
-        
-        DeleteProfile deleteProfile = new DeleteProfile();
-        deleteProfile.setIsDeepDeleteFolders(true);
-        deleteProfile.setIsDeepDeleteChildrenInFolders(true);
-        
-        OperationOptions operationOptions = new OperationOptions();
-        operationOptions.getProfiles().add(deleteProfile);
-        
-        try {
-            port.delete(objectIdSet, operationOptions);
-            return true;
-        } catch (SerializableException e) {
-            return false;
-        }
+    public ObjectIdentity deleteObject(ObjectIdentity objectIdentity) throws SerializableException {                
+        port.delete(createObjectIdentitySet(objectIdentity), createOperationOptions(createDeleteProfile(true, true)));
+        return objectIdentity;
     }
     
-    public DataPackage copyObject(String sourceObjectPathString, String targetLocPathString) throws SerializableException {
-        ObjectPath objPath = createObjectPath(sourceObjectPathString);
-        ObjectIdentity docToCopy = createObjectIdentity(repositoryName);
-        docToCopy.setObjectPath(objPath);
-        docToCopy.setValueType(ObjectIdentityType.OBJECT_PATH);
-
-        ObjectPath folderPath = createObjectPath(targetLocPathString);
-        ObjectIdentity toFolderIdentity = createObjectIdentity(repositoryName);
-        toFolderIdentity.setObjectPath(folderPath);
-        toFolderIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
-        ObjectLocation toLocation = new ObjectLocation();
-        toLocation.setIdentity(toFolderIdentity);
-        
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(docToCopy);
-        
-        return port.copy(objIdSet, toLocation, new DataPackage(), null);
+    public ObjectIdentity copyObject(ObjectIdentity objectIdentity, ObjectIdentity folderIdentity) throws SerializableException {      
+        return port.copy(createObjectIdentitySet(objectIdentity), createObjectLocation(folderIdentity), new DataPackage(), null).getDataObjects().get(0).getIdentity();
     }
     
-    public DataPackage moveObject(String sourceObjectPathString, String targetLocPathString, String sourceLocPathString) throws SerializableException {
-        ObjectPath objPath = createObjectPath(sourceObjectPathString);
-        ObjectIdentity docToCopy = createObjectIdentity(repositoryName);
-        docToCopy.setObjectPath(objPath);
-        docToCopy.setValueType(ObjectIdentityType.OBJECT_PATH);
-
-        ObjectPath fromFolderPath = createObjectPath(sourceLocPathString);
-        ObjectIdentity fromFolderIdentity = createObjectIdentity(repositoryName);
-        fromFolderIdentity.setObjectPath(fromFolderPath);
-        fromFolderIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
-        ObjectLocation fromLocation = new ObjectLocation();
-        fromLocation.setIdentity(fromFolderIdentity);
-
-        ObjectPath folderPath = createObjectPath(targetLocPathString);
-        ObjectIdentity toFolderIdentity = createObjectIdentity(repositoryName);
-        toFolderIdentity.setObjectPath(folderPath);
-        toFolderIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
-        ObjectLocation toLocation = new ObjectLocation();
-        toLocation.setIdentity(toFolderIdentity);
-        
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(docToCopy);
-
-        return port.move(objIdSet, fromLocation, toLocation, new DataPackage(), null);
+    public ObjectIdentity moveObject(ObjectIdentity objectIdentity, ObjectIdentity toFolderIdentity, ObjectIdentity fromFolderIdentity) throws SerializableException {
+        return port.move(createObjectIdentitySet(objectIdentity), createObjectLocation(fromFolderIdentity), createObjectLocation(toFolderIdentity), new DataPackage(), null).getDataObjects().get(0).getIdentity();
     }
     
     private void setObjectServicePort(final ServiceContext context, String target) {
         ObjectService objectService = new ObjectService();
         objectService.setHandlerResolver(new HandlerResolver() {
-                    @SuppressWarnings("rawtypes")
-                    public List<Handler> getHandlerChain(PortInfo info) {
-                        List<Handler> handlerList = new ArrayList<Handler>();
-                        Handler handler = new DfsSoapHeaderHandler(context);
-                        handlerList.add(handler);
-                        return handlerList;
-                    }
+            @SuppressWarnings("rawtypes")
+            public List<Handler> getHandlerChain(PortInfo info) {
+                List<Handler> handlerList = new ArrayList<Handler>();
+                handlerList.add(new DfsSoapHeaderHandler(context));
+                return handlerList;
+            }
         });
-        
         if (transferMode == ContentTransferMode.MTOM) {
             port = objectService.getObjectServicePort(new MTOMFeature());
         }

@@ -14,9 +14,7 @@
 package org.mule.module.documentum.coreServices;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,6 @@ import javax.xml.ws.handler.PortInfo;
 import javax.xml.ws.soap.MTOMFeature;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
-import com.emc.documentum.fs.datamodel.core.DataObject;
 import com.emc.documentum.fs.datamodel.core.DataPackage;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
@@ -36,7 +33,6 @@ import com.emc.documentum.fs.datamodel.core.VersionInfo;
 import com.emc.documentum.fs.datamodel.core.VersionStrategy;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
-import com.emc.documentum.fs.datamodel.core.profiles.ContentProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.FormatFilter;
 import com.emc.documentum.fs.datamodel.core.profiles.PageFilter;
 import com.emc.documentum.fs.datamodel.core.profiles.PageModifierFilter;
@@ -55,124 +51,58 @@ public class VersionControlUtil extends Util {
     }
     
     public CheckoutInfo getCheckoutInfo(ObjectIdentity objIdentity) throws SerializableException {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        
-        List<CheckoutInfo> objList;
-        OperationOptions operationOptions = null;
-        
-        port.checkout(objIdSet, operationOptions);
-        objList = port.getCheckoutInfo(objIdSet);
-        CheckoutInfo checkoutInfo = objList.get(0);
-        
+        ObjectIdentitySet objIdSet = createObjectIdentitySet(objIdentity);
+        port.checkout(objIdSet, null);
+        CheckoutInfo checkoutInfo = port.getCheckoutInfo(objIdSet).get(0);
         port.cancelCheckout(objIdSet);
         return checkoutInfo;
     }
     
-    public DataPackage checkout(ObjectIdentity objIdentity) throws SerializableException {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        
-        OperationOptions operationOptions = null;
-        DataPackage resultDp = port.checkout(objIdSet, operationOptions);
-        
-        port.cancelCheckout(objIdSet);
-        return resultDp;
+    public ObjectIdentity checkout(ObjectIdentity objIdentity) throws SerializableException {
+        return port.checkout(createObjectIdentitySet(objIdentity), null).getDataObjects().get(0).getIdentity();
     }
     
-    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException, IOException {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        
-        OperationOptions operationOptions = new OperationOptions();
-        ContentProfile contentProfile = new ContentProfile();
-        contentProfile.setFormatFilter(FormatFilter.ANY);
-        contentProfile.setPageFilter(PageFilter.ANY);
-        contentProfile.setPageNumber(-1);
-        contentProfile.setPageModifierFilter(PageModifierFilter.ANY);
-        operationOptions.getProfiles().add(contentProfile);
-        
-        DataPackage checkinPackage = port.checkout(objIdSet, operationOptions);
-        DataObject checkinObj = checkinPackage.getDataObjects().get(0);
-        checkinObj.getContents().clear();
-        
-        File file = new File(newContentPath);
-        byte[] byteArray = new byte[(int) file.length()];
-        
-        InputStream fis = new FileInputStream(file);
-        fis.read(byteArray);
-        fis.close();
-        
-        if (transferMode == ContentTransferMode.MTOM) {
-            checkinObj.getContents().add(getDataHandlerContent(byteArray));
-        }
-        else if (transferMode == ContentTransferMode.BASE_64) {
-            checkinObj.getContents().add(getBinaryContent(byteArray));
-        }
-        
-        DataPackage resultDp = port.checkin(checkinPackage, versionStrategy, isRetainLock, labels, operationOptions);
-        return resultDp;
+    public ObjectIdentity checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException, IOException {
+        OperationOptions operationOptions = createOperationOptions(createContentProfile(FormatFilter.ANY, PageFilter.ANY, -1, PageModifierFilter.ANY));
+        DataPackage checkinPackage = port.checkout(createObjectIdentitySet(objIdentity), operationOptions);
+        checkinPackage.getDataObjects().get(0).getContents().clear();        
+        addContent(checkinPackage.getDataObjects().get(0), transferMode, fileToByteArray(new File(newContentPath)));
+        return port.checkin(checkinPackage, versionStrategy, isRetainLock, labels, operationOptions).getDataObjects().get(0).getIdentity();
     }
     
-    public boolean cancelCheckout(ObjectIdentity objIdentity) {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        try {
-            port.cancelCheckout(objIdSet);
-            return true;
-        } catch (SerializableException e) {
-            return false;
-        }
+    public ObjectIdentity cancelCheckout(ObjectIdentity objIdentity) throws SerializableException {
+        port.cancelCheckout(createObjectIdentitySet(objIdentity));
+        return objIdentity;
     }
     
-    public boolean deleteVersion(ObjectIdentity objIdentity) {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        try {
-            port.deleteVersion(objIdSet);
-            return true;
-        } catch (SerializableException e) {
-            return false;
-        }
+    public ObjectIdentity deleteVersion(ObjectIdentity objIdentity) throws SerializableException {
+        port.deleteVersion(createObjectIdentitySet(objIdentity));
+        return objIdentity;
     }
     
-    public boolean deleteAllVersions(ObjectIdentity objIdentity) {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        try {
-            port.deleteAllVersions(objIdSet);
-            return true;
-        } catch (SerializableException e) {
-            return false;
-        }
+    public ObjectIdentity deleteAllVersions(ObjectIdentity objIdentity) throws SerializableException {
+        port.deleteAllVersions(createObjectIdentitySet(objIdentity));
+        return objIdentity;
     }
     
-    public DataObject getCurrent(ObjectIdentity objIdentity) throws SerializableException {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        OperationOptions operationOptions = null;
-        DataPackage resultDataPackage = port.getCurrent(objIdSet, operationOptions);
-        return resultDataPackage.getDataObjects().get(0);
+    public ObjectIdentity getCurrent(ObjectIdentity objIdentity) throws SerializableException {
+        return port.getCurrent(createObjectIdentitySet(objIdentity), null).getDataObjects().get(0).getIdentity();
     }
     
     public VersionInfo getVersionInfo(ObjectIdentity objIdentity) throws SerializableException {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objIdentity);
-        return port.getVersionInfo(objIdSet).get(0);
+        return port.getVersionInfo(createObjectIdentitySet(objIdentity)).get(0);
     }
     
     private void setVersionControlPort(final ServiceContext context, String target) {
         VersionControlService versionControlService = new VersionControlService();
         versionControlService.setHandlerResolver(new HandlerResolver() {
-                    @SuppressWarnings("rawtypes")
-                    public List<Handler> getHandlerChain(PortInfo info) {
-                        List<Handler> handlerList = new ArrayList<Handler>();
-                        Handler handler = new DfsSoapHeaderHandler(context);
-                        handlerList.add(handler);
-                        return handlerList;
-                    }
-        });
-                
+            @SuppressWarnings("rawtypes")
+            public List<Handler> getHandlerChain(PortInfo info) {
+                List<Handler> handlerList = new ArrayList<Handler>();
+                handlerList.add(new DfsSoapHeaderHandler(context));
+                return handlerList;
+            }
+        });        
         if (transferMode == ContentTransferMode.MTOM) {
             port = versionControlService.getVersionControlServicePort(new MTOMFeature());
         }

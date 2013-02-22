@@ -36,8 +36,6 @@ import org.mule.module.documentum.coreServices.ObjectUtil;
 import org.mule.module.documentum.coreServices.VersionControlUtil;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
-import com.emc.documentum.fs.datamodel.core.DataObject;
-import com.emc.documentum.fs.datamodel.core.DataPackage;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
 import com.emc.documentum.fs.datamodel.core.VersionInfo;
 import com.emc.documentum.fs.datamodel.core.VersionStrategy;
@@ -142,7 +140,7 @@ public class DocumentumConnector {
      *
      * @param filePath path to an existing file in the local system.
      * @param folderPath path to an existing folder in the content server.
-     * @param transferMode .
+     * @param transferMode the transfer mode.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      * @throws IOException .
@@ -150,8 +148,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createDocument(String filePath, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException {
-        return new ObjectUtil(context, transferMode, server + apiUrl)
-                .createObject("dm_document", filePath, null, folderPath);
+        return new ObjectUtil(context, transferMode, server + apiUrl).createObject("dm_document", filePath, null, folderPath);
     }
     
     /**
@@ -168,8 +165,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createFolder(String folderName, String folderPath) throws IOException, SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl)
-                .createObject("dm_folder", null, folderName, folderPath);
+        return new ObjectUtil(context, null, server + apiUrl).createObject("dm_folder", null, folderName, folderPath);
     }
     
     /**
@@ -193,14 +189,14 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objectIdentity the ObjectIdentity of the object to download.
-     * @param outputPath where to download the file.
+     * @param outputPath download path plus the fileName.
      * @return the File.
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public File getObject(ObjectIdentity objectIdentity, String outputPath) throws SerializableException, IOException {
+    public File getObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, String outputPath) throws SerializableException, IOException {
         return new ObjectUtil(context, null, server + apiUrl).getObject(objectIdentity, outputPath);
     }
     
@@ -209,23 +205,20 @@ public class DocumentumConnector {
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param objectIdentity .
-     * @param newContentFilePath .
-     * @param transferMode .
-     * @param newProperties .
-     * @param oldParentFolder .
-     * @param newParentFolder .
-     * @return the DataPackage.
+     * @param objectIdentity the ObjectIdentity of the object to update.
+     * @param newContentFilePath the path to file with the new content.
+     * @param transferMode the transfer mode.
+     * @param newProperties a map with the new properties.
+     * @param oldParentFolder the old parent folder ObjectIdentity.
+     * @param newParentFolder the new parent folder ObjectIdentity.
+     * @return the ObjectIdentity.
      * @throws IOException .
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage updateDocument(ObjectIdentity objectIdentity, @Optional String newContentFilePath, 
-            @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, 
-            @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
-        return new ObjectUtil(context, transferMode, server + apiUrl)
-        .updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder);
+    public ObjectIdentity updateDocument(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, @Optional String newContentFilePath, @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
+        return new ObjectUtil(context, transferMode, server + apiUrl).updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder);
     }
     
     /**
@@ -233,20 +226,18 @@ public class DocumentumConnector {
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param objectIdentity .
-     * @param newProperties .
-     * @param oldParentFolder .
-     * @param newParentFolder .
-     * @return the DataPackage.
+     * @param objectIdentity the ObjectIdentity of the object to update.
+     * @param newProperties a map with the new properties.
+     * @param oldParentFolder the old parent folder ObjectIdentity.
+     * @param newParentFolder the new parent folder ObjectIdentity.
+     * @return the ObjectIdentity.
      * @throws IOException .
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage updateFolder(ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, 
-            @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
-        return new ObjectUtil(context, null, server + apiUrl)
-        .updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder);
+    public ObjectIdentity updateFolder(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
+        return new ObjectUtil(context, null, server + apiUrl).updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder);
     }
     
     /**
@@ -254,13 +245,14 @@ public class DocumentumConnector {
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param path .
-     * @return true if the deletion was successful.
+     * @param objectIdentity the ObjectIdentity of the object to delete.
+     * @return ObjectIdentity if the deletion was successful.
+     * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean deleteObject(String path) {
-        return new ObjectUtil(context, null, server + apiUrl).deleteObject(path);
+    public ObjectIdentity deleteObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity) throws SerializableException {
+        return new ObjectUtil(context, null, server + apiUrl).deleteObject(objectIdentity);
     }
     
     /**
@@ -268,15 +260,15 @@ public class DocumentumConnector {
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param sourceObjectPathString identify the object to copy.
-     * @param targetLocPathString identify the folder to copy to.
-     * @return the DataPackage.
+     * @param objectIdentity identify the object to copy.
+     * @param folderIdentity identify the folder to copy to.
+     * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage copyObject(String sourceObjectPathString, String targetLocPathString) throws SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).copyObject(sourceObjectPathString, targetLocPathString);
+    public ObjectIdentity copyObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity folderIdentity) throws SerializableException {
+        return new ObjectUtil(context, null, server + apiUrl).copyObject(objectIdentity, folderIdentity);
     }
     
     /**
@@ -284,16 +276,16 @@ public class DocumentumConnector {
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param sourceObjectPathString identify the object to move.
-     * @param targetLocPathString identify the folder to move from.
-     * @param sourceLocPathString identify the folder to move to.
-     * @return the DataPackage.
+     * @param objectIdentity identify the object to move.
+     * @param toFolderIdentity identify the folder to move from.
+     * @param fromFolderIdentity identify the folder to move to.
+     * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage moveObject(String sourceObjectPathString, String targetLocPathString, String sourceLocPathString) throws SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).moveObject(sourceObjectPathString, targetLocPathString, sourceLocPathString);
+    public ObjectIdentity moveObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity toFolderIdentity, ObjectIdentity fromFolderIdentity) throws SerializableException {
+        return new ObjectUtil(context, null, server + apiUrl).moveObject(objectIdentity, toFolderIdentity, fromFolderIdentity);
     }
     
     /**
@@ -307,7 +299,7 @@ public class DocumentumConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public CheckoutInfo getCheckoutInfo(ObjectIdentity objIdentity) throws SerializableException {
+    public CheckoutInfo getCheckoutInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl).getCheckoutInfo(objIdentity);
     }
     
@@ -317,12 +309,12 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to checkout.
-     * @return the DataPackage.
+     * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage checkout(ObjectIdentity objIdentity) throws SerializableException {
+    public ObjectIdentity checkout(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl).checkout(objIdentity);
     }
     
@@ -332,20 +324,19 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to checkin.
-     * @param newContentPath .
-     * @param versionStrategy .
-     * @param labels .
-     * @param isRetainLock .
-     * @param transferMode .
-     * @return the DataPackage.
+     * @param newContentPath the path to the file with the new content.
+     * @param versionStrategy the strategy to do the checkin.
+     * @param labels the labels of this checkin.
+     * @param isRetainLock specifies whether the object is to remain checked out and locked by the user after the new version is saved.
+     * @param transferMode the transfer mode.
+     * @return the ObjectIdentity.
      * @throws IOException .
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataPackage checkin(ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, IOException {
-        return new VersionControlUtil(context, transferMode, server + apiUrl)
-        .checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock);
+    public ObjectIdentity checkin(@Optional @Default("#[payload]") ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, IOException {
+        return new VersionControlUtil(context, transferMode, server + apiUrl).checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock);
     }
     
     /**
@@ -354,14 +345,13 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to cancel the checkout.
-     * @return true if the cancellation was successful.
+     * @return ObjectIdentity if the cancellation was successful.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean cancelCheckout(ObjectIdentity objIdentity) {
-        return new VersionControlUtil(context, null, server + apiUrl)
-        .cancelCheckout(objIdentity);
+    public ObjectIdentity cancelCheckout(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return new VersionControlUtil(context, null, server + apiUrl).cancelCheckout(objIdentity);
     }
     
     /**
@@ -370,14 +360,13 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to delete.
-     * @return true if the deletion was successful.
+     * @return ObjectIdentity if the deletion was successful.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean deleteVersion(ObjectIdentity objIdentity) {
-        return new VersionControlUtil(context, null, server + apiUrl)
-        .deleteVersion(objIdentity);
+    public ObjectIdentity deleteVersion(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return new VersionControlUtil(context, null, server + apiUrl).deleteVersion(objIdentity);
     }
     
     /**
@@ -386,14 +375,13 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to delete.
-     * @return true if the deletion was successful.
+     * @return ObjectIdentity if the deletion was successful.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public boolean deleteAllVersions(ObjectIdentity objIdentity) {
-        return new VersionControlUtil(context, null, server + apiUrl)
-        .deleteAllVersions(objIdentity);
+    public ObjectIdentity deleteAllVersions(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return new VersionControlUtil(context, null, server + apiUrl).deleteAllVersions(objIdentity);
     }
     
     /**
@@ -402,14 +390,13 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
      * @param objIdentity identify the object to get the current version.
-     * @return the DataObject.
+     * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public DataObject getCurrent(ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl)
-        .getCurrent(objIdentity);
+    public ObjectIdentity getCurrent(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return new VersionControlUtil(context, null, server + apiUrl).getCurrent(objIdentity);
     }
     
     /**
@@ -423,9 +410,8 @@ public class DocumentumConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public VersionInfo getVersionInfo(ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl)
-        .getVersionInfo(objIdentity);
+    public VersionInfo getVersionInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return new VersionControlUtil(context, null, server + apiUrl).getVersionInfo(objIdentity);
     }
     
     public String getApiUrl() {
