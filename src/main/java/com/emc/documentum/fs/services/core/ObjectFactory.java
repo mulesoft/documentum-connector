@@ -39,59 +39,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetVersionInfoResponse }
+     * Create an instance of {@link Checkout }
      * 
      */
-    public GetVersionInfoResponse createGetVersionInfoResponse() {
-        return new GetVersionInfoResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetVersionInfo }
-     * 
-     */
-    public GetVersionInfo createGetVersionInfo() {
-        return new GetVersionInfo();
-    }
-
-    /**
-     * Create an instance of {@link GetCheckoutInfo }
-     * 
-     */
-    public GetCheckoutInfo createGetCheckoutInfo() {
-        return new GetCheckoutInfo();
-    }
-
-    /**
-     * Create an instance of {@link CancelCheckoutResponse }
-     * 
-     */
-    public CancelCheckoutResponse createCancelCheckoutResponse() {
-        return new CancelCheckoutResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAllVersionsResponse }
-     * 
-     */
-    public DeleteAllVersionsResponse createDeleteAllVersionsResponse() {
-        return new DeleteAllVersionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCheckoutInfoResponse }
-     * 
-     */
-    public GetCheckoutInfoResponse createGetCheckoutInfoResponse() {
-        return new GetCheckoutInfoResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCurrentResponse }
-     * 
-     */
-    public GetCurrentResponse createGetCurrentResponse() {
-        return new GetCurrentResponse();
+    public Checkout createCheckout() {
+        return new Checkout();
     }
 
     /**
@@ -100,14 +52,6 @@ public class ObjectFactory {
      */
     public DeleteVersionResponse createDeleteVersionResponse() {
         return new DeleteVersionResponse();
-    }
-
-    /**
-     * Create an instance of {@link Checkout }
-     * 
-     */
-    public Checkout createCheckout() {
-        return new Checkout();
     }
 
     /**
@@ -127,6 +71,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Checkin }
+     * 
+     */
+    public Checkin createCheckin() {
+        return new Checkin();
+    }
+
+    /**
+     * Create an instance of {@link GetCheckoutInfo }
+     * 
+     */
+    public GetCheckoutInfo createGetCheckoutInfo() {
+        return new GetCheckoutInfo();
+    }
+
+    /**
      * Create an instance of {@link DeleteAllVersions }
      * 
      */
@@ -135,11 +95,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetCurrent }
+     * Create an instance of {@link CancelCheckoutResponse }
      * 
      */
-    public GetCurrent createGetCurrent() {
-        return new GetCurrent();
+    public CancelCheckoutResponse createCancelCheckoutResponse() {
+        return new CancelCheckoutResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetVersionInfo }
+     * 
+     */
+    public GetVersionInfo createGetVersionInfo() {
+        return new GetVersionInfo();
+    }
+
+    /**
+     * Create an instance of {@link GetVersionInfoResponse }
+     * 
+     */
+    public GetVersionInfoResponse createGetVersionInfoResponse() {
+        return new GetVersionInfoResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCheckoutInfoResponse }
+     * 
+     */
+    public GetCheckoutInfoResponse createGetCheckoutInfoResponse() {
+        return new GetCheckoutInfoResponse();
     }
 
     /**
@@ -159,11 +143,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Checkin }
+     * Create an instance of {@link GetCurrentResponse }
      * 
      */
-    public Checkin createCheckin() {
-        return new Checkin();
+    public GetCurrentResponse createGetCurrentResponse() {
+        return new GetCurrentResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAllVersionsResponse }
+     * 
+     */
+    public DeleteAllVersionsResponse createDeleteAllVersionsResponse() {
+        return new DeleteAllVersionsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCurrent }
+     * 
+     */
+    public GetCurrent createGetCurrent() {
+        return new GetCurrent();
     }
 
 }

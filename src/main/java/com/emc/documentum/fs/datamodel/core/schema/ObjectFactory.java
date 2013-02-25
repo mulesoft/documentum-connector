@@ -8,7 +8,7 @@
  */
 
 
-package com.emc.documentum.fs.rt;
+package com.emc.documentum.fs.datamodel.core.schema;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.emc.documentum.fs.rt package. 
+ * generated in the com.emc.documentum.fs.datamodel.core.schema package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -32,42 +32,10 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.emc.documentum.fs.rt
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.emc.documentum.fs.datamodel.core.schema
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link DfsAttributeHolder }
-     * 
-     */
-    public DfsAttributeHolder createDfsAttributeHolder() {
-        return new DfsAttributeHolder();
-    }
-
-    /**
-     * Create an instance of {@link DfsExceptionHolder }
-     * 
-     */
-    public DfsExceptionHolder createDfsExceptionHolder() {
-        return new DfsExceptionHolder();
-    }
-
-    /**
-     * Create an instance of {@link SerializableException }
-     * 
-     */
-    public SerializableException createSerializableException() {
-        return new SerializableException();
-    }
-
-    /**
-     * Create an instance of {@link StackTraceHolder }
-     * 
-     */
-    public StackTraceHolder createStackTraceHolder() {
-        return new StackTraceHolder();
     }
 
 }

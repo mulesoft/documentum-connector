@@ -39,86 +39,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PropertyProfile }
-     * 
-     */
-    public PropertyProfile createPropertyProfile() {
-        return new PropertyProfile();
-    }
-
-    /**
-     * Create an instance of {@link ContentTransferProfile }
-     * 
-     */
-    public ContentTransferProfile createContentTransferProfile() {
-        return new ContentTransferProfile();
-    }
-
-    /**
-     * Create an instance of {@link MoveProfile }
-     * 
-     */
-    public MoveProfile createMoveProfile() {
-        return new MoveProfile();
-    }
-
-    /**
-     * Create an instance of {@link ClusteringProfile }
-     * 
-     */
-    public ClusteringProfile createClusteringProfile() {
-        return new ClusteringProfile();
-    }
-
-    /**
-     * Create an instance of {@link VdmRetrieveProfile }
-     * 
-     */
-    public VdmRetrieveProfile createVdmRetrieveProfile() {
-        return new VdmRetrieveProfile();
-    }
-
-    /**
-     * Create an instance of {@link RichTextProfile }
-     * 
-     */
-    public RichTextProfile createRichTextProfile() {
-        return new RichTextProfile();
-    }
-
-    /**
-     * Create an instance of {@link LifecycleExecutionProfile }
-     * 
-     */
-    public LifecycleExecutionProfile createLifecycleExecutionProfile() {
-        return new LifecycleExecutionProfile();
-    }
-
-    /**
-     * Create an instance of {@link CheckinProfile }
-     * 
-     */
-    public CheckinProfile createCheckinProfile() {
-        return new CheckinProfile();
-    }
-
-    /**
-     * Create an instance of {@link ContentProfile }
-     * 
-     */
-    public ContentProfile createContentProfile() {
-        return new ContentProfile();
-    }
-
-    /**
-     * Create an instance of {@link PermissionProfile }
-     * 
-     */
-    public PermissionProfile createPermissionProfile() {
-        return new PermissionProfile();
-    }
-
-    /**
      * Create an instance of {@link CopyProfile }
      * 
      */
@@ -127,11 +47,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SchemaProfile }
+     * Create an instance of {@link DeleteProfile }
      * 
      */
-    public SchemaProfile createSchemaProfile() {
-        return new SchemaProfile();
+    public DeleteProfile createDeleteProfile() {
+        return new DeleteProfile();
     }
 
     /**
@@ -151,14 +71,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SearchProfile }
-     * 
-     */
-    public SearchProfile createSearchProfile() {
-        return new SearchProfile();
-    }
-
-    /**
      * Create an instance of {@link RelationshipProfile }
      * 
      */
@@ -167,11 +79,99 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteProfile }
+     * Create an instance of {@link ContentProfile }
      * 
      */
-    public DeleteProfile createDeleteProfile() {
-        return new DeleteProfile();
+    public ContentProfile createContentProfile() {
+        return new ContentProfile();
+    }
+
+    /**
+     * Create an instance of {@link PropertyProfile }
+     * 
+     */
+    public PropertyProfile createPropertyProfile() {
+        return new PropertyProfile();
+    }
+
+    /**
+     * Create an instance of {@link ClusteringProfile }
+     * 
+     */
+    public ClusteringProfile createClusteringProfile() {
+        return new ClusteringProfile();
+    }
+
+    /**
+     * Create an instance of {@link RichTextProfile }
+     * 
+     */
+    public RichTextProfile createRichTextProfile() {
+        return new RichTextProfile();
+    }
+
+    /**
+     * Create an instance of {@link LifecycleExecutionProfile }
+     * 
+     */
+    public LifecycleExecutionProfile createLifecycleExecutionProfile() {
+        return new LifecycleExecutionProfile();
+    }
+
+    /**
+     * Create an instance of {@link MoveProfile }
+     * 
+     */
+    public MoveProfile createMoveProfile() {
+        return new MoveProfile();
+    }
+
+    /**
+     * Create an instance of {@link SearchProfile }
+     * 
+     */
+    public SearchProfile createSearchProfile() {
+        return new SearchProfile();
+    }
+
+    /**
+     * Create an instance of {@link PermissionProfile }
+     * 
+     */
+    public PermissionProfile createPermissionProfile() {
+        return new PermissionProfile();
+    }
+
+    /**
+     * Create an instance of {@link VdmRetrieveProfile }
+     * 
+     */
+    public VdmRetrieveProfile createVdmRetrieveProfile() {
+        return new VdmRetrieveProfile();
+    }
+
+    /**
+     * Create an instance of {@link ContentTransferProfile }
+     * 
+     */
+    public ContentTransferProfile createContentTransferProfile() {
+        return new ContentTransferProfile();
+    }
+
+    /**
+     * Create an instance of {@link SchemaProfile }
+     * 
+     */
+    public SchemaProfile createSchemaProfile() {
+        return new SchemaProfile();
+    }
+
+    /**
+     * Create an instance of {@link CheckinProfile }
+     * 
+     */
+    public CheckinProfile createCheckinProfile() {
+        return new CheckinProfile();
     }
 
 }

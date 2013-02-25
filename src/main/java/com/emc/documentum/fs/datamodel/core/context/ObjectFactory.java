@@ -39,22 +39,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BasicIdentity }
-     * 
-     */
-    public BasicIdentity createBasicIdentity() {
-        return new BasicIdentity();
-    }
-
-    /**
-     * Create an instance of {@link RepositoryIdentity }
-     * 
-     */
-    public RepositoryIdentity createRepositoryIdentity() {
-        return new RepositoryIdentity();
-    }
-
-    /**
      * Create an instance of {@link ServiceContext }
      * 
      */
@@ -68,6 +52,22 @@ public class ObjectFactory {
      */
     public SsoIdentity createSsoIdentity() {
         return new SsoIdentity();
+    }
+
+    /**
+     * Create an instance of {@link RepositoryIdentity }
+     * 
+     */
+    public RepositoryIdentity createRepositoryIdentity() {
+        return new RepositoryIdentity();
+    }
+
+    /**
+     * Create an instance of {@link BasicIdentity }
+     * 
+     */
+    public BasicIdentity createBasicIdentity() {
+        return new BasicIdentity();
     }
 
 }

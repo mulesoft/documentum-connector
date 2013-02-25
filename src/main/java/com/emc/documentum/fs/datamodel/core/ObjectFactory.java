@@ -39,67 +39,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ObjectIdentity }
+     * Create an instance of {@link VersionInfo }
      * 
      */
-    public ObjectIdentity createObjectIdentity() {
-        return new ObjectIdentity();
-    }
-
-    /**
-     * Create an instance of {@link CompositeObjectId }
-     * 
-     */
-    public CompositeObjectId createCompositeObjectId() {
-        return new CompositeObjectId();
-    }
-
-    /**
-     * Create an instance of {@link CheckoutInfo }
-     * 
-     */
-    public CheckoutInfo createCheckoutInfo() {
-        return new CheckoutInfo();
-    }
-
-    /**
-     * Create an instance of {@link ObjectIdentitySet }
-     * 
-     */
-    public ObjectIdentitySet createObjectIdentitySet() {
-        return new ObjectIdentitySet();
-    }
-
-    /**
-     * Create an instance of {@link DataObject }
-     * 
-     */
-    public DataObject createDataObject() {
-        return new DataObject();
-    }
-
-    /**
-     * Create an instance of {@link DataPackage }
-     * 
-     */
-    public DataPackage createDataPackage() {
-        return new DataPackage();
-    }
-
-    /**
-     * Create an instance of {@link ObjectId }
-     * 
-     */
-    public ObjectId createObjectId() {
-        return new ObjectId();
-    }
-
-    /**
-     * Create an instance of {@link ObjectRelationship }
-     * 
-     */
-    public ObjectRelationship createObjectRelationship() {
-        return new ObjectRelationship();
+    public VersionInfo createVersionInfo() {
+        return new VersionInfo();
     }
 
     /**
@@ -111,30 +55,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Aspect }
-     * 
-     */
-    public Aspect createAspect() {
-        return new Aspect();
-    }
-
-    /**
-     * Create an instance of {@link Qualification }
-     * 
-     */
-    public Qualification createQualification() {
-        return new Qualification();
-    }
-
-    /**
-     * Create an instance of {@link ObjectPath }
-     * 
-     */
-    public ObjectPath createObjectPath() {
-        return new ObjectPath();
-    }
-
-    /**
      * Create an instance of {@link RichText }
      * 
      */
@@ -143,11 +63,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OperationOptions }
+     * Create an instance of {@link CheckoutInfo }
      * 
      */
-    public OperationOptions createOperationOptions() {
-        return new OperationOptions();
+    public CheckoutInfo createCheckoutInfo() {
+        return new CheckoutInfo();
+    }
+
+    /**
+     * Create an instance of {@link ObjectId }
+     * 
+     */
+    public ObjectId createObjectId() {
+        return new ObjectId();
     }
 
     /**
@@ -159,11 +87,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link VersionInfo }
+     * Create an instance of {@link ObjectPath }
      * 
      */
-    public VersionInfo createVersionInfo() {
-        return new VersionInfo();
+    public ObjectPath createObjectPath() {
+        return new ObjectPath();
+    }
+
+    /**
+     * Create an instance of {@link Aspect }
+     * 
+     */
+    public Aspect createAspect() {
+        return new Aspect();
+    }
+
+    /**
+     * Create an instance of {@link DataObject }
+     * 
+     */
+    public DataObject createDataObject() {
+        return new DataObject();
+    }
+
+    /**
+     * Create an instance of {@link Qualification }
+     * 
+     */
+    public Qualification createQualification() {
+        return new Qualification();
+    }
+
+    /**
+     * Create an instance of {@link ObjectRelationship }
+     * 
+     */
+    public ObjectRelationship createObjectRelationship() {
+        return new ObjectRelationship();
+    }
+
+    /**
+     * Create an instance of {@link DataPackage }
+     * 
+     */
+    public DataPackage createDataPackage() {
+        return new DataPackage();
     }
 
     /**
@@ -172,6 +140,38 @@ public class ObjectFactory {
      */
     public ReferenceRelationship createReferenceRelationship() {
         return new ReferenceRelationship();
+    }
+
+    /**
+     * Create an instance of {@link OperationOptions }
+     * 
+     */
+    public OperationOptions createOperationOptions() {
+        return new OperationOptions();
+    }
+
+    /**
+     * Create an instance of {@link CompositeObjectId }
+     * 
+     */
+    public CompositeObjectId createCompositeObjectId() {
+        return new CompositeObjectId();
+    }
+
+    /**
+     * Create an instance of {@link ObjectIdentitySet }
+     * 
+     */
+    public ObjectIdentitySet createObjectIdentitySet() {
+        return new ObjectIdentitySet();
+    }
+
+    /**
+     * Create an instance of {@link ObjectIdentity }
+     * 
+     */
+    public ObjectIdentity createObjectIdentity() {
+        return new ObjectIdentity();
     }
 
 }

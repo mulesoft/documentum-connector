@@ -55,6 +55,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ActivityInfo }
+     * 
+     */
+    public ActivityInfo createActivityInfo() {
+        return new ActivityInfo();
+    }
+
+    /**
      * Create an instance of {@link DataHandlerContent }
      * 
      */
@@ -68,14 +76,6 @@ public class ObjectFactory {
      */
     public UrlContent createUrlContent() {
         return new UrlContent();
-    }
-
-    /**
-     * Create an instance of {@link ActivityInfo }
-     * 
-     */
-    public ActivityInfo createActivityInfo() {
-        return new ActivityInfo();
     }
 
 }

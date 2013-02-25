@@ -33,6 +33,7 @@ import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.documentum.coreServices.ObjectUtil;
+import org.mule.module.documentum.coreServices.QueryUtil;
 import org.mule.module.documentum.coreServices.VersionControlUtil;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
@@ -42,6 +43,8 @@ import com.emc.documentum.fs.datamodel.core.VersionStrategy;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
+import com.emc.documentum.fs.datamodel.core.query.QueryExecution;
+import com.emc.documentum.fs.datamodel.core.query.QueryResult;
 import com.emc.documentum.fs.services.core.SerializableException;
 
 /**
@@ -412,6 +415,22 @@ public class DocumentumConnector {
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public VersionInfo getVersionInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
         return new VersionControlUtil(context, null, server + apiUrl).getVersionInfo(objIdentity);
+    }
+    
+    /**
+     * Query
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     *
+     * @param dqlStatement a DQL query.
+     * @param queryExecution used in order to make paginated queries.
+     * @return the QueryResult.
+     * @throws SerializableException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public QueryResult query(String dqlStatement, @Optional QueryExecution queryExecution) throws SerializableException {
+        return new QueryUtil(context, server + apiUrl).query(dqlStatement, queryExecution);
     }
     
     public String getApiUrl() {

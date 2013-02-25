@@ -47,27 +47,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Unregister }
-     * 
-     */
-    public Unregister createUnregister() {
-        return new Unregister();
-    }
-
-    /**
      * Create an instance of {@link UnregisterResponse }
      * 
      */
     public UnregisterResponse createUnregisterResponse() {
         return new UnregisterResponse();
-    }
-
-    /**
-     * Create an instance of {@link Register }
-     * 
-     */
-    public Register createRegister() {
-        return new Register();
     }
 
     /**
@@ -84,6 +68,22 @@ public class ObjectFactory {
      */
     public Lookup createLookup() {
         return new Lookup();
+    }
+
+    /**
+     * Create an instance of {@link Unregister }
+     * 
+     */
+    public Unregister createUnregister() {
+        return new Unregister();
+    }
+
+    /**
+     * Create an instance of {@link Register }
+     * 
+     */
+    public Register createRegister() {
+        return new Register();
     }
 
 }

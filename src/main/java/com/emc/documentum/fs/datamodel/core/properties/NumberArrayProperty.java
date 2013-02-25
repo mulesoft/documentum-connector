@@ -55,8 +55,8 @@ public class NumberArrayProperty
 
     private final static long serialVersionUID = 1L;
     @XmlElements({
-        @XmlElement(name = "Long", type = Long.class, nillable = true),
         @XmlElement(name = "Double", type = Double.class, nillable = true),
+        @XmlElement(name = "Long", type = Long.class, nillable = true),
         @XmlElement(name = "Short", type = Short.class, nillable = true),
         @XmlElement(name = "Integer", type = Integer.class, nillable = true)
     })
@@ -80,8 +80,8 @@ public class NumberArrayProperty
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Long }
      * {@link Double }
+     * {@link Long }
      * {@link Short }
      * {@link Integer }
      * 
