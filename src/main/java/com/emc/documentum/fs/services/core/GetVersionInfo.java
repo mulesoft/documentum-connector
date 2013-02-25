@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
 
@@ -41,12 +39,8 @@ import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
 @XmlType(name = "getVersionInfo", propOrder = {
     "objectIdentitySet"
 })
-@XmlRootElement(name = "getVersionInfo")
-public class GetVersionInfo
-    implements Serializable
-{
+public class GetVersionInfo {
 
-    private final static long serialVersionUID = 1L;
     protected ObjectIdentitySet objectIdentitySet;
 
     /**

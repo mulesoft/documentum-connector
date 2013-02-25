@@ -119,7 +119,7 @@ public class ObjectUtil extends Util {
             @SuppressWarnings("rawtypes")
             public List<Handler> getHandlerChain(PortInfo info) {
                 List<Handler> handlerList = new ArrayList<Handler>();
-                handlerList.add(new DfsSoapHeaderHandler(context));
+                handlerList.add(new HeaderHandler(context));
                 return handlerList;
             }
         });

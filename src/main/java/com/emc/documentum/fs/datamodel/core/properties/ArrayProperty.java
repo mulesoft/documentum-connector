@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -52,10 +51,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public abstract class ArrayProperty
     extends Property
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "ValueActions")
     protected List<ValueAction> valueActions;
 

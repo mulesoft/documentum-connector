@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -48,129 +47,54 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ObjectIdentity", propOrder = {
-    "stringUri",
-    "compositeObjectId",
-    "qualification",
-    "objectPath",
+    "objectId",
     "objectKey",
-    "objectId"
+    "objectPath",
+    "qualification",
+    "compositeObjectId",
+    "stringUri"
 })
-public class ObjectIdentity
-    implements Serializable
-{
+public class ObjectIdentity {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "StringUri")
-    protected String stringUri;
-    @XmlElement(name = "CompositeObjectId")
-    protected CompositeObjectId compositeObjectId;
-    @XmlElement(name = "Qualification")
-    protected Qualification qualification;
-    @XmlElement(name = "ObjectPath")
-    protected ObjectPath objectPath;
-    @XmlElement(name = "ObjectKey")
-    protected ObjectKey objectKey;
     @XmlElement(name = "ObjectId")
     protected ObjectId objectId;
+    @XmlElement(name = "ObjectKey")
+    protected ObjectKey objectKey;
+    @XmlElement(name = "ObjectPath")
+    protected ObjectPath objectPath;
+    @XmlElement(name = "Qualification")
+    protected Qualification qualification;
+    @XmlElement(name = "CompositeObjectId")
+    protected CompositeObjectId compositeObjectId;
+    @XmlElement(name = "StringUri")
+    protected String stringUri;
     @XmlAttribute(name = "valueType")
     protected ObjectIdentityType valueType;
     @XmlAttribute(name = "repositoryName")
     protected String repositoryName;
 
     /**
-     * Gets the value of the stringUri property.
+     * Gets the value of the objectId property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link ObjectId }
      *     
      */
-    public String getStringUri() {
-        return stringUri;
+    public ObjectId getObjectId() {
+        return objectId;
     }
 
     /**
-     * Sets the value of the stringUri property.
+     * Sets the value of the objectId property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link ObjectId }
      *     
      */
-    public void setStringUri(String value) {
-        this.stringUri = value;
-    }
-
-    /**
-     * Gets the value of the compositeObjectId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CompositeObjectId }
-     *     
-     */
-    public CompositeObjectId getCompositeObjectId() {
-        return compositeObjectId;
-    }
-
-    /**
-     * Sets the value of the compositeObjectId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CompositeObjectId }
-     *     
-     */
-    public void setCompositeObjectId(CompositeObjectId value) {
-        this.compositeObjectId = value;
-    }
-
-    /**
-     * Gets the value of the qualification property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Qualification }
-     *     
-     */
-    public Qualification getQualification() {
-        return qualification;
-    }
-
-    /**
-     * Sets the value of the qualification property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Qualification }
-     *     
-     */
-    public void setQualification(Qualification value) {
-        this.qualification = value;
-    }
-
-    /**
-     * Gets the value of the objectPath property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ObjectPath }
-     *     
-     */
-    public ObjectPath getObjectPath() {
-        return objectPath;
-    }
-
-    /**
-     * Sets the value of the objectPath property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ObjectPath }
-     *     
-     */
-    public void setObjectPath(ObjectPath value) {
-        this.objectPath = value;
+    public void setObjectId(ObjectId value) {
+        this.objectId = value;
     }
 
     /**
@@ -198,27 +122,99 @@ public class ObjectIdentity
     }
 
     /**
-     * Gets the value of the objectId property.
+     * Gets the value of the objectPath property.
      * 
      * @return
      *     possible object is
-     *     {@link ObjectId }
+     *     {@link ObjectPath }
      *     
      */
-    public ObjectId getObjectId() {
-        return objectId;
+    public ObjectPath getObjectPath() {
+        return objectPath;
     }
 
     /**
-     * Sets the value of the objectId property.
+     * Sets the value of the objectPath property.
      * 
      * @param value
      *     allowed object is
-     *     {@link ObjectId }
+     *     {@link ObjectPath }
      *     
      */
-    public void setObjectId(ObjectId value) {
-        this.objectId = value;
+    public void setObjectPath(ObjectPath value) {
+        this.objectPath = value;
+    }
+
+    /**
+     * Gets the value of the qualification property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Qualification }
+     *     
+     */
+    public Qualification getQualification() {
+        return qualification;
+    }
+
+    /**
+     * Sets the value of the qualification property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Qualification }
+     *     
+     */
+    public void setQualification(Qualification value) {
+        this.qualification = value;
+    }
+
+    /**
+     * Gets the value of the compositeObjectId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link CompositeObjectId }
+     *     
+     */
+    public CompositeObjectId getCompositeObjectId() {
+        return compositeObjectId;
+    }
+
+    /**
+     * Sets the value of the compositeObjectId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link CompositeObjectId }
+     *     
+     */
+    public void setCompositeObjectId(CompositeObjectId value) {
+        this.compositeObjectId = value;
+    }
+
+    /**
+     * Gets the value of the stringUri property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStringUri() {
+        return stringUri;
+    }
+
+    /**
+     * Sets the value of the stringUri property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStringUri(String value) {
+        this.stringUri = value;
     }
 
     /**

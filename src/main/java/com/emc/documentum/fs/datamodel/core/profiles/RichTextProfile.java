@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.profiles;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -46,10 +45,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class RichTextProfile
     extends Profile
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "ImageUrlTemplate")
     protected String imageUrlTemplate;
     @XmlElement(name = "AnchorUrlTemplate")

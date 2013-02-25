@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.rt;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,40 +44,37 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DfsExceptionHolder", propOrder = {
-    "attributes",
+    "attribute",
     "exceptionClass",
     "genericType",
     "message",
     "messageId",
-    "stackTraces"
+    "stackTrace"
 })
-public class DfsExceptionHolder
-    implements Serializable
-{
+public class DfsExceptionHolder {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "attribute", nillable = true)
-    protected List<DfsAttributeHolder> attributes;
+    @XmlElement(nillable = true)
+    protected List<DfsAttributeHolder> attribute;
     protected String exceptionClass;
     protected String genericType;
     protected String message;
     protected String messageId;
-    @XmlElement(name = "stackTrace", nillable = true)
-    protected List<StackTraceHolder> stackTraces;
+    @XmlElement(nillable = true)
+    protected List<StackTraceHolder> stackTrace;
 
     /**
-     * Gets the value of the attributes property.
+     * Gets the value of the attribute property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the attributes property.
+     * This is why there is not a <CODE>set</CODE> method for the attribute property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getAttributes().add(newItem);
+     *    getAttribute().add(newItem);
      * </pre>
      * 
      * 
@@ -88,11 +84,11 @@ public class DfsExceptionHolder
      * 
      * 
      */
-    public List<DfsAttributeHolder> getAttributes() {
-        if (attributes == null) {
-            attributes = new ArrayList<DfsAttributeHolder>();
+    public List<DfsAttributeHolder> getAttribute() {
+        if (attribute == null) {
+            attribute = new ArrayList<DfsAttributeHolder>();
         }
-        return this.attributes;
+        return this.attribute;
     }
 
     /**
@@ -192,18 +188,18 @@ public class DfsExceptionHolder
     }
 
     /**
-     * Gets the value of the stackTraces property.
+     * Gets the value of the stackTrace property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the stackTraces property.
+     * This is why there is not a <CODE>set</CODE> method for the stackTrace property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getStackTraces().add(newItem);
+     *    getStackTrace().add(newItem);
      * </pre>
      * 
      * 
@@ -213,11 +209,11 @@ public class DfsExceptionHolder
      * 
      * 
      */
-    public List<StackTraceHolder> getStackTraces() {
-        if (stackTraces == null) {
-            stackTraces = new ArrayList<StackTraceHolder>();
+    public List<StackTraceHolder> getStackTrace() {
+        if (stackTrace == null) {
+            stackTrace = new ArrayList<StackTraceHolder>();
         }
-        return this.stackTraces;
+        return this.stackTrace;
     }
 
 }

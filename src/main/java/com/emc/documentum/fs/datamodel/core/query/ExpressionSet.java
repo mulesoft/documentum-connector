@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,10 +44,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ExpressionSet
     extends Expression
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     protected List<Expression> expressions;
     @XmlAttribute(name = "operator")
     protected ExpressionSetOperator operator;

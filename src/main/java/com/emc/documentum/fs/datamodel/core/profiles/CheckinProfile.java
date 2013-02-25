@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.profiles;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,10 +41,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "CheckinProfile")
 public class CheckinProfile
     extends Profile
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "deleteLocalFileHint", required = true)
     protected boolean deleteLocalFileHint;
     @XmlAttribute(name = "makeCurrent", required = true)

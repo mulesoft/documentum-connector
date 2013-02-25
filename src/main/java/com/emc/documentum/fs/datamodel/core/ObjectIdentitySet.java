@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,11 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ObjectIdentitySet", propOrder = {
     "identities"
 })
-public class ObjectIdentitySet
-    implements Serializable
-{
+public class ObjectIdentitySet {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Identities")
     protected List<ObjectIdentity> identities;
     @XmlAttribute(name = "isInternal", required = true)

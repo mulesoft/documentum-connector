@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,10 +45,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class DateArrayProperty
     extends ArrayProperty
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Values", nillable = true)
     @XmlSchemaType(name = "dateTime")
     protected List<XMLGregorianCalendar> values;

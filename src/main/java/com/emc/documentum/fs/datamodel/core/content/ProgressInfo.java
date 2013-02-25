@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.content;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -45,11 +44,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProgressInfo")
-public class ProgressInfo
-    implements Serializable
-{
+public class ProgressInfo {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "providerName")
     protected String providerName;
     @XmlAttribute(name = "maximum", required = true)

@@ -10,14 +10,12 @@
 
 package com.emc.documentum.fs.datamodel.core.context;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.profiles.Profile;
 import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
@@ -52,12 +50,8 @@ import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
     "profiles",
     "runtimeProperties"
 })
-@XmlRootElement(name = "ServiceContext")
-public class ServiceContext
-    implements Serializable
-{
+public class ServiceContext {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Identities")
     protected List<Identity> identities;
     @XmlElement(name = "Profiles")

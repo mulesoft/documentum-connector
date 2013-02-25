@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.content;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -44,10 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class UcfContent
     extends Content
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "LocalFilePath", required = true)
     protected String localFilePath;
     @XmlElement(name = "ActivityInfo")

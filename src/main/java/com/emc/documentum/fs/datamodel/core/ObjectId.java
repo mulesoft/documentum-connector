@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,11 +37,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ObjectId")
-public class ObjectId
-    implements Serializable
-{
+public class ObjectId {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "id", required = true)
     protected String id;
 

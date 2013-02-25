@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -50,11 +49,8 @@ import javax.xml.bind.annotation.XmlType;
     "identity",
     "symbolicLabels"
 })
-public class VersionInfo
-    implements Serializable
-{
+public class VersionInfo {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Identity", required = true)
     protected ObjectIdentity identity;
     @XmlElement(name = "SymbolicLabels")

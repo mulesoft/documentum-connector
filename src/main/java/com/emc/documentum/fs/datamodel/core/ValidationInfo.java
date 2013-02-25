@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,11 +45,8 @@ import javax.xml.bind.annotation.XmlType;
     "dataObject",
     "validationIssues"
 })
-public class ValidationInfo
-    implements Serializable
-{
+public class ValidationInfo {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "DataObject")
     protected DataObject dataObject;
     @XmlElement(name = "ValidationIssues")

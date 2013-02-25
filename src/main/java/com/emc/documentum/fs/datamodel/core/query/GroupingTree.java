@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -41,10 +40,7 @@ import javax.xml.bind.annotation.XmlType;
     Facet.class,
     ClusterTree.class
 })
-public abstract class GroupingTree
-    implements Serializable
-{
+public abstract class GroupingTree {
 
-    private final static long serialVersionUID = 1L;
 
 }

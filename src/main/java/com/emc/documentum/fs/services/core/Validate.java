@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.DataPackage;
 
@@ -41,12 +39,8 @@ import com.emc.documentum.fs.datamodel.core.DataPackage;
 @XmlType(name = "validate", propOrder = {
     "dataPackage"
 })
-@XmlRootElement(name = "validate")
-public class Validate
-    implements Serializable
-{
+public class Validate {
 
-    private final static long serialVersionUID = 1L;
     protected DataPackage dataPackage;
 
     /**

@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,52 +45,50 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "NumberArrayProperty", propOrder = {
-    "shortsAndIntegersAndLongs"
+    "shortOrIntegerOrLong"
 })
 public class NumberArrayProperty
     extends ArrayProperty
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElements({
-        @XmlElement(name = "Double", type = Double.class, nillable = true),
-        @XmlElement(name = "Long", type = Long.class, nillable = true),
         @XmlElement(name = "Short", type = Short.class, nillable = true),
-        @XmlElement(name = "Integer", type = Integer.class, nillable = true)
+        @XmlElement(name = "Integer", type = Integer.class, nillable = true),
+        @XmlElement(name = "Double", type = Double.class, nillable = true),
+        @XmlElement(name = "Long", type = Long.class, nillable = true)
     })
-    protected List<Comparable> shortsAndIntegersAndLongs;
+    protected List<Comparable> shortOrIntegerOrLong;
 
     /**
-     * Gets the value of the shortsAndIntegersAndLongs property.
+     * Gets the value of the shortOrIntegerOrLong property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the shortsAndIntegersAndLongs property.
+     * This is why there is not a <CODE>set</CODE> method for the shortOrIntegerOrLong property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getShortsAndIntegersAndLongs().add(newItem);
+     *    getShortOrIntegerOrLong().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Double }
-     * {@link Long }
      * {@link Short }
      * {@link Integer }
+     * {@link Double }
+     * {@link Long }
      * 
      * 
      */
-    public List<Comparable> getShortsAndIntegersAndLongs() {
-        if (shortsAndIntegersAndLongs == null) {
-            shortsAndIntegersAndLongs = new ArrayList<Comparable>();
+    public List<Comparable> getShortOrIntegerOrLong() {
+        if (shortOrIntegerOrLong == null) {
+            shortOrIntegerOrLong = new ArrayList<Comparable>();
         }
-        return this.shortsAndIntegersAndLongs;
+        return this.shortOrIntegerOrLong;
     }
 
 }

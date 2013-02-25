@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,11 +38,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Aspect")
-public class Aspect
-    implements Serializable
-{
+public class Aspect {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlAttribute(name = "intentModifier")

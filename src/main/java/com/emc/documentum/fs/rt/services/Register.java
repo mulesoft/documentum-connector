@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.rt.services;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 
@@ -43,12 +41,8 @@ import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
     "context",
     "host"
 })
-@XmlRootElement(name = "register")
-public class Register
-    implements Serializable
-{
+public class Register {
 
-    private final static long serialVersionUID = 1L;
     protected ServiceContext context;
     protected String host;
 

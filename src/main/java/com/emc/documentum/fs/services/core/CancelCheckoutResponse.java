@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -37,11 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "cancelCheckoutResponse")
-@XmlRootElement(name = "cancelCheckoutResponse")
-public class CancelCheckoutResponse
-    implements Serializable
-{
+public class CancelCheckoutResponse {
 
-    private final static long serialVersionUID = 1L;
 
 }

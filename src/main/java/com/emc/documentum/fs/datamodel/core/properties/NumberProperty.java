@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,72 +42,46 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "NumberProperty", propOrder = {
-    "_double",
-    "_long",
+    "_short",
     "integer",
-    "_short"
+    "_long",
+    "_double"
 })
 public class NumberProperty
     extends Property
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "Double")
-    protected Double _double;
-    @XmlElement(name = "Long")
-    protected Long _long;
-    @XmlElement(name = "Integer")
-    protected Integer integer;
     @XmlElement(name = "Short")
     protected Short _short;
+    @XmlElement(name = "Integer")
+    protected Integer integer;
+    @XmlElement(name = "Long")
+    protected Long _long;
+    @XmlElement(name = "Double")
+    protected Double _double;
 
     /**
-     * Gets the value of the double property.
+     * Gets the value of the short property.
      * 
      * @return
      *     possible object is
-     *     {@link Double }
+     *     {@link Short }
      *     
      */
-    public Double getDouble() {
-        return _double;
+    public Short getShort() {
+        return _short;
     }
 
     /**
-     * Sets the value of the double property.
+     * Sets the value of the short property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Double }
+     *     {@link Short }
      *     
      */
-    public void setDouble(Double value) {
-        this._double = value;
-    }
-
-    /**
-     * Gets the value of the long property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
-    public Long getLong() {
-        return _long;
-    }
-
-    /**
-     * Sets the value of the long property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
-     */
-    public void setLong(Long value) {
-        this._long = value;
+    public void setShort(Short value) {
+        this._short = value;
     }
 
     /**
@@ -136,27 +109,51 @@ public class NumberProperty
     }
 
     /**
-     * Gets the value of the short property.
+     * Gets the value of the long property.
      * 
      * @return
      *     possible object is
-     *     {@link Short }
+     *     {@link Long }
      *     
      */
-    public Short getShort() {
-        return _short;
+    public Long getLong() {
+        return _long;
     }
 
     /**
-     * Sets the value of the short property.
+     * Sets the value of the long property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Short }
+     *     {@link Long }
      *     
      */
-    public void setShort(Short value) {
-        this._short = value;
+    public void setLong(Long value) {
+        this._long = value;
+    }
+
+    /**
+     * Gets the value of the double property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getDouble() {
+        return _double;
+    }
+
+    /**
+     * Sets the value of the double property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setDouble(Double value) {
+        this._double = value;
     }
 
 }

@@ -10,11 +10,9 @@
 
 package com.emc.documentum.fs.rt.services;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -41,12 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getDeploymentIdResponse", propOrder = {
     "_return"
 })
-@XmlRootElement(name = "getDeploymentIdResponse")
-public class GetDeploymentIdResponse
-    implements Serializable
-{
+public class GetDeploymentIdResponse {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "return")
     protected String _return;
 

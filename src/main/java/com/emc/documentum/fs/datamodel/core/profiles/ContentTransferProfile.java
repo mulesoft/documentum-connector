@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.profiles;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -51,10 +50,8 @@ import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 })
 public class ContentTransferProfile
     extends Profile
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "ActivityInfo")
     protected ActivityInfo activityInfo;
     @XmlAttribute(name = "transferMode")

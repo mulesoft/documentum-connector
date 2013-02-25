@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.profiles;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -50,10 +49,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ContentProfile")
 public class ContentProfile
     extends Profile
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "formatFilter")
     protected FormatFilter formatFilter;
     @XmlAttribute(name = "format")

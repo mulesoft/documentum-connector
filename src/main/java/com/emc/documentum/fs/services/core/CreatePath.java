@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.ObjectPath;
 
@@ -43,12 +41,8 @@ import com.emc.documentum.fs.datamodel.core.ObjectPath;
     "objectPath",
     "repositoryName"
 })
-@XmlRootElement(name = "createPath")
-public class CreatePath
-    implements Serializable
-{
+public class CreatePath {
 
-    private final static long serialVersionUID = 1L;
     protected ObjectPath objectPath;
     protected String repositoryName;
 

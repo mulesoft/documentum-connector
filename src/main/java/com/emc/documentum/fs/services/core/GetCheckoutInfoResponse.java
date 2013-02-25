@@ -10,13 +10,11 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
 
@@ -42,30 +40,26 @@ import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getCheckoutInfoResponse", propOrder = {
-    "returns"
+    "_return"
 })
-@XmlRootElement(name = "getCheckoutInfoResponse")
-public class GetCheckoutInfoResponse
-    implements Serializable
-{
+public class GetCheckoutInfoResponse {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "return")
-    protected List<CheckoutInfo> returns;
+    protected List<CheckoutInfo> _return;
 
     /**
-     * Gets the value of the returns property.
+     * Gets the value of the return property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the returns property.
+     * This is why there is not a <CODE>set</CODE> method for the return property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getReturns().add(newItem);
+     *    getReturn().add(newItem);
      * </pre>
      * 
      * 
@@ -75,11 +69,11 @@ public class GetCheckoutInfoResponse
      * 
      * 
      */
-    public List<CheckoutInfo> getReturns() {
-        if (returns == null) {
-            returns = new ArrayList<CheckoutInfo>();
+    public List<CheckoutInfo> getReturn() {
+        if (_return == null) {
+            _return = new ArrayList<CheckoutInfo>();
         }
-        return this.returns;
+        return this._return;
     }
 
 }

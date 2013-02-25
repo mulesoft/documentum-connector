@@ -10,11 +10,9 @@
 
 package com.emc.documentum.fs.rt.services;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 
@@ -42,12 +40,8 @@ import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 @XmlType(name = "lookupResponse", propOrder = {
     "_return"
 })
-@XmlRootElement(name = "lookupResponse")
-public class LookupResponse
-    implements Serializable
-{
+public class LookupResponse {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "return")
     protected ServiceContext _return;
 

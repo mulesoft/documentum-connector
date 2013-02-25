@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.content;
 
-import java.io.Serializable;
 import javax.activation.DataHandler;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -44,10 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class DataHandlerContent
     extends Content
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Value", required = true)
     @XmlMimeType("*/*")
     protected DataHandler value;

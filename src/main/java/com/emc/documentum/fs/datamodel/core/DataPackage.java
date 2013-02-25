@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,11 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "DataPackage", propOrder = {
     "dataObjects"
 })
-public class DataPackage
-    implements Serializable
-{
+public class DataPackage {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "DataObjects")
     protected List<DataObject> dataObjects;
     @XmlAttribute(name = "repositoryName")

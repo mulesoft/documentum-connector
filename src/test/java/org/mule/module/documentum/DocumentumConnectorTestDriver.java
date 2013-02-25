@@ -31,7 +31,7 @@ public class DocumentumConnectorTestDriver {
     private static final String USER = "user";
     private static final String PASSWORD = "password";
     private static final String REPOSITORY = "repository";
-    private static final String SERVER = "http://localhost:8888";
+    private static final String SERVER = "http://localhost:9080";
     private DocumentumConnector connector;    
     
     @Before

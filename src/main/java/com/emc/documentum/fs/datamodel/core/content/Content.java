@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.content;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -52,11 +51,8 @@ import javax.xml.bind.annotation.XmlType;
     UcfContent.class,
     UrlContent.class
 })
-public abstract class Content
-    implements Serializable
-{
+public abstract class Content {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(nillable = true)
     protected RenditionType renditionType;
     @XmlAttribute(name = "format", required = true)

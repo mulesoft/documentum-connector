@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.content;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -44,11 +43,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ActivityInfo")
-public class ActivityInfo
-    implements Serializable
-{
+public class ActivityInfo {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "sessionId", required = true)
     protected String sessionId;
     @XmlAttribute(name = "initiatorSessionId")

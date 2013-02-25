@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -42,10 +41,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class BooleanProperty
     extends Property
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Value")
     protected boolean value;
 

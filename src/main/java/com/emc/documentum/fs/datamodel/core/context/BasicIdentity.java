@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.context;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -46,10 +45,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class BasicIdentity
     extends Identity
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "userName")
     protected String userName;
     @XmlAttribute(name = "password")

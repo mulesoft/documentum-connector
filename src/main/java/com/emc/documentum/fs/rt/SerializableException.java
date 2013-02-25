@@ -10,13 +10,11 @@
 
 package com.emc.documentum.fs.rt;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -42,32 +40,28 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SerializableException", propOrder = {
-    "exceptionBeen",
+    "exceptionBean",
     "message"
 })
-@XmlRootElement(name = "SerializableException")
-public class SerializableException
-    implements Serializable
-{
+public class SerializableException {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "exceptionBean", nillable = true)
-    protected List<DfsExceptionHolder> exceptionBeen;
+    @XmlElement(nillable = true)
+    protected List<DfsExceptionHolder> exceptionBean;
     protected String message;
 
     /**
-     * Gets the value of the exceptionBeen property.
+     * Gets the value of the exceptionBean property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the exceptionBeen property.
+     * This is why there is not a <CODE>set</CODE> method for the exceptionBean property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getExceptionBeen().add(newItem);
+     *    getExceptionBean().add(newItem);
      * </pre>
      * 
      * 
@@ -77,11 +71,11 @@ public class SerializableException
      * 
      * 
      */
-    public List<DfsExceptionHolder> getExceptionBeen() {
-        if (exceptionBeen == null) {
-            exceptionBeen = new ArrayList<DfsExceptionHolder>();
+    public List<DfsExceptionHolder> getExceptionBean() {
+        if (exceptionBean == null) {
+            exceptionBean = new ArrayList<DfsExceptionHolder>();
         }
-        return this.exceptionBeen;
+        return this.exceptionBean;
     }
 
     /**

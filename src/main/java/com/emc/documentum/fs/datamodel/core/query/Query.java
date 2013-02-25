@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -48,11 +47,8 @@ import javax.xml.bind.annotation.XmlType;
     StructuredQuery.class,
     PassthroughQuery.class
 })
-public abstract class Query
-    implements Serializable
-{
+public abstract class Query {
 
-    private final static long serialVersionUID = 1L;
     protected List<String> repositories;
     protected String transientId;
 

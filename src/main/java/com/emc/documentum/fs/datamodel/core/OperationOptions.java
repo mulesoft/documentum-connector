@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,11 +45,8 @@ import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
     "properties",
     "profiles"
 })
-public class OperationOptions
-    implements Serializable
-{
+public class OperationOptions {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Properties")
     protected PropertySet properties;
     @XmlElement(name = "Profiles")

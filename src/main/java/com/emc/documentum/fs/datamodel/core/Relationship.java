@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -50,11 +49,8 @@ import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
     ObjectRelationship.class,
     ReferenceRelationship.class
 })
-public abstract class Relationship
-    implements Serializable
-{
+public abstract class Relationship {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "RelationshipProperties")
     protected PropertySet relationshipProperties;
     @XmlAttribute(name = "name", required = true)

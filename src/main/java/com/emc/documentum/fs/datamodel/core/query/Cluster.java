@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -49,10 +48,8 @@ import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
 })
 public class Cluster
     extends Grouping
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     protected List<String> clusterValues;
     @XmlElement(name = "ClusterObjectsIdentities")
     protected ObjectIdentitySet clusterObjectsIdentities;

@@ -39,19 +39,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UcfContent }
-     * 
-     */
-    public UcfContent createUcfContent() {
-        return new UcfContent();
-    }
-
-    /**
      * Create an instance of {@link BinaryContent }
      * 
      */
     public BinaryContent createBinaryContent() {
         return new BinaryContent();
+    }
+
+    /**
+     * Create an instance of {@link UcfContent }
+     * 
+     */
+    public UcfContent createUcfContent() {
+        return new UcfContent();
     }
 
     /**
@@ -63,19 +63,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DataHandlerContent }
-     * 
-     */
-    public DataHandlerContent createDataHandlerContent() {
-        return new DataHandlerContent();
-    }
-
-    /**
      * Create an instance of {@link UrlContent }
      * 
      */
     public UrlContent createUrlContent() {
         return new UrlContent();
+    }
+
+    /**
+     * Create an instance of {@link DataHandlerContent }
+     * 
+     */
+    public DataHandlerContent createDataHandlerContent() {
+        return new DataHandlerContent();
     }
 
 }

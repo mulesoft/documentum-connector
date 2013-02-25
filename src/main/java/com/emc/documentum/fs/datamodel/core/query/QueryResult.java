@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -44,11 +43,8 @@ import com.emc.documentum.fs.datamodel.core.DataPackage;
     "dataPackage",
     "queryStatus"
 })
-public class QueryResult
-    implements Serializable
-{
+public class QueryResult {
 
-    private final static long serialVersionUID = 1L;
     protected DataPackage dataPackage;
     protected QueryStatus queryStatus;
     @XmlAttribute(name = "queryId")

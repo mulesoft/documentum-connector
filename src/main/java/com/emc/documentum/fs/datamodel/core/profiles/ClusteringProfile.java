@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.profiles;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,10 +44,8 @@ import com.emc.documentum.fs.datamodel.core.query.ClusteringStrategy;
 })
 public class ClusteringProfile
     extends Profile
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "ClusteringStrategies")
     protected List<ClusteringStrategy> clusteringStrategies;
 

@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.context;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -40,10 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({
     BasicIdentity.class
 })
-public abstract class Identity
-    implements Serializable
-{
+public abstract class Identity {
 
-    private final static long serialVersionUID = 1L;
 
 }

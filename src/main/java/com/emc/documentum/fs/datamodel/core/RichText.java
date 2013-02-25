@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -47,11 +46,8 @@ import com.emc.documentum.fs.datamodel.core.content.Content;
     "body",
     "contents"
 })
-public class RichText
-    implements Serializable
-{
+public class RichText {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Body")
     protected Content body;
     @XmlElement(name = "Contents")

@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.rt;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -43,11 +42,8 @@ import javax.xml.bind.annotation.XmlType;
     "type",
     "value"
 })
-public class DfsAttributeHolder
-    implements Serializable
-{
+public class DfsAttributeHolder {
 
-    private final static long serialVersionUID = 1L;
     protected String name;
     protected String type;
     protected String value;

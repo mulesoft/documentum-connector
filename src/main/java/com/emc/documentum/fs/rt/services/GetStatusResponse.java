@@ -10,11 +10,9 @@
 
 package com.emc.documentum.fs.rt.services;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.content.ProgressInfo;
 
@@ -42,12 +40,8 @@ import com.emc.documentum.fs.datamodel.core.content.ProgressInfo;
 @XmlType(name = "getStatusResponse", propOrder = {
     "_return"
 })
-@XmlRootElement(name = "getStatusResponse")
-public class GetStatusResponse
-    implements Serializable
-{
+public class GetStatusResponse {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "return")
     protected ProgressInfo _return;
 

@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,11 +38,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OrderByClause")
-public class OrderByClause
-    implements Serializable
-{
+public class OrderByClause {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "attribute")
     protected String attribute;
     @XmlAttribute(name = "isAscending", required = true)

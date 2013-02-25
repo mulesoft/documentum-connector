@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.query;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,11 +44,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "QueryStatus", propOrder = {
     "repositoryStatusInfos"
 })
-public class QueryStatus
-    implements Serializable
-{
+public class QueryStatus {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "RepositoryStatusInfos")
     protected List<RepositoryStatusInfo> repositoryStatusInfos;
     @XmlAttribute(name = "hasMoreResults", required = true)

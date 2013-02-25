@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.rt;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -45,11 +44,8 @@ import javax.xml.bind.annotation.XmlType;
     "lineNumber",
     "methodName"
 })
-public class StackTraceHolder
-    implements Serializable
-{
+public class StackTraceHolder {
 
-    private final static long serialVersionUID = 1L;
     protected String className;
     protected String fileName;
     protected int lineNumber;

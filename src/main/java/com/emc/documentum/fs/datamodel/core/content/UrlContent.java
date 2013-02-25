@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.content;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -40,10 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "UrlContent")
 public class UrlContent
     extends Content
-    implements Serializable
 {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "url", required = true)
     protected String url;
 

@@ -55,22 +55,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NumberArrayProperty }
-     * 
-     */
-    public NumberArrayProperty createNumberArrayProperty() {
-        return new NumberArrayProperty();
-    }
-
-    /**
-     * Create an instance of {@link DateProperty }
-     * 
-     */
-    public DateProperty createDateProperty() {
-        return new DateProperty();
-    }
-
-    /**
      * Create an instance of {@link StringArrayProperty }
      * 
      */
@@ -79,51 +63,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NumberProperty }
-     * 
-     */
-    public NumberProperty createNumberProperty() {
-        return new NumberProperty();
-    }
-
-    /**
-     * Create an instance of {@link ObjectIdProperty }
-     * 
-     */
-    public ObjectIdProperty createObjectIdProperty() {
-        return new ObjectIdProperty();
-    }
-
-    /**
-     * Create an instance of {@link DateArrayProperty }
-     * 
-     */
-    public DateArrayProperty createDateArrayProperty() {
-        return new DateArrayProperty();
-    }
-
-    /**
-     * Create an instance of {@link StringProperty }
-     * 
-     */
-    public StringProperty createStringProperty() {
-        return new StringProperty();
-    }
-
-    /**
      * Create an instance of {@link BooleanArrayProperty }
      * 
      */
     public BooleanArrayProperty createBooleanArrayProperty() {
         return new BooleanArrayProperty();
-    }
-
-    /**
-     * Create an instance of {@link ValueAction }
-     * 
-     */
-    public ValueAction createValueAction() {
-        return new ValueAction();
     }
 
     /**
@@ -140,6 +84,62 @@ public class ObjectFactory {
      */
     public PropertySet createPropertySet() {
         return new PropertySet();
+    }
+
+    /**
+     * Create an instance of {@link DateArrayProperty }
+     * 
+     */
+    public DateArrayProperty createDateArrayProperty() {
+        return new DateArrayProperty();
+    }
+
+    /**
+     * Create an instance of {@link NumberArrayProperty }
+     * 
+     */
+    public NumberArrayProperty createNumberArrayProperty() {
+        return new NumberArrayProperty();
+    }
+
+    /**
+     * Create an instance of {@link DateProperty }
+     * 
+     */
+    public DateProperty createDateProperty() {
+        return new DateProperty();
+    }
+
+    /**
+     * Create an instance of {@link StringProperty }
+     * 
+     */
+    public StringProperty createStringProperty() {
+        return new StringProperty();
+    }
+
+    /**
+     * Create an instance of {@link ObjectIdProperty }
+     * 
+     */
+    public ObjectIdProperty createObjectIdProperty() {
+        return new ObjectIdProperty();
+    }
+
+    /**
+     * Create an instance of {@link ValueAction }
+     * 
+     */
+    public ValueAction createValueAction() {
+        return new ValueAction();
+    }
+
+    /**
+     * Create an instance of {@link NumberProperty }
+     * 
+     */
+    public NumberProperty createNumberProperty() {
+        return new NumberProperty();
     }
 
 }

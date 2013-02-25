@@ -10,7 +10,10 @@
 
 package com.emc.documentum.fs.rt;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -30,6 +33,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _SerializableException_QNAME = new QName("http://rt.fs.documentum.emc.com/", "SerializableException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.emc.documentum.fs.rt
@@ -55,6 +59,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link StackTraceHolder }
+     * 
+     */
+    public StackTraceHolder createStackTraceHolder() {
+        return new StackTraceHolder();
+    }
+
+    /**
      * Create an instance of {@link SerializableException }
      * 
      */
@@ -63,11 +75,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link StackTraceHolder }
+     * Create an instance of {@link JAXBElement }{@code <}{@link SerializableException }{@code >}}
      * 
      */
-    public StackTraceHolder createStackTraceHolder() {
-        return new StackTraceHolder();
+    @XmlElementDecl(namespace = "http://rt.fs.documentum.emc.com/", name = "SerializableException")
+    public JAXBElement<SerializableException> createSerializableException(SerializableException value) {
+        return new JAXBElement<SerializableException>(_SerializableException_QNAME, SerializableException.class, null, value);
     }
 
 }

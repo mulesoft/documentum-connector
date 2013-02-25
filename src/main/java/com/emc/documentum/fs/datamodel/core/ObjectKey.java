@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,11 +42,8 @@ import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
 @XmlType(name = "ObjectKey", propOrder = {
     "propertySet"
 })
-public class ObjectKey
-    implements Serializable
-{
+public class ObjectKey {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "PropertySet")
     protected PropertySet propertySet;
     @XmlAttribute(name = "objectType", required = true)

@@ -39,99 +39,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link VersionInfo }
-     * 
-     */
-    public VersionInfo createVersionInfo() {
-        return new VersionInfo();
-    }
-
-    /**
-     * Create an instance of {@link ObjectKey }
-     * 
-     */
-    public ObjectKey createObjectKey() {
-        return new ObjectKey();
-    }
-
-    /**
-     * Create an instance of {@link RichText }
-     * 
-     */
-    public RichText createRichText() {
-        return new RichText();
-    }
-
-    /**
-     * Create an instance of {@link CheckoutInfo }
-     * 
-     */
-    public CheckoutInfo createCheckoutInfo() {
-        return new CheckoutInfo();
-    }
-
-    /**
-     * Create an instance of {@link ObjectId }
-     * 
-     */
-    public ObjectId createObjectId() {
-        return new ObjectId();
-    }
-
-    /**
-     * Create an instance of {@link Permission }
-     * 
-     */
-    public Permission createPermission() {
-        return new Permission();
-    }
-
-    /**
-     * Create an instance of {@link ObjectPath }
-     * 
-     */
-    public ObjectPath createObjectPath() {
-        return new ObjectPath();
-    }
-
-    /**
      * Create an instance of {@link Aspect }
      * 
      */
     public Aspect createAspect() {
         return new Aspect();
-    }
-
-    /**
-     * Create an instance of {@link DataObject }
-     * 
-     */
-    public DataObject createDataObject() {
-        return new DataObject();
-    }
-
-    /**
-     * Create an instance of {@link Qualification }
-     * 
-     */
-    public Qualification createQualification() {
-        return new Qualification();
-    }
-
-    /**
-     * Create an instance of {@link ObjectRelationship }
-     * 
-     */
-    public ObjectRelationship createObjectRelationship() {
-        return new ObjectRelationship();
-    }
-
-    /**
-     * Create an instance of {@link DataPackage }
-     * 
-     */
-    public DataPackage createDataPackage() {
-        return new DataPackage();
     }
 
     /**
@@ -143,19 +55,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OperationOptions }
+     * Create an instance of {@link DataObject }
      * 
      */
-    public OperationOptions createOperationOptions() {
-        return new OperationOptions();
+    public DataObject createDataObject() {
+        return new DataObject();
     }
 
     /**
-     * Create an instance of {@link CompositeObjectId }
+     * Create an instance of {@link ObjectKey }
      * 
      */
-    public CompositeObjectId createCompositeObjectId() {
-        return new CompositeObjectId();
+    public ObjectKey createObjectKey() {
+        return new ObjectKey();
+    }
+
+    /**
+     * Create an instance of {@link ObjectRelationship }
+     * 
+     */
+    public ObjectRelationship createObjectRelationship() {
+        return new ObjectRelationship();
     }
 
     /**
@@ -167,11 +87,91 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Qualification }
+     * 
+     */
+    public Qualification createQualification() {
+        return new Qualification();
+    }
+
+    /**
+     * Create an instance of {@link OperationOptions }
+     * 
+     */
+    public OperationOptions createOperationOptions() {
+        return new OperationOptions();
+    }
+
+    /**
+     * Create an instance of {@link CheckoutInfo }
+     * 
+     */
+    public CheckoutInfo createCheckoutInfo() {
+        return new CheckoutInfo();
+    }
+
+    /**
+     * Create an instance of {@link DataPackage }
+     * 
+     */
+    public DataPackage createDataPackage() {
+        return new DataPackage();
+    }
+
+    /**
+     * Create an instance of {@link VersionInfo }
+     * 
+     */
+    public VersionInfo createVersionInfo() {
+        return new VersionInfo();
+    }
+
+    /**
+     * Create an instance of {@link CompositeObjectId }
+     * 
+     */
+    public CompositeObjectId createCompositeObjectId() {
+        return new CompositeObjectId();
+    }
+
+    /**
+     * Create an instance of {@link RichText }
+     * 
+     */
+    public RichText createRichText() {
+        return new RichText();
+    }
+
+    /**
+     * Create an instance of {@link Permission }
+     * 
+     */
+    public Permission createPermission() {
+        return new Permission();
+    }
+
+    /**
      * Create an instance of {@link ObjectIdentity }
      * 
      */
     public ObjectIdentity createObjectIdentity() {
         return new ObjectIdentity();
+    }
+
+    /**
+     * Create an instance of {@link ObjectId }
+     * 
+     */
+    public ObjectId createObjectId() {
+        return new ObjectId();
+    }
+
+    /**
+     * Create an instance of {@link ObjectPath }
+     * 
+     */
+    public ObjectPath createObjectPath() {
+        return new ObjectPath();
     }
 
 }

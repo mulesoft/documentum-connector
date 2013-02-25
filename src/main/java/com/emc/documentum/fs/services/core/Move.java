@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.DataPackage;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
@@ -52,12 +50,8 @@ import com.emc.documentum.fs.datamodel.core.OperationOptions;
     "modifyObjects",
     "options"
 })
-@XmlRootElement(name = "move")
-public class Move
-    implements Serializable
-{
+public class Move {
 
-    private final static long serialVersionUID = 1L;
     protected ObjectIdentitySet fromObjects;
     protected ObjectLocation sourceLocation;
     protected ObjectLocation targetLocation;

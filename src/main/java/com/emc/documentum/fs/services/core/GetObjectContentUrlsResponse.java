@@ -10,13 +10,11 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.ObjectContentSet;
 
@@ -42,30 +40,26 @@ import com.emc.documentum.fs.datamodel.core.ObjectContentSet;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getObjectContentUrlsResponse", propOrder = {
-    "returns"
+    "_return"
 })
-@XmlRootElement(name = "getObjectContentUrlsResponse")
-public class GetObjectContentUrlsResponse
-    implements Serializable
-{
+public class GetObjectContentUrlsResponse {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "return")
-    protected List<ObjectContentSet> returns;
+    protected List<ObjectContentSet> _return;
 
     /**
-     * Gets the value of the returns property.
+     * Gets the value of the return property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the returns property.
+     * This is why there is not a <CODE>set</CODE> method for the return property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getReturns().add(newItem);
+     *    getReturn().add(newItem);
      * </pre>
      * 
      * 
@@ -75,11 +69,11 @@ public class GetObjectContentUrlsResponse
      * 
      * 
      */
-    public List<ObjectContentSet> getReturns() {
-        if (returns == null) {
-            returns = new ArrayList<ObjectContentSet>();
+    public List<ObjectContentSet> getReturn() {
+        if (_return == null) {
+            _return = new ArrayList<ObjectContentSet>();
         }
-        return this.returns;
+        return this._return;
     }
 
 }

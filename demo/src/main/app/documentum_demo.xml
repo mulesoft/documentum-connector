@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:context="http://www.springframework.org/schema/context" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:documentum="http://www.mulesoft.org/schema/mule/documentum" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/documentum http://www.mulesoft.org/schema/mule/documentum/1.0/mule-documentum.xsd 
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd ">
+    <context:property-placeholder location="documentum.properties"/>
+    <documentum:config name="Documentum" username="${documentum.username}" password="${documentum.password}" repository="${documentum.repository}" server="${documentum.server}" doc:name="Documentum">
+        <documentum:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+    </documentum:config>
+    <flow name="CreateDocument" doc:name="CreateDocument">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="createdocument" doc:name="HTTP"/>
+        <documentum:create-document config-ref="Documentum" filePath="/Library/Application Support/Apple/iChat Icons/Flags/Usa.gif" folderPath="/documentum" doc:name="Documentum"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+    <flow name="CreateFolder" doc:name="CreateFolder">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="createfolder" doc:name="HTTP"/>
+        <documentum:create-folder config-ref="Documentum" folderName="Andrew" folderPath="/documentum" doc:name="Documentum"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+    <flow name="CreatePath" doc:name="CreatePath">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="createpath" doc:name="HTTP"/>
+        <documentum:create-path config-ref="Documentum" folderPath="/documentum/Andrew/Bressi" doc:name="Documentum"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+    <flow name="Query" doc:name="Query">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="query" doc:name="HTTP"/>
+        <scripting:component doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import com.emc.documentum.fs.datamodel.core.query.QueryExecution;
+import com.emc.documentum.fs.datamodel.core.CacheStrategyType;
+
+QueryExecution queryExecution = new QueryExecution();
+queryExecution.setStartingIndex(0);
+queryExecution.setMaxResultCount(5);
+queryExecution.setCacheStrategyType(CacheStrategyType.BASIC_FILE_CACHE_STRATEGY);
+
+return queryExecution;]]></scripting:text>
+            </scripting:script>
+        </scripting:component>
+        <set-variable variableName="queryEx" value="#[payload:]" doc:name="queryExecution"/>
+        <documentum:query config-ref="Documentum" dqlStatement="select r_object_id, object_name from dm_cabinet" doc:name="Documentum">
+            <documentum:query-execution ref="#[queryEx]"/>
+        </documentum:query>
+        <documentum:query config-ref="Documentum" dqlStatement="select r_object_id, object_name from dm_cabinet" doc:name="Documentum">
+            <documentum:query-execution ref="#[queryEx]"/>
+        </documentum:query>
+        <documentum:query config-ref="Documentum" dqlStatement="select r_object_id, object_name from dm_cabinet" doc:name="Documentum">
+            <documentum:query-execution ref="#[queryEx]"/>
+        </documentum:query>
+        <scripting:component doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[return payload.getDataPackage().getDataObjects();]]></scripting:text>
+            </scripting:script>
+        </scripting:component>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+</mule>

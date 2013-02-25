@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.services.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
 import com.emc.documentum.fs.datamodel.core.OperationOptions;
@@ -44,12 +42,8 @@ import com.emc.documentum.fs.datamodel.core.OperationOptions;
     "objectsToDelete",
     "options"
 })
-@XmlRootElement(name = "delete")
-public class Delete
-    implements Serializable
-{
+public class Delete {
 
-    private final static long serialVersionUID = 1L;
     protected ObjectIdentitySet objectsToDelete;
     protected OperationOptions options;
 

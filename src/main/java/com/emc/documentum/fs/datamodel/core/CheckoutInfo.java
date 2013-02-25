@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,11 +42,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "CheckoutInfo", propOrder = {
     "identity"
 })
-public class CheckoutInfo
-    implements Serializable
-{
+public class CheckoutInfo {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Identity")
     protected ObjectIdentity identity;
     @XmlAttribute(name = "isCheckedOut", required = true)

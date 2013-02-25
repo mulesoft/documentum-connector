@@ -25,11 +25,11 @@ import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import java.util.Set;
 import java.security.SecureRandom;
 
-public class DfsSoapHeaderHandler implements SOAPHandler<SOAPMessageContext> {
+public class HeaderHandler implements SOAPHandler<SOAPMessageContext> {
     
     ServiceContext context;
     
-    public DfsSoapHeaderHandler(ServiceContext context) {
+    public HeaderHandler(ServiceContext context) {
         this.context = context;
     }
 

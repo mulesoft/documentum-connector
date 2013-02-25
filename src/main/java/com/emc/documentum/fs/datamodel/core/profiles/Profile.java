@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.profiles;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -56,10 +55,7 @@ import javax.xml.bind.annotation.XmlType;
     MoveProfile.class,
     RichTextProfile.class
 })
-public abstract class Profile
-    implements Serializable
-{
+public abstract class Profile {
 
-    private final static long serialVersionUID = 1L;
 
 }

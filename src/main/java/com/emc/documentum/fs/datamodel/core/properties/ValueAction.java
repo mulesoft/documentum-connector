@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,11 +38,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ValueAction")
-public class ValueAction
-    implements Serializable
-{
+public class ValueAction {
 
-    private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "type", required = true)
     protected ValueActionType type;
     @XmlAttribute(name = "index", required = true)

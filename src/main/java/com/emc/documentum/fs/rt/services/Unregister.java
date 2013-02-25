@@ -10,10 +10,8 @@
 
 package com.emc.documentum.fs.rt.services;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -40,12 +38,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "unregister", propOrder = {
     "token"
 })
-@XmlRootElement(name = "unregister")
-public class Unregister
-    implements Serializable
-{
+public class Unregister {
 
-    private final static long serialVersionUID = 1L;
     protected String token;
 
     /**

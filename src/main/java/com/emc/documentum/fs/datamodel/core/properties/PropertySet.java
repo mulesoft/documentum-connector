@@ -10,7 +10,6 @@
 
 package com.emc.documentum.fs.datamodel.core.properties;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,11 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "PropertySet", propOrder = {
     "properties"
 })
-public class PropertySet
-    implements Serializable
-{
+public class PropertySet {
 
-    private final static long serialVersionUID = 1L;
     @XmlElement(name = "Properties")
     protected List<Property> properties;
     @XmlAttribute(name = "isInternal", required = true)
