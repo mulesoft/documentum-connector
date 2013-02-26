@@ -13,17 +13,11 @@
 
 package org.mule.module.documentum.coreServices;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -31,44 +25,15 @@ import javax.activation.DataSource;
 import org.apache.cxf.attachment.ByteDataSource;
 
 import com.emc.documentum.fs.datamodel.core.DataObject;
-import com.emc.documentum.fs.datamodel.core.DataPackage;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentitySet;
-import com.emc.documentum.fs.datamodel.core.ObjectIdentityType;
-import com.emc.documentum.fs.datamodel.core.ObjectLocation;
-import com.emc.documentum.fs.datamodel.core.ObjectPath;
 import com.emc.documentum.fs.datamodel.core.OperationOptions;
-import com.emc.documentum.fs.datamodel.core.ReferenceRelationship;
-import com.emc.documentum.fs.datamodel.core.RelationshipIntentModifier;
 import com.emc.documentum.fs.datamodel.core.content.BinaryContent;
-import com.emc.documentum.fs.datamodel.core.content.Content;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.content.DataHandlerContent;
-import com.emc.documentum.fs.datamodel.core.content.UrlContent;
-import com.emc.documentum.fs.datamodel.core.profiles.ContentProfile;
-import com.emc.documentum.fs.datamodel.core.profiles.ContentTransferProfile;
-import com.emc.documentum.fs.datamodel.core.profiles.DeleteProfile;
-import com.emc.documentum.fs.datamodel.core.profiles.FormatFilter;
-import com.emc.documentum.fs.datamodel.core.profiles.PageFilter;
-import com.emc.documentum.fs.datamodel.core.profiles.PageModifierFilter;
 import com.emc.documentum.fs.datamodel.core.profiles.Profile;
-import com.emc.documentum.fs.datamodel.core.profiles.PropertyFilterMode;
-import com.emc.documentum.fs.datamodel.core.profiles.PropertyProfile;
-import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
-import com.emc.documentum.fs.datamodel.core.properties.StringProperty;
 
 public class Util {
-    
-    protected void addProperties(DataObject dataObject, Map<String, String> properties) {
-        PropertySet propertySet = new PropertySet();
-        for(Entry<String, String> myEntry: properties.entrySet()) {
-            StringProperty objNameProperty = new StringProperty();
-            objNameProperty.setName(myEntry.getKey());
-            objNameProperty.setValue(myEntry.getValue());
-            propertySet.getProperties().add(objNameProperty);
-        }
-        dataObject.setProperties(propertySet);
-    }
     
     protected void addContent(DataObject dataObject, ContentTransferMode transferMode, byte[] byteArray) {
         if (transferMode == ContentTransferMode.MTOM) {
@@ -77,112 +42,6 @@ public class Util {
         else if (transferMode == ContentTransferMode.BASE_64) {
             dataObject.getContents().add(getBinaryContent(byteArray));
         }
-    }
-    
-    protected ReferenceRelationship createRelationship(ObjectIdentity identity) {        
-        ReferenceRelationship relationship = new ReferenceRelationship();
-        relationship.setName("folder");
-        relationship.setTarget(identity);
-        relationship.setTargetRole("parent");
-        return relationship;
-    }
-    
-    protected ReferenceRelationship createRelationship(ObjectIdentity identity, RelationshipIntentModifier intentModifier) {        
-        ReferenceRelationship relationship = createRelationship(identity);
-        relationship.setIntentModifier(intentModifier);
-        return relationship;
-    }
-    
-    protected DataObject createDataObject(ObjectIdentity objIdentity, String type) {        
-        DataObject dataObject = new DataObject();
-        dataObject.setIdentity(objIdentity);
-        dataObject.setType(type);
-        return dataObject;
-    }
-    
-    protected ObjectIdentity createObjectIdentity(String repositoryName) {
-        ObjectIdentity objIdentity = new ObjectIdentity();
-        objIdentity.setRepositoryName(repositoryName);
-        return objIdentity;
-    }
-    
-    protected ObjectIdentity createFolderIdentity(String repositoryName, ObjectPath objectPath) {
-        ObjectIdentity objIdentity = createObjectIdentity(repositoryName);
-        objIdentity.setObjectPath(objectPath);
-        objIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
-        return objIdentity;
-    }
-    
-    protected DataPackage createDataPackage(DataObject dataObject) {
-        DataPackage dataPackage = new DataPackage();
-        dataPackage.getDataObjects().add(dataObject);
-        return dataPackage;
-    }
-    
-    protected ObjectPath createObjectPath(String folderPath) {
-        ObjectPath objectPath = new ObjectPath();
-        objectPath.setPath(folderPath);
-        return objectPath;
-    }
-    
-    protected ObjectIdentitySet createObjectIdentitySet(ObjectIdentity objectIdentity) {
-        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
-        objIdSet.getIdentities().add(objectIdentity);
-        return objIdSet;
-    }
-    
-    protected ObjectLocation createObjectLocation(ObjectIdentity objectIdentity) {
-        ObjectLocation location = new ObjectLocation();
-        location.setIdentity(objectIdentity);
-        return location;
-    }
-    
-    protected OperationOptions createOperationOptions(List<Profile> profiles) {
-        OperationOptions operationOptions = new OperationOptions();
-        for(Profile profile: profiles){
-            operationOptions.getProfiles().add(profile); 
-        }
-        return operationOptions;
-    }
-    
-    protected OperationOptions createOperationOptions(Profile profile) {
-        OperationOptions operationOptions = new OperationOptions();
-        operationOptions.getProfiles().add(profile); 
-        return operationOptions;
-    }
-    
-    protected ContentProfile createContentProfile(FormatFilter formatFilter, PageFilter pageFilter, int pageNumber, PageModifierFilter pageModifierFilter) {
-        ContentProfile contentProfile = new ContentProfile();
-        contentProfile.setFormatFilter(formatFilter);
-        contentProfile.setPageFilter(pageFilter);
-        contentProfile.setPageNumber(pageNumber);
-        contentProfile.setPageModifierFilter(pageModifierFilter);
-        return contentProfile;
-    }
-    
-    protected ContentProfile createContentProfile(FormatFilter formatFilter) {
-        ContentProfile contentProfile = new ContentProfile();
-        contentProfile.setFormatFilter(formatFilter);
-        return contentProfile;
-    }
-    
-    protected ContentTransferProfile createContentTransferProfile(ContentTransferMode transferMode) {
-        ContentTransferProfile contentTransferProfile = new ContentTransferProfile();
-        contentTransferProfile.setTransferMode(transferMode);
-        return contentTransferProfile;
-    }
-    
-    protected DeleteProfile createDeleteProfile(boolean isDeepDeleteFolders, boolean isDeepDeleteChildrenInFolders) {
-        DeleteProfile deleteProfile = new DeleteProfile();
-        deleteProfile.setIsDeepDeleteFolders(isDeepDeleteFolders);
-        deleteProfile.setIsDeepDeleteChildrenInFolders(isDeepDeleteChildrenInFolders);
-        return deleteProfile;
-    }
-    
-    protected PropertyProfile createPropertyProfile(PropertyFilterMode filterMode) {
-        PropertyProfile propertyProfile = new PropertyProfile();
-        propertyProfile.setFilterMode(filterMode);
-        return propertyProfile;
     }
     
     protected DataHandlerContent getDataHandlerContent(byte[] byteArray) {
@@ -198,15 +57,6 @@ public class Util {
         binaryContent.setValue(byteArray);
         return binaryContent;
     }
-
-    protected void downloadContent(String url, OutputStream os) throws IOException {
-        int bytesRead;
-        byte[] buffer = new byte[16384];
-        InputStream inputStream = new BufferedInputStream(new URL(url).openConnection().getInputStream());
-        while ((bytesRead = inputStream.read(buffer)) > 0) {
-            os.write(buffer, 0, bytesRead);
-        }
-    }
     
     protected byte[] fileToByteArray(File file) throws IOException {
         byte[] byteArray = new byte[(int) file.length()];
@@ -216,26 +66,24 @@ public class Util {
         return byteArray;
     }
     
-    protected File contentToFile(Content content, File file) throws IOException {
-        OutputStream os = new FileOutputStream(file);
-        if (content instanceof UrlContent) {
-            downloadContent(((UrlContent) content).getUrl(), os);
+    protected ObjectIdentitySet createObjectIdentitySet(ObjectIdentity objectIdentity) {
+        ObjectIdentitySet objIdSet = new ObjectIdentitySet();
+        objIdSet.getIdentities().add(objectIdentity);
+        return objIdSet;
+    }
+    
+    protected OperationOptions createOperationOptions(List<Profile> profiles) {
+        OperationOptions operationOptions = new OperationOptions();
+        for(Profile profile: profiles){
+            operationOptions.getProfiles().add(profile); 
         }
-        else if (content instanceof BinaryContent) {
-            os.write(((BinaryContent) content).getValue());
-        }
-        else if (content instanceof DataHandlerContent) {
-            InputStream inputStream = ((DataHandlerContent) content).getValue().getInputStream();
-            if (inputStream != null) {
-                int byteRead;
-                while ((byteRead = inputStream.read()) != -1) {
-                    os.write(byteRead);
-                }
-                inputStream.close();
-            }
-        }
-        os.close();
-        return file;
+        return operationOptions;
+    }
+    
+    protected OperationOptions createOperationOptions(Profile profile) {
+        OperationOptions operationOptions = new OperationOptions();
+        operationOptions.getProfiles().add(profile); 
+        return operationOptions;
     }
 
 }

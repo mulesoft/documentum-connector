@@ -16,15 +16,21 @@ package org.mule.module.documentum.coreServices;
 import com.emc.documentum.fs.datamodel.core.*;
 import com.emc.documentum.fs.datamodel.core.profiles.ContentTransferProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.ContentProfile;
+import com.emc.documentum.fs.datamodel.core.profiles.DeleteProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.FormatFilter;
 import com.emc.documentum.fs.datamodel.core.profiles.Profile;
 import com.emc.documentum.fs.datamodel.core.profiles.PropertyFilterMode;
+import com.emc.documentum.fs.datamodel.core.profiles.PropertyProfile;
+import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
+import com.emc.documentum.fs.datamodel.core.properties.StringProperty;
+import com.emc.documentum.fs.datamodel.core.acl.AclIdentity;
 import com.emc.documentum.fs.datamodel.core.content.*;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.services.core.ObjectService;
 import com.emc.documentum.fs.services.core.ObjectServicePort;
 import com.emc.documentum.fs.services.core.SerializableException;
+import com.emc.documentum.fs.services.core.acl.ServiceException;
 
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
@@ -33,10 +39,12 @@ import javax.xml.ws.handler.PortInfo;
 import javax.xml.ws.soap.MTOMFeature;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class ObjectUtil extends Util {
     
@@ -111,6 +119,135 @@ public class ObjectUtil extends Util {
     
     public ObjectIdentity moveObject(ObjectIdentity objectIdentity, ObjectIdentity toFolderIdentity, ObjectIdentity fromFolderIdentity) throws SerializableException {
         return port.move(createObjectIdentitySet(objectIdentity), createObjectLocation(fromFolderIdentity), createObjectLocation(toFolderIdentity), new DataPackage(), null).getDataObjects().get(0).getIdentity();
+    }
+    
+    public ObjectIdentity applyAcl(ObjectIdentity objectIdentity, AclIdentity aclIdentity) throws ServiceException, SerializableException {
+        DataObject dataObject = createDataObject(createObjectIdentity(repositoryName), "dm_sysobject");
+        Map<String, String> properties = new HashMap<String, String>();
+        properties.put("acl_domain", aclIdentity.getDomain());
+        properties.put("acl_name", aclIdentity.getName());
+        addProperties(dataObject, properties);
+        port.update(createDataPackage(dataObject), null);
+        return objectIdentity;
+    }
+    
+    private void addProperties(DataObject dataObject, Map<String, String> properties) {
+        PropertySet propertySet = new PropertySet();
+        for(Entry<String, String> myEntry: properties.entrySet()) {
+            StringProperty objNameProperty = new StringProperty();
+            objNameProperty.setName(myEntry.getKey());
+            objNameProperty.setValue(myEntry.getValue());
+            propertySet.getProperties().add(objNameProperty);
+        }
+        dataObject.setProperties(propertySet);
+    }
+    
+    private ReferenceRelationship createRelationship(ObjectIdentity identity) {        
+        ReferenceRelationship relationship = new ReferenceRelationship();
+        relationship.setName("folder");
+        relationship.setTarget(identity);
+        relationship.setTargetRole("parent");
+        return relationship;
+    }
+    
+    private ReferenceRelationship createRelationship(ObjectIdentity identity, RelationshipIntentModifier intentModifier) {        
+        ReferenceRelationship relationship = createRelationship(identity);
+        relationship.setIntentModifier(intentModifier);
+        return relationship;
+    }
+    
+    private DataObject createDataObject(ObjectIdentity objIdentity, String type) {        
+        DataObject dataObject = new DataObject();
+        dataObject.setIdentity(objIdentity);
+        dataObject.setType(type);
+        return dataObject;
+    }
+    
+    private ObjectIdentity createObjectIdentity(String repositoryName) {
+        ObjectIdentity objIdentity = new ObjectIdentity();
+        objIdentity.setRepositoryName(repositoryName);
+        return objIdentity;
+    }
+    
+    private ObjectIdentity createFolderIdentity(String repositoryName, ObjectPath objectPath) {
+        ObjectIdentity objIdentity = createObjectIdentity(repositoryName);
+        objIdentity.setObjectPath(objectPath);
+        objIdentity.setValueType(ObjectIdentityType.OBJECT_PATH);
+        return objIdentity;
+    }
+    
+    private DataPackage createDataPackage(DataObject dataObject) {
+        DataPackage dataPackage = new DataPackage();
+        dataPackage.getDataObjects().add(dataObject);
+        return dataPackage;
+    }
+    
+    private ObjectPath createObjectPath(String folderPath) {
+        ObjectPath objectPath = new ObjectPath();
+        objectPath.setPath(folderPath);
+        return objectPath;
+    }
+    
+    private ObjectLocation createObjectLocation(ObjectIdentity objectIdentity) {
+        ObjectLocation location = new ObjectLocation();
+        location.setIdentity(objectIdentity);
+        return location;
+    }
+    
+    private ContentProfile createContentProfile(FormatFilter formatFilter) {
+        ContentProfile contentProfile = new ContentProfile();
+        contentProfile.setFormatFilter(formatFilter);
+        return contentProfile;
+    }
+    
+    private ContentTransferProfile createContentTransferProfile(ContentTransferMode transferMode) {
+        ContentTransferProfile contentTransferProfile = new ContentTransferProfile();
+        contentTransferProfile.setTransferMode(transferMode);
+        return contentTransferProfile;
+    }
+    
+    private DeleteProfile createDeleteProfile(boolean isDeepDeleteFolders, boolean isDeepDeleteChildrenInFolders) {
+        DeleteProfile deleteProfile = new DeleteProfile();
+        deleteProfile.setIsDeepDeleteFolders(isDeepDeleteFolders);
+        deleteProfile.setIsDeepDeleteChildrenInFolders(isDeepDeleteChildrenInFolders);
+        return deleteProfile;
+    }
+    
+    private PropertyProfile createPropertyProfile(PropertyFilterMode filterMode) {
+        PropertyProfile propertyProfile = new PropertyProfile();
+        propertyProfile.setFilterMode(filterMode);
+        return propertyProfile;
+    }
+
+    private void downloadContent(String url, OutputStream os) throws IOException {
+        int bytesRead;
+        byte[] buffer = new byte[16384];
+        InputStream inputStream = new BufferedInputStream(new URL(url).openConnection().getInputStream());
+        while ((bytesRead = inputStream.read(buffer)) > 0) {
+            os.write(buffer, 0, bytesRead);
+        }
+    }
+    
+    private File contentToFile(Content content, File file) throws IOException {
+        OutputStream os = new FileOutputStream(file);
+        if (content instanceof UrlContent) {
+            downloadContent(((UrlContent) content).getUrl(), os);
+        }
+        else if (content instanceof BinaryContent) {
+            os.write(((BinaryContent) content).getValue());
+        }
+        else if (content instanceof DataHandlerContent) {
+            InputStream inputStream = ((DataHandlerContent) content).getValue().getInputStream();
+            if (inputStream != null) {
+                int byteRead;
+                while ((byteRead = inputStream.read()) != -1) {
+                    os.write(byteRead);
+                }
+                inputStream.close();
+            }
+        }
+        os.close();
+        return file;
     }
     
     private void setObjectServicePort(final ServiceContext context, String target) {

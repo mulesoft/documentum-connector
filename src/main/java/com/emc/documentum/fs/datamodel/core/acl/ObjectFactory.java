@@ -8,7 +8,7 @@
  */
 
 
-package com.emc.documentum.fs.datamodel.core.content;
+package com.emc.documentum.fs.datamodel.core.acl;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.emc.documentum.fs.datamodel.core.content package. 
+ * generated in the com.emc.documentum.fs.datamodel.core.acl package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -32,50 +32,42 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.emc.documentum.fs.datamodel.core.content
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.emc.documentum.fs.datamodel.core.acl
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link UcfContent }
+     * Create an instance of {@link AclIdentity }
      * 
      */
-    public UcfContent createUcfContent() {
-        return new UcfContent();
+    public AclIdentity createAclIdentity() {
+        return new AclIdentity();
     }
 
     /**
-     * Create an instance of {@link DataHandlerContent }
+     * Create an instance of {@link AclPackage }
      * 
      */
-    public DataHandlerContent createDataHandlerContent() {
-        return new DataHandlerContent();
+    public AclPackage createAclPackage() {
+        return new AclPackage();
     }
 
     /**
-     * Create an instance of {@link BinaryContent }
+     * Create an instance of {@link Acl }
      * 
      */
-    public BinaryContent createBinaryContent() {
-        return new BinaryContent();
+    public Acl createAcl() {
+        return new Acl();
     }
 
     /**
-     * Create an instance of {@link UrlContent }
+     * Create an instance of {@link AclEntry }
      * 
      */
-    public UrlContent createUrlContent() {
-        return new UrlContent();
-    }
-
-    /**
-     * Create an instance of {@link ActivityInfo }
-     * 
-     */
-    public ActivityInfo createActivityInfo() {
-        return new ActivityInfo();
+    public AclEntry createAclEntry() {
+        return new AclEntry();
     }
 
 }

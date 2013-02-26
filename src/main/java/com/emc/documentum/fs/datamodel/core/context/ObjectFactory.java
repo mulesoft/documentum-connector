@@ -43,6 +43,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RepositoryIdentity }
+     * 
+     */
+    public RepositoryIdentity createRepositoryIdentity() {
+        return new RepositoryIdentity();
+    }
+
+    /**
      * Create an instance of {@link SsoIdentity }
      * 
      */
@@ -56,14 +64,6 @@ public class ObjectFactory {
      */
     public ServiceContext createServiceContext() {
         return new ServiceContext();
-    }
-
-    /**
-     * Create an instance of {@link RepositoryIdentity }
-     * 
-     */
-    public RepositoryIdentity createRepositoryIdentity() {
-        return new RepositoryIdentity();
     }
 
     /**

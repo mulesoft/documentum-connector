@@ -42,19 +42,28 @@ public class QueryUtil extends Util {
     }
     
     public QueryResult query(String dqlStatement, QueryExecution queryExecution) throws SerializableException {
-        PassthroughQuery query = new PassthroughQuery();
-        query.setQueryString(dqlStatement);
-        query.getRepositories().add(repositoryName);
+        PassthroughQuery query = createQuery(dqlStatement);
         if (queryExecution == null) {
-            QueryExecution queryEx = new QueryExecution();
-            queryEx.setCacheStrategyType(CacheStrategyType.NO_CACHE_STRATEGY);
-            return port.execute(query, queryEx, null);
+            return port.execute(query, createQueryExecution(CacheStrategyType.NO_CACHE_STRATEGY), null);
         }
         else {
             QueryResult queryResult = port.execute(query, queryExecution, null);
             queryExecution.setStartingIndex(queryExecution.getStartingIndex() + queryExecution.getMaxResultCount());
             return queryResult;   
         }
+    }
+    
+    private PassthroughQuery createQuery(String dqlStatement) {
+        PassthroughQuery query = new PassthroughQuery();
+        query.setQueryString(dqlStatement);
+        query.getRepositories().add(repositoryName);
+        return query;
+    }
+    
+    private QueryExecution createQueryExecution(CacheStrategyType cacheStrategyType) {
+        QueryExecution queryEx = new QueryExecution();
+        queryEx.setCacheStrategyType(cacheStrategyType);
+        return queryEx;
     }
     
     private void setQueryPort(final ServiceContext context, String target) {

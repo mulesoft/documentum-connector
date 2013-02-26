@@ -39,22 +39,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Aspect }
-     * 
-     */
-    public Aspect createAspect() {
-        return new Aspect();
-    }
-
-    /**
-     * Create an instance of {@link ReferenceRelationship }
-     * 
-     */
-    public ReferenceRelationship createReferenceRelationship() {
-        return new ReferenceRelationship();
-    }
-
-    /**
      * Create an instance of {@link DataObject }
      * 
      */
@@ -71,51 +55,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ObjectRelationship }
+     * Create an instance of {@link ObjectId }
      * 
      */
-    public ObjectRelationship createObjectRelationship() {
-        return new ObjectRelationship();
-    }
-
-    /**
-     * Create an instance of {@link ObjectIdentitySet }
-     * 
-     */
-    public ObjectIdentitySet createObjectIdentitySet() {
-        return new ObjectIdentitySet();
-    }
-
-    /**
-     * Create an instance of {@link Qualification }
-     * 
-     */
-    public Qualification createQualification() {
-        return new Qualification();
-    }
-
-    /**
-     * Create an instance of {@link OperationOptions }
-     * 
-     */
-    public OperationOptions createOperationOptions() {
-        return new OperationOptions();
-    }
-
-    /**
-     * Create an instance of {@link CheckoutInfo }
-     * 
-     */
-    public CheckoutInfo createCheckoutInfo() {
-        return new CheckoutInfo();
-    }
-
-    /**
-     * Create an instance of {@link DataPackage }
-     * 
-     */
-    public DataPackage createDataPackage() {
-        return new DataPackage();
+    public ObjectId createObjectId() {
+        return new ObjectId();
     }
 
     /**
@@ -127,19 +71,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CompositeObjectId }
+     * Create an instance of {@link OperationOptions }
      * 
      */
-    public CompositeObjectId createCompositeObjectId() {
-        return new CompositeObjectId();
-    }
-
-    /**
-     * Create an instance of {@link RichText }
-     * 
-     */
-    public RichText createRichText() {
-        return new RichText();
+    public OperationOptions createOperationOptions() {
+        return new OperationOptions();
     }
 
     /**
@@ -151,6 +87,46 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ObjectPath }
+     * 
+     */
+    public ObjectPath createObjectPath() {
+        return new ObjectPath();
+    }
+
+    /**
+     * Create an instance of {@link ObjectRelationship }
+     * 
+     */
+    public ObjectRelationship createObjectRelationship() {
+        return new ObjectRelationship();
+    }
+
+    /**
+     * Create an instance of {@link CompositeObjectId }
+     * 
+     */
+    public CompositeObjectId createCompositeObjectId() {
+        return new CompositeObjectId();
+    }
+
+    /**
+     * Create an instance of {@link ReferenceRelationship }
+     * 
+     */
+    public ReferenceRelationship createReferenceRelationship() {
+        return new ReferenceRelationship();
+    }
+
+    /**
+     * Create an instance of {@link DataPackage }
+     * 
+     */
+    public DataPackage createDataPackage() {
+        return new DataPackage();
+    }
+
+    /**
      * Create an instance of {@link ObjectIdentity }
      * 
      */
@@ -159,19 +135,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ObjectId }
+     * Create an instance of {@link CheckoutInfo }
      * 
      */
-    public ObjectId createObjectId() {
-        return new ObjectId();
+    public CheckoutInfo createCheckoutInfo() {
+        return new CheckoutInfo();
     }
 
     /**
-     * Create an instance of {@link ObjectPath }
+     * Create an instance of {@link ObjectIdentitySet }
      * 
      */
-    public ObjectPath createObjectPath() {
-        return new ObjectPath();
+    public ObjectIdentitySet createObjectIdentitySet() {
+        return new ObjectIdentitySet();
+    }
+
+    /**
+     * Create an instance of {@link RichText }
+     * 
+     */
+    public RichText createRichText() {
+        return new RichText();
+    }
+
+    /**
+     * Create an instance of {@link Aspect }
+     * 
+     */
+    public Aspect createAspect() {
+        return new Aspect();
+    }
+
+    /**
+     * Create an instance of {@link Qualification }
+     * 
+     */
+    public Qualification createQualification() {
+        return new Qualification();
     }
 
 }

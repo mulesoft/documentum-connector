@@ -58,75 +58,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetCheckoutInfoResponse }
+     * Create an instance of {@link DeleteAllVersionsResponse }
      * 
      */
-    public GetCheckoutInfoResponse createGetCheckoutInfoResponse() {
-        return new GetCheckoutInfoResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCheckoutInfo }
-     * 
-     */
-    public GetCheckoutInfo createGetCheckoutInfo() {
-        return new GetCheckoutInfo();
-    }
-
-    /**
-     * Create an instance of {@link GetVersionInfoResponse }
-     * 
-     */
-    public GetVersionInfoResponse createGetVersionInfoResponse() {
-        return new GetVersionInfoResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCurrentResponse }
-     * 
-     */
-    public GetCurrentResponse createGetCurrentResponse() {
-        return new GetCurrentResponse();
-    }
-
-    /**
-     * Create an instance of {@link CheckinResponse }
-     * 
-     */
-    public CheckinResponse createCheckinResponse() {
-        return new CheckinResponse();
-    }
-
-    /**
-     * Create an instance of {@link CancelCheckout }
-     * 
-     */
-    public CancelCheckout createCancelCheckout() {
-        return new CancelCheckout();
-    }
-
-    /**
-     * Create an instance of {@link Checkin }
-     * 
-     */
-    public Checkin createCheckin() {
-        return new Checkin();
-    }
-
-    /**
-     * Create an instance of {@link DeleteVersionResponse }
-     * 
-     */
-    public DeleteVersionResponse createDeleteVersionResponse() {
-        return new DeleteVersionResponse();
-    }
-
-    /**
-     * Create an instance of {@link CancelCheckoutResponse }
-     * 
-     */
-    public CancelCheckoutResponse createCancelCheckoutResponse() {
-        return new CancelCheckoutResponse();
+    public DeleteAllVersionsResponse createDeleteAllVersionsResponse() {
+        return new DeleteAllVersionsResponse();
     }
 
     /**
@@ -146,6 +82,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetVersionInfoResponse }
+     * 
+     */
+    public GetVersionInfoResponse createGetVersionInfoResponse() {
+        return new GetVersionInfoResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCurrentResponse }
+     * 
+     */
+    public GetCurrentResponse createGetCurrentResponse() {
+        return new GetCurrentResponse();
+    }
+
+    /**
      * Create an instance of {@link GetVersionInfo }
      * 
      */
@@ -162,19 +114,59 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteVersion }
+     * Create an instance of {@link GetCheckoutInfo }
      * 
      */
-    public DeleteVersion createDeleteVersion() {
-        return new DeleteVersion();
+    public GetCheckoutInfo createGetCheckoutInfo() {
+        return new GetCheckoutInfo();
     }
 
     /**
-     * Create an instance of {@link DeleteAllVersionsResponse }
+     * Create an instance of {@link DeleteVersionResponse }
      * 
      */
-    public DeleteAllVersionsResponse createDeleteAllVersionsResponse() {
-        return new DeleteAllVersionsResponse();
+    public DeleteVersionResponse createDeleteVersionResponse() {
+        return new DeleteVersionResponse();
+    }
+
+    /**
+     * Create an instance of {@link CancelCheckout }
+     * 
+     */
+    public CancelCheckout createCancelCheckout() {
+        return new CancelCheckout();
+    }
+
+    /**
+     * Create an instance of {@link Checkin }
+     * 
+     */
+    public Checkin createCheckin() {
+        return new Checkin();
+    }
+
+    /**
+     * Create an instance of {@link GetCheckoutInfoResponse }
+     * 
+     */
+    public GetCheckoutInfoResponse createGetCheckoutInfoResponse() {
+        return new GetCheckoutInfoResponse();
+    }
+
+    /**
+     * Create an instance of {@link CancelCheckoutResponse }
+     * 
+     */
+    public CancelCheckoutResponse createCancelCheckoutResponse() {
+        return new CancelCheckoutResponse();
+    }
+
+    /**
+     * Create an instance of {@link CheckinResponse }
+     * 
+     */
+    public CheckinResponse createCheckinResponse() {
+        return new CheckinResponse();
     }
 
     /**
@@ -183,6 +175,14 @@ public class ObjectFactory {
      */
     public Checkout createCheckout() {
         return new Checkout();
+    }
+
+    /**
+     * Create an instance of {@link DeleteVersion }
+     * 
+     */
+    public DeleteVersion createDeleteVersion() {
+        return new DeleteVersion();
     }
 
     /**

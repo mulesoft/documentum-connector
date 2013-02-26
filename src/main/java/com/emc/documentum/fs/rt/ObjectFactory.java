@@ -51,11 +51,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DfsExceptionHolder }
+     * Create an instance of {@link SerializableException }
      * 
      */
-    public DfsExceptionHolder createDfsExceptionHolder() {
-        return new DfsExceptionHolder();
+    public SerializableException createSerializableException() {
+        return new SerializableException();
     }
 
     /**
@@ -67,11 +67,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SerializableException }
+     * Create an instance of {@link DfsExceptionHolder }
      * 
      */
-    public SerializableException createSerializableException() {
-        return new SerializableException();
+    public DfsExceptionHolder createDfsExceptionHolder() {
+        return new DfsExceptionHolder();
     }
 
     /**

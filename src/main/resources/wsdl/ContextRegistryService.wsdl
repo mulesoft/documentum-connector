@@ -88,7 +88,7 @@
   </binding>
   <service name="ContextRegistryService">
     <port name="ContextRegistryServicePort" binding="tns:ContextRegistryServicePortBinding">
-      <soap:address location="http://localhost:9080/services/core/ContextRegistryService"/>
+      <soap:address location="http://localhost:9080/services/core/runtime/ContextRegistryService"/>
     </port>
   </service>
 </definitions>

@@ -39,27 +39,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NumberProperty }
+     * 
+     */
+    public NumberProperty createNumberProperty() {
+        return new NumberProperty();
+    }
+
+    /**
+     * Create an instance of {@link PropertySet }
+     * 
+     */
+    public PropertySet createPropertySet() {
+        return new PropertySet();
+    }
+
+    /**
+     * Create an instance of {@link DateProperty }
+     * 
+     */
+    public DateProperty createDateProperty() {
+        return new DateProperty();
+    }
+
+    /**
      * Create an instance of {@link BooleanProperty }
      * 
      */
     public BooleanProperty createBooleanProperty() {
         return new BooleanProperty();
-    }
-
-    /**
-     * Create an instance of {@link ObjectIdArrayProperty }
-     * 
-     */
-    public ObjectIdArrayProperty createObjectIdArrayProperty() {
-        return new ObjectIdArrayProperty();
-    }
-
-    /**
-     * Create an instance of {@link StringArrayProperty }
-     * 
-     */
-    public StringArrayProperty createStringArrayProperty() {
-        return new StringArrayProperty();
     }
 
     /**
@@ -79,35 +87,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PropertySet }
+     * Create an instance of {@link ValueAction }
      * 
      */
-    public PropertySet createPropertySet() {
-        return new PropertySet();
-    }
-
-    /**
-     * Create an instance of {@link DateArrayProperty }
-     * 
-     */
-    public DateArrayProperty createDateArrayProperty() {
-        return new DateArrayProperty();
-    }
-
-    /**
-     * Create an instance of {@link NumberArrayProperty }
-     * 
-     */
-    public NumberArrayProperty createNumberArrayProperty() {
-        return new NumberArrayProperty();
-    }
-
-    /**
-     * Create an instance of {@link DateProperty }
-     * 
-     */
-    public DateProperty createDateProperty() {
-        return new DateProperty();
+    public ValueAction createValueAction() {
+        return new ValueAction();
     }
 
     /**
@@ -127,19 +111,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ValueAction }
+     * Create an instance of {@link DateArrayProperty }
      * 
      */
-    public ValueAction createValueAction() {
-        return new ValueAction();
+    public DateArrayProperty createDateArrayProperty() {
+        return new DateArrayProperty();
     }
 
     /**
-     * Create an instance of {@link NumberProperty }
+     * Create an instance of {@link ObjectIdArrayProperty }
      * 
      */
-    public NumberProperty createNumberProperty() {
-        return new NumberProperty();
+    public ObjectIdArrayProperty createObjectIdArrayProperty() {
+        return new ObjectIdArrayProperty();
+    }
+
+    /**
+     * Create an instance of {@link NumberArrayProperty }
+     * 
+     */
+    public NumberArrayProperty createNumberArrayProperty() {
+        return new NumberArrayProperty();
+    }
+
+    /**
+     * Create an instance of {@link StringArrayProperty }
+     * 
+     */
+    public StringArrayProperty createStringArrayProperty() {
+        return new StringArrayProperty();
     }
 
 }

@@ -33,6 +33,7 @@ import com.emc.documentum.fs.datamodel.core.VersionInfo;
 import com.emc.documentum.fs.datamodel.core.VersionStrategy;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
+import com.emc.documentum.fs.datamodel.core.profiles.ContentProfile;
 import com.emc.documentum.fs.datamodel.core.profiles.FormatFilter;
 import com.emc.documentum.fs.datamodel.core.profiles.PageFilter;
 import com.emc.documentum.fs.datamodel.core.profiles.PageModifierFilter;
@@ -91,6 +92,15 @@ public class VersionControlUtil extends Util {
     
     public VersionInfo getVersionInfo(ObjectIdentity objIdentity) throws SerializableException {
         return port.getVersionInfo(createObjectIdentitySet(objIdentity)).get(0);
+    }
+    
+    private ContentProfile createContentProfile(FormatFilter formatFilter, PageFilter pageFilter, int pageNumber, PageModifierFilter pageModifierFilter) {
+        ContentProfile contentProfile = new ContentProfile();
+        contentProfile.setFormatFilter(formatFilter);
+        contentProfile.setPageFilter(pageFilter);
+        contentProfile.setPageNumber(pageNumber);
+        contentProfile.setPageModifierFilter(pageModifierFilter);
+        return contentProfile;
     }
     
     private void setVersionControlPort(final ServiceContext context, String target) {

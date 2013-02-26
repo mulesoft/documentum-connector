@@ -82,6 +82,10 @@
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/AccessControlService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/AccessControlService.wsdl</wsdlLocation>
+	   							</wsdlOption>
+								<wsdlOption>
 									<wsdl>${basedir}/src/main/resources/wsdl/QueryService.wsdl</wsdl>
 									<wsdlLocation>classpath:wsdl/QueryService.wsdl</wsdlLocation>
 	   							</wsdlOption>

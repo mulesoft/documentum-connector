@@ -32,6 +32,7 @@ import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.module.documentum.coreServices.AccessControlUtil;
 import org.mule.module.documentum.coreServices.ObjectUtil;
 import org.mule.module.documentum.coreServices.QueryUtil;
 import org.mule.module.documentum.coreServices.VersionControlUtil;
@@ -40,12 +41,20 @@ import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
 import com.emc.documentum.fs.datamodel.core.VersionInfo;
 import com.emc.documentum.fs.datamodel.core.VersionStrategy;
+import com.emc.documentum.fs.datamodel.core.acl.Acl;
+import com.emc.documentum.fs.datamodel.core.acl.AclEntry;
+import com.emc.documentum.fs.datamodel.core.acl.AclIdentity;
+import com.emc.documentum.fs.datamodel.core.acl.AclPackage;
+import com.emc.documentum.fs.datamodel.core.acl.AclType;
+import com.emc.documentum.fs.datamodel.core.acl.AclVisibility;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.query.QueryExecution;
 import com.emc.documentum.fs.datamodel.core.query.QueryResult;
 import com.emc.documentum.fs.services.core.SerializableException;
+import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
+import com.emc.documentum.fs.services.core.acl.ServiceException;
 
 /**
  * Documentum Cloud Connector.
@@ -431,6 +440,95 @@ public class DocumentumConnector {
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public QueryResult query(String dqlStatement, @Optional QueryExecution queryExecution) throws SerializableException {
         return new QueryUtil(context, server + apiUrl).query(dqlStatement, queryExecution);
+    }
+    
+    /**
+     * Create Acl
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     *
+     * @param aclName the name of the acl.
+     * @param aclDescription the description of the acl.
+     * @param aclEntries the entries of the acl.
+     * @param aclVisibility the visibility of the acl.
+     * @param aclType the type of the acl.
+     * @return the Acl.
+     * @throws CoreServiceException_Exception .
+     * @throws ServiceException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public Acl createAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {
+        return new AccessControlUtil(context, server + apiUrl).createAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
+    }
+    
+    /**
+     * Get Acl
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     *
+     * @param aclNames the names of the acls.
+     * @return the AclPackage.
+     * @throws CoreServiceException_Exception .
+     * @throws ServiceException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public AclPackage getAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
+        return new AccessControlUtil(context, server + apiUrl).getAcl(aclNames);
+    }
+    
+    /**
+     * Update Acl
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     *
+     * @param aclName the name of the acl.
+     * @param aclDescription the description of the acl.
+     * @param aclEntries the entries of the acl.
+     * @param aclVisibility the visibility of the acl.
+     * @param aclType the type of the acl.
+     * @return the Acl.
+     * @throws CoreServiceException_Exception .
+     * @throws ServiceException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {
+        return new AccessControlUtil(context, server + apiUrl).updateAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
+    }
+    
+    /**
+     * Delete Acl
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     *
+     * @param aclNames the names of the acls.
+     * @return a list with names of the deleted acls.
+     * @throws CoreServiceException_Exception .
+     * @throws ServiceException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public List<String> deleteAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
+        return new AccessControlUtil(context, server + apiUrl).deleteAcl(aclNames);
+    }
+    
+    /**
+     * Apply Acl
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     *
+     * @param objectIdentity .
+     * @param aclIdentity .
+     * @return the ObjectIdentity.
+     * @throws SerializableException .
+     * @throws ServiceException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public ObjectIdentity applyAcl(ObjectIdentity objectIdentity, AclIdentity aclIdentity) throws ServiceException, SerializableException {
+        return new ObjectUtil(context, null, server + apiUrl).applyAcl(objectIdentity, aclIdentity);
     }
     
     public String getApiUrl() {
