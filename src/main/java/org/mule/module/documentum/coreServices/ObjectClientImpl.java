@@ -25,7 +25,6 @@ import com.emc.documentum.fs.datamodel.core.properties.PropertySet;
 import com.emc.documentum.fs.datamodel.core.properties.StringProperty;
 import com.emc.documentum.fs.datamodel.core.acl.AclIdentity;
 import com.emc.documentum.fs.datamodel.core.content.*;
-import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.services.core.ObjectService;
 import com.emc.documentum.fs.services.core.ObjectServicePort;
@@ -36,7 +35,9 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
-import javax.xml.ws.soap.MTOMFeature;
+
+import org.mule.module.documentum.Client;
+import org.mule.module.documentum.HeaderHandler;
 
 import java.io.*;
 import java.net.URL;
@@ -46,21 +47,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class ObjectUtil extends Util {
+public class ObjectClientImpl extends Client implements ObjectClient {
     
-    private String repositoryName;
     private ObjectServicePort port;
-    private ContentTransferMode transferMode;
 
-    public ObjectUtil(ServiceContext serviceContext, ContentTransferMode transferMode, String target) {
-        this.transferMode = transferMode;
-        setObjectServicePort(serviceContext, target);
-        this.repositoryName = ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getRepositoryName();
+    public ObjectClientImpl(String target, ServiceContext serviceContext) {
+        super(target, serviceContext);
+        setObjectServicePort();
     }
         
-    public ObjectIdentity createObject(String type, String filePath, String name, String folderPath) throws IOException, SerializableException {
+    public ObjectIdentity createObject(String type, String filePath, String name, String folderPath, ContentTransferMode transferMode) throws IOException, SerializableException {
         Map<String, String> properties = new HashMap<String, String>();
-        DataObject dataObject = createDataObject(createObjectIdentity(repositoryName), type);
+        DataObject dataObject = createDataObject(createObjectIdentity(getRepositoryName()), type);
         if (type.equals("dm_document")) {
             File file = new File(filePath);
             addContent(dataObject, transferMode, fileToByteArray(file));
@@ -71,15 +69,15 @@ public class ObjectUtil extends Util {
             properties.put("object_name", name);
         }
         addProperties(dataObject, properties);
-        dataObject.getRelationships().add(createRelationship(createFolderIdentity(repositoryName, createObjectPath(folderPath))));
+        dataObject.getRelationships().add(createRelationship(createFolderIdentity(getRepositoryName(), createObjectPath(folderPath))));
         return port.create(createDataPackage(dataObject), null).getDataObjects().get(0).getIdentity();
     }
     
     public ObjectIdentity createPath(String folderPath) throws SerializableException {
-        return port.createPath(createObjectPath(folderPath), repositoryName);
+        return port.createPath(createObjectPath(folderPath), getRepositoryName());
     }
     
-    public File getObject(ObjectIdentity objectIdentity, String outputPath) throws IOException, SerializableException {
+    public File getObject(ObjectIdentity objectIdentity, String outputPath, ContentTransferMode transferMode) throws IOException, SerializableException {
         List<Profile> profiles = new ArrayList<Profile>();
         ContentTransferProfile contentTransferProfile = createContentTransferProfile(transferMode);
         ContentProfile contentProfile = createContentProfile(FormatFilter.ANY);
@@ -88,7 +86,7 @@ public class ObjectUtil extends Util {
         return contentToFile(port.get(createObjectIdentitySet(objectIdentity), createOperationOptions(profiles)).getDataObjects().get(0).getContents().get(0), new File(outputPath));
     }
     
-    public ObjectIdentity updateObject(ObjectIdentity objectIdentity, String type, String newContentFilePath, Map<String, String> newProperties, ObjectIdentity oldParentFolder, ObjectIdentity newParentFolder) throws SerializableException, IOException {        
+    public ObjectIdentity updateObject(ObjectIdentity objectIdentity, String type, String newContentFilePath, Map<String, String> newProperties, ObjectIdentity oldParentFolder, ObjectIdentity newParentFolder, ContentTransferMode transferMode) throws SerializableException, IOException {        
         DataObject dataObject = createDataObject(objectIdentity, type);
         if (newContentFilePath != null) {
             File file = new File(newContentFilePath);
@@ -122,7 +120,7 @@ public class ObjectUtil extends Util {
     }
     
     public ObjectIdentity applyAcl(ObjectIdentity objectIdentity, AclIdentity aclIdentity) throws ServiceException, SerializableException {
-        DataObject dataObject = createDataObject(createObjectIdentity(repositoryName), "dm_sysobject");
+        DataObject dataObject = createDataObject(createObjectIdentity(getRepositoryName()), "dm_sysobject");
         Map<String, String> properties = new HashMap<String, String>();
         properties.put("acl_domain", aclIdentity.getDomain());
         properties.put("acl_name", aclIdentity.getName());
@@ -250,22 +248,17 @@ public class ObjectUtil extends Util {
         return file;
     }
     
-    private void setObjectServicePort(final ServiceContext context, String target) {
+    private void setObjectServicePort() {
         ObjectService objectService = new ObjectService();
         objectService.setHandlerResolver(new HandlerResolver() {
             @SuppressWarnings("rawtypes")
             public List<Handler> getHandlerChain(PortInfo info) {
                 List<Handler> handlerList = new ArrayList<Handler>();
-                handlerList.add(new HeaderHandler(context));
+                handlerList.add(new HeaderHandler(serviceContext));
                 return handlerList;
             }
         });
-        if (transferMode == ContentTransferMode.MTOM) {
-            port = objectService.getObjectServicePort(new MTOMFeature());
-        }
-        else {
-            port = objectService.getObjectServicePort();
-        }
+        port = objectService.getObjectServicePort();
         ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, target + "core/ObjectService");
     }
     

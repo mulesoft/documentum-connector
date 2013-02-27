@@ -32,10 +32,14 @@ import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.module.documentum.coreServices.AccessControlUtil;
-import org.mule.module.documentum.coreServices.ObjectUtil;
-import org.mule.module.documentum.coreServices.QueryUtil;
-import org.mule.module.documentum.coreServices.VersionControlUtil;
+import org.mule.module.documentum.coreServices.AccessControlClient;
+import org.mule.module.documentum.coreServices.AccessControlClientImpl;
+import org.mule.module.documentum.coreServices.ObjectClient;
+import org.mule.module.documentum.coreServices.ObjectClientImpl;
+import org.mule.module.documentum.coreServices.QueryClient;
+import org.mule.module.documentum.coreServices.QueryClientImpl;
+import org.mule.module.documentum.coreServices.VersionControlClient;
+import org.mule.module.documentum.coreServices.VersionControlClientImpl;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
@@ -90,6 +94,26 @@ public class DocumentumConnector {
     private ServiceContext context;
     
     /**
+     * Access Control Client
+     */
+    private AccessControlClient accessControlClient;
+    
+    /**
+     * Object Client
+     */
+    private ObjectClient objectClient;
+    
+    /**
+     * Query Client
+     */
+    private QueryClient queryClient;
+    
+    /**
+     * Version Control Client
+     */
+    private VersionControlClient versionControlClient;
+    
+    /**
      * This method initiates the Documentum client
      * 
      * @throws MuleException
@@ -127,6 +151,10 @@ public class DocumentumConnector {
         identity.setUserName(null);
         identity.setPassword(null);
         identity.setRepositoryName(null);
+        accessControlClient = null;
+        objectClient = null;
+        queryClient = null;
+        versionControlClient = null;
     }
 
     /**
@@ -160,7 +188,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createDocument(String filePath, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException {
-        return new ObjectUtil(context, transferMode, server + apiUrl).createObject("dm_document", filePath, null, folderPath);
+        return getObjectClient().createObject("dm_document", filePath, null, folderPath, transferMode);
     }
     
     /**
@@ -177,7 +205,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createFolder(String folderName, String folderPath) throws IOException, SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).createObject("dm_folder", null, folderName, folderPath);
+        return getObjectClient().createObject("dm_folder", null, folderName, folderPath, null);
     }
     
     /**
@@ -192,7 +220,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createPath(String folderPath) throws SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).createPath(folderPath);
+        return getObjectClient().createPath(folderPath);
     }
     
     /**
@@ -202,14 +230,15 @@ public class DocumentumConnector {
      *
      * @param objectIdentity the ObjectIdentity of the object to download.
      * @param outputPath download path plus the fileName.
+     * @param transferMode the transfer mode.
      * @return the File.
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public File getObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, String outputPath) throws SerializableException, IOException {
-        return new ObjectUtil(context, null, server + apiUrl).getObject(objectIdentity, outputPath);
+    public File getObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, String outputPath, ContentTransferMode transferMode) throws SerializableException, IOException {
+        return getObjectClient().getObject(objectIdentity, outputPath, transferMode);
     }
     
     /**
@@ -230,7 +259,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity updateDocument(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, @Optional String newContentFilePath, @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
-        return new ObjectUtil(context, transferMode, server + apiUrl).updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder);
+        return getObjectClient().updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder, transferMode);
     }
     
     /**
@@ -249,7 +278,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity updateFolder(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
-        return new ObjectUtil(context, null, server + apiUrl).updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder);
+        return getObjectClient().updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder, null);
     }
     
     /**
@@ -264,7 +293,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity deleteObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity) throws SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).deleteObject(objectIdentity);
+        return getObjectClient().deleteObject(objectIdentity);
     }
     
     /**
@@ -280,7 +309,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity copyObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity folderIdentity) throws SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).copyObject(objectIdentity, folderIdentity);
+        return getObjectClient().copyObject(objectIdentity, folderIdentity);
     }
     
     /**
@@ -297,7 +326,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity moveObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity toFolderIdentity, ObjectIdentity fromFolderIdentity) throws SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).moveObject(objectIdentity, toFolderIdentity, fromFolderIdentity);
+        return getObjectClient().moveObject(objectIdentity, toFolderIdentity, fromFolderIdentity);
     }
     
     /**
@@ -312,7 +341,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public CheckoutInfo getCheckoutInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).getCheckoutInfo(objIdentity);
+        return getVersionControlClient().getCheckoutInfo(objIdentity);
     }
     
     /**
@@ -327,7 +356,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity checkout(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).checkout(objIdentity);
+        return getVersionControlClient().checkout(objIdentity);
     }
     
     /**
@@ -348,7 +377,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity checkin(@Optional @Default("#[payload]") ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, IOException {
-        return new VersionControlUtil(context, transferMode, server + apiUrl).checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock);
+        return getVersionControlClient().checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock, transferMode);
     }
     
     /**
@@ -363,7 +392,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity cancelCheckout(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).cancelCheckout(objIdentity);
+        return getVersionControlClient().cancelCheckout(objIdentity);
     }
     
     /**
@@ -378,7 +407,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity deleteVersion(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).deleteVersion(objIdentity);
+        return getVersionControlClient().deleteVersion(objIdentity);
     }
     
     /**
@@ -393,7 +422,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity deleteAllVersions(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).deleteAllVersions(objIdentity);
+        return getVersionControlClient().deleteAllVersions(objIdentity);
     }
     
     /**
@@ -408,7 +437,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity getCurrent(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).getCurrent(objIdentity);
+        return getVersionControlClient().getCurrent(objIdentity);
     }
     
     /**
@@ -423,7 +452,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public VersionInfo getVersionInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return new VersionControlUtil(context, null, server + apiUrl).getVersionInfo(objIdentity);
+        return getVersionControlClient().getVersionInfo(objIdentity);
     }
     
     /**
@@ -439,7 +468,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public QueryResult query(String dqlStatement, @Optional QueryExecution queryExecution) throws SerializableException {
-        return new QueryUtil(context, server + apiUrl).query(dqlStatement, queryExecution);
+        return getQueryClient().query(dqlStatement, queryExecution);
     }
     
     /**
@@ -459,7 +488,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public Acl createAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {
-        return new AccessControlUtil(context, server + apiUrl).createAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
+        return getAccessControlClient().createAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
     }
     
     /**
@@ -475,7 +504,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public AclPackage getAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
-        return new AccessControlUtil(context, server + apiUrl).getAcl(aclNames);
+        return getAccessControlClient().getAcl(aclNames);
     }
     
     /**
@@ -495,7 +524,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {
-        return new AccessControlUtil(context, server + apiUrl).updateAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
+        return getAccessControlClient().updateAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
     }
     
     /**
@@ -511,7 +540,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public List<String> deleteAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
-        return new AccessControlUtil(context, server + apiUrl).deleteAcl(aclNames);
+        return getAccessControlClient().deleteAcl(aclNames);
     }
     
     /**
@@ -528,7 +557,7 @@ public class DocumentumConnector {
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity applyAcl(ObjectIdentity objectIdentity, AclIdentity aclIdentity) throws ServiceException, SerializableException {
-        return new ObjectUtil(context, null, server + apiUrl).applyAcl(objectIdentity, aclIdentity);
+        return getObjectClient().applyAcl(objectIdentity, aclIdentity);
     }
     
     public String getApiUrl() {
@@ -569,6 +598,38 @@ public class DocumentumConnector {
     
     public void setContext(ServiceContext context) {
         this.context = context;
+    }
+
+    public AccessControlClient getAccessControlClient() {
+        if (accessControlClient != null) {
+            return accessControlClient;
+        }
+        accessControlClient = new AccessControlClientImpl(server + apiUrl, context);
+        return accessControlClient;
+    }
+
+    public ObjectClient getObjectClient() {
+        if (objectClient != null) {
+            return objectClient;
+        }
+        objectClient = new ObjectClientImpl(server + apiUrl, context);
+        return objectClient;
+    }
+
+    public QueryClient getQueryClient() {
+        if (queryClient != null) {
+            return queryClient;
+        }
+        queryClient = new QueryClientImpl(server + apiUrl, context);
+        return queryClient;
+    }
+
+    public VersionControlClient getVersionControlClient() {
+        if (versionControlClient != null) {
+            return versionControlClient;
+        }
+        versionControlClient = new VersionControlClientImpl(server + apiUrl, context);
+        return versionControlClient;
     }
     
 }

@@ -22,7 +22,9 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
-import javax.xml.ws.soap.MTOMFeature;
+
+import org.mule.module.documentum.Client;
+import org.mule.module.documentum.HeaderHandler;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
 import com.emc.documentum.fs.datamodel.core.DataPackage;
@@ -41,14 +43,13 @@ import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.VersionControlService;
 import com.emc.documentum.fs.services.core.VersionControlServicePort;
 
-public class VersionControlUtil extends Util {
+public class VersionControlClientImpl extends Client implements VersionControlClient {
     
     private VersionControlServicePort port;
-    private ContentTransferMode transferMode;
 
-    public VersionControlUtil(ServiceContext serviceContext, ContentTransferMode transferMode, String target) {
-        this.transferMode = transferMode;
-        setVersionControlPort(serviceContext, target);
+    public VersionControlClientImpl(String target, ServiceContext serviceContext) {
+        super(target, serviceContext);
+        setVersionControlPort();
     }
     
     public CheckoutInfo getCheckoutInfo(ObjectIdentity objIdentity) throws SerializableException {
@@ -63,7 +64,7 @@ public class VersionControlUtil extends Util {
         return port.checkout(createObjectIdentitySet(objIdentity), null).getDataObjects().get(0).getIdentity();
     }
     
-    public ObjectIdentity checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock) throws SerializableException, IOException {
+    public ObjectIdentity checkin(ObjectIdentity objIdentity, String newContentPath, VersionStrategy versionStrategy, List<String> labels, boolean isRetainLock, ContentTransferMode transferMode) throws SerializableException, IOException {
         OperationOptions operationOptions = createOperationOptions(createContentProfile(FormatFilter.ANY, PageFilter.ANY, -1, PageModifierFilter.ANY));
         DataPackage checkinPackage = port.checkout(createObjectIdentitySet(objIdentity), operationOptions);
         checkinPackage.getDataObjects().get(0).getContents().clear();        
@@ -103,22 +104,17 @@ public class VersionControlUtil extends Util {
         return contentProfile;
     }
     
-    private void setVersionControlPort(final ServiceContext context, String target) {
+    private void setVersionControlPort() {
         VersionControlService versionControlService = new VersionControlService();
         versionControlService.setHandlerResolver(new HandlerResolver() {
             @SuppressWarnings("rawtypes")
             public List<Handler> getHandlerChain(PortInfo info) {
                 List<Handler> handlerList = new ArrayList<Handler>();
-                handlerList.add(new HeaderHandler(context));
+                handlerList.add(new HeaderHandler(serviceContext));
                 return handlerList;
             }
-        });        
-        if (transferMode == ContentTransferMode.MTOM) {
-            port = versionControlService.getVersionControlServicePort(new MTOMFeature());
-        }
-        else {
-            port = versionControlService.getVersionControlServicePort();
-        }
+        });
+        port = versionControlService.getVersionControlServicePort();
         ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, target + "core/VersionControlService");
     }
 

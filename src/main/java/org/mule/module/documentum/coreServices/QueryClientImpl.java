@@ -21,8 +21,10 @@ import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
 
+import org.mule.module.documentum.Client;
+import org.mule.module.documentum.HeaderHandler;
+
 import com.emc.documentum.fs.datamodel.core.CacheStrategyType;
-import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.query.PassthroughQuery;
 import com.emc.documentum.fs.datamodel.core.query.QueryExecution;
@@ -31,14 +33,13 @@ import com.emc.documentum.fs.services.core.QueryService;
 import com.emc.documentum.fs.services.core.QueryServicePort;
 import com.emc.documentum.fs.services.core.SerializableException;
 
-public class QueryUtil extends Util {
+public class QueryClientImpl extends Client implements QueryClient {
     
-    private String repositoryName;
     private QueryServicePort port;
     
-    public QueryUtil(ServiceContext serviceContext, String target) {
-        setQueryPort(serviceContext, target);
-        this.repositoryName = ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getRepositoryName();
+    public QueryClientImpl(String target, ServiceContext serviceContext) {
+        super(target, serviceContext);
+        setQueryPort();
     }
     
     public QueryResult query(String dqlStatement, QueryExecution queryExecution) throws SerializableException {
@@ -56,7 +57,7 @@ public class QueryUtil extends Util {
     private PassthroughQuery createQuery(String dqlStatement) {
         PassthroughQuery query = new PassthroughQuery();
         query.setQueryString(dqlStatement);
-        query.getRepositories().add(repositoryName);
+        query.getRepositories().add(getRepositoryName());
         return query;
     }
     
@@ -66,16 +67,16 @@ public class QueryUtil extends Util {
         return queryEx;
     }
     
-    private void setQueryPort(final ServiceContext context, String target) {
+    private void setQueryPort() {
         QueryService queryService = new QueryService();
         queryService.setHandlerResolver(new HandlerResolver() {
             @SuppressWarnings("rawtypes")
             public List<Handler> getHandlerChain(PortInfo info) {
                 List<Handler> handlerList = new ArrayList<Handler>();
-                handlerList.add(new HeaderHandler(context));
+                handlerList.add(new HeaderHandler(serviceContext));
                 return handlerList;
             }
-        });        
+        });
         port = queryService.getQueryServicePort();
         ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, target + "core/QueryService");
     }

@@ -21,51 +21,50 @@ import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
 
+import org.mule.module.documentum.Client;
+import org.mule.module.documentum.HeaderHandler;
+
 import com.emc.documentum.fs.datamodel.core.acl.Acl;
 import com.emc.documentum.fs.datamodel.core.acl.AclEntry;
 import com.emc.documentum.fs.datamodel.core.acl.AclIdentity;
 import com.emc.documentum.fs.datamodel.core.acl.AclPackage;
 import com.emc.documentum.fs.datamodel.core.acl.AclType;
 import com.emc.documentum.fs.datamodel.core.acl.AclVisibility;
-import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.services.core.acl.AccessControlService;
 import com.emc.documentum.fs.services.core.acl.AccessControlServicePort;
 import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
 import com.emc.documentum.fs.services.core.acl.ServiceException;
 
-public class AccessControlUtil extends Util {
+public class AccessControlClientImpl extends Client implements AccessControlClient {
     
-    private String userName;
-    private String repositoryName;
     private AccessControlServicePort port;
     
-    public AccessControlUtil(ServiceContext serviceContext, String target) {
-        setAccessControlPort(serviceContext, target);
-        this.repositoryName = ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getRepositoryName();
-        this.userName = ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getUserName();
+    public AccessControlClientImpl(String target, ServiceContext serviceContext) {
+        super(target, serviceContext);
+        setAccessControlPort();
     }
     
     public Acl createAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {        
-        return port.create(createAclPackage(createAcl(createAclIdentity(repositoryName, userName, aclName), aclDescription, aclType, aclVisibility, aclEntries))).getAcls().get(0);
+        return port.create(createAclPackage(createAcl(createAclIdentity(getRepositoryName(), getUserName(), aclName), aclDescription, aclType, aclVisibility, aclEntries))).getAcls().get(0);
     }
     
     public AclPackage getAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
         List<AclIdentity> aclIdentityList = new ArrayList<AclIdentity>();
         for (String aclName: aclNames) {
-            aclIdentityList.add(createAclIdentity(repositoryName, userName, aclName));
+            aclIdentityList.add(createAclIdentity(getRepositoryName(), getUserName(), aclName));
         }
         return port.get(aclIdentityList);
     }
     
     public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {        
-        return port.update(createAclPackage(createAcl(createAclIdentity(repositoryName, userName, aclName), aclDescription, aclType, aclVisibility, aclEntries))).getAcls().get(0);
+        return port.update(createAclPackage(createAcl(createAclIdentity(getRepositoryName(), getUserName(), aclName), aclDescription, aclType, aclVisibility, aclEntries))).getAcls().get(0);
     }
     
     public List<String> deleteAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
         List<AclIdentity> aclIdentityList = new ArrayList<AclIdentity>();
         for (String aclName: aclNames) {
-            aclIdentityList.add(createAclIdentity(repositoryName, userName, aclName));
+            aclIdentityList.add(createAclIdentity(getRepositoryName(), getUserName(), aclName));
         }
         port.delete(aclIdentityList);
         return aclNames;
@@ -98,13 +97,13 @@ public class AccessControlUtil extends Util {
         return aclPackage;
     }
     
-    private void setAccessControlPort(final ServiceContext context, String target) {
+    private void setAccessControlPort() {
         AccessControlService accessControlService = new AccessControlService();
         accessControlService.setHandlerResolver(new HandlerResolver() {
             @SuppressWarnings("rawtypes")
             public List<Handler> getHandlerChain(PortInfo info) {
                 List<Handler> handlerList = new ArrayList<Handler>();
-                handlerList.add(new HeaderHandler(context));
+                handlerList.add(new HeaderHandler(serviceContext));
                 return handlerList;
             }
         });
