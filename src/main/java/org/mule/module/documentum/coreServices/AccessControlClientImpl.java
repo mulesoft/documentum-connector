@@ -24,6 +24,7 @@ import javax.xml.ws.handler.PortInfo;
 import org.mule.module.documentum.Client;
 import org.mule.module.documentum.HeaderHandler;
 
+import com.emc.documentum.fs.datamodel.core.DataObject;
 import com.emc.documentum.fs.datamodel.core.acl.Acl;
 import com.emc.documentum.fs.datamodel.core.acl.AclEntry;
 import com.emc.documentum.fs.datamodel.core.acl.AclIdentity;
@@ -31,6 +32,9 @@ import com.emc.documentum.fs.datamodel.core.acl.AclPackage;
 import com.emc.documentum.fs.datamodel.core.acl.AclType;
 import com.emc.documentum.fs.datamodel.core.acl.AclVisibility;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
+import com.emc.documentum.fs.datamodel.core.properties.Property;
+import com.emc.documentum.fs.datamodel.core.properties.StringProperty;
+import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.acl.AccessControlService;
 import com.emc.documentum.fs.services.core.acl.AccessControlServicePort;
 import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
@@ -50,11 +54,7 @@ public class AccessControlClientImpl extends Client implements AccessControlClie
     }
     
     public AclPackage getAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
-        List<AclIdentity> aclIdentityList = new ArrayList<AclIdentity>();
-        for (String aclName: aclNames) {
-            aclIdentityList.add(createAclIdentity(getRepositoryName(), getUserName(), aclName));
-        }
-        return port.get(aclIdentityList);
+        return port.get(createAclIdentityList(aclNames));
     }
     
     public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {        
@@ -62,12 +62,34 @@ public class AccessControlClientImpl extends Client implements AccessControlClie
     }
     
     public List<String> deleteAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
+        port.delete(createAclIdentityList(aclNames));
+        return aclNames;
+    }
+    
+    public AclPackage getAcls(QueryClient queryClient) throws ServiceException, SerializableException, CoreServiceException_Exception {
+        return port.get(createAclIdentityList(getPropertiesValues(queryClient.query(("select owner_name, object_name from dm_acl where owner_name='" + getUserName() + "'"), null).getDataPackage().getDataObjects(), "object_name")));
+    }
+    
+    private List<AclIdentity> createAclIdentityList(List<String> aclNames) {
         List<AclIdentity> aclIdentityList = new ArrayList<AclIdentity>();
         for (String aclName: aclNames) {
             aclIdentityList.add(createAclIdentity(getRepositoryName(), getUserName(), aclName));
         }
-        port.delete(aclIdentityList);
-        return aclNames;
+        return aclIdentityList;
+    }
+    
+    private List<String> getPropertiesValues(List<DataObject> dataObjects, String propertyKey) {
+        List<String> propertiesValues = new ArrayList<String>();
+        for (DataObject dataObject : dataObjects) {
+            List<Property> properties = dataObject.getProperties().getProperties();
+            for (Property property : properties) {
+                if (property.getName().equals(propertyKey)) { 
+                    propertiesValues.add(((StringProperty) property).getValue());
+                    break;
+                }
+            }
+        }
+        return propertiesValues;
     }
     
     private AclIdentity createAclIdentity(String repositoryName, String userName, String aclName) {

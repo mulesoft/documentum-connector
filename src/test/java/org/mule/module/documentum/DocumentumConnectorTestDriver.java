@@ -13,37 +13,35 @@
 
 package org.mule.module.documentum;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
-import javax.xml.bind.JAXBException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
 import org.mule.api.MuleException;
 
-import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.services.core.SerializableException;
+import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
+import com.emc.documentum.fs.services.core.acl.ServiceException;
 
 public class DocumentumConnectorTestDriver {
     
-    private static final String USER = "user";
+    private static final String USER = "User";
     private static final String PASSWORD = "password";
     private static final String REPOSITORY = "repository";
-    private static final String SERVER = "http://localhost:9080";
-    private DocumentumConnector connector;    
+    private static final String SERVER = "http://localhost:9080/";
+    private static final String APIURL = "/services/";
+    private DocumentumConnector connector;
     
     @Before
     public void init() throws ConnectionException, MuleException {
         connector = new DocumentumConnector();
         connector.init();
+        connector.setApiUrl(APIURL);
         connector.connect(USER, PASSWORD, REPOSITORY, SERVER);
     }
     
     @Test
-    public void testCreateDocument() throws MalformedURLException, IOException, SerializableException, JAXBException {
-        connector.createDocument("/Library/Application Support/Apple/iChat Icons/Flags/Argentina.gif", "",ContentTransferMode.MTOM);        
+    public void testGetAcls() throws ServiceException, CoreServiceException_Exception, SerializableException {
+        connector.getAcls();
     }
     
 }

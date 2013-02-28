@@ -1,3 +1,144 @@
 <!-- BEGIN_INCLUDE(documentum:create-document) -->
     <documentum:create-document filePath="/user/usa.gif" folderPath="/repo/folder1/" transferMode="MTOM"/>
 <!-- END_INCLUDE(documentum:create-document) -->
+
+<!-- BEGIN_INCLUDE(documentum:create-folder) -->
+    <documentum:create-folder folderName="myFolder" folderPath="/documentum"/>
+<!-- END_INCLUDE(documentum:create-folder) -->
+
+<!-- BEGIN_INCLUDE(documentum:create-path) -->
+    <documentum:create-path folderPath="/documentum/folder1/folder2"/>
+<!-- END_INCLUDE(documentum:create-path) -->
+
+<!-- BEGIN_INCLUDE(documentum:get-object) -->
+    <documentum:get-object outputPath="/folder" transferMode="MTOM">
+        <documentum:object-identity ref="#[payload:]"/>
+    </documentum:get-object>
+<!-- END_INCLUDE(documentum:get-object) -->
+
+<!-- BEGIN_INCLUDE(documentum:update-document) -->
+    <documentum:update-document newContentFilePath="/folder">
+        <documentum:object-identity ref="#[payload:]"/>
+        <documentum:old-parent-folder ref="#[myVar1]"/>
+        <documentum:new-parent-folder ref="#[myVar2]"/>
+    </documentum:update-document>
+<!-- END_INCLUDE(documentum:update-document) -->
+
+<!-- BEGIN_INCLUDE(documentum:update-folder) -->
+    <documentum:update-folder>
+        <documentum:object-identity ref="#[payload:]"/>
+        <documentum:old-parent-folder ref="#[myVar1]"/>
+        <documentum:new-parent-folder ref="#[myVar2]"/>
+    </documentum:update-folder>
+<!-- END_INCLUDE(documentum:update-folder) -->
+
+<!-- BEGIN_INCLUDE(documentum:delete-object) -->
+    <documentum:delete-object>
+        <documentum:object-identity ref="#[payload:]"/>
+    </documentum:delete-object>
+<!-- END_INCLUDE(documentum:delete-object) -->
+
+<!-- BEGIN_INCLUDE(documentum:copy-object) -->
+    <documentum:copy-object>
+        <documentum:object-identity ref="#[payload:]"/>
+        <documentum:folder-identity ref="#[myVar1]"/>
+    </documentum:copy-object>
+<!-- END_INCLUDE(documentum:copy-object) -->
+
+<!-- BEGIN_INCLUDE(documentum:move-object) -->
+    <documentum:move-object>
+        <documentum:object-identity ref="#[payload:]"/>
+        <documentum:to-folder-identity ref="#[myVar1]"/>
+        <documentum:from-folder-identity ref="#[myVar2]"/>
+    </documentum:move-object>
+<!-- END_INCLUDE(documentum:move-object) -->
+
+<!-- BEGIN_INCLUDE(documentum:get-checkout-info) -->
+    <documentum:get-checkout-info>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:get-checkout-info>
+<!-- END_INCLUDE(documentum:get-checkout-info) -->
+
+<!-- BEGIN_INCLUDE(documentum:checkout) -->
+    <documentum:checkout>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:checkout>
+<!-- END_INCLUDE(documentum:checkout) -->
+
+<!-- BEGIN_INCLUDE(documentum:checkin) -->
+    <documentum:checkin versionStrategy="NEXT_MINOR" transferMode="MTOM" isRetainLock="true" newContentPath="/folder">
+        <documentum:obj-identity ref="#[myVar1]"/>
+        <documentum:labels ref="#[myVar2]"/>
+    </documentum:checkin>
+<!-- END_INCLUDE(documentum:checkin) -->
+
+<!-- BEGIN_INCLUDE(documentum:cancel-checkout) -->
+    <documentum:cancel-checkout>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:cancel-checkout>
+<!-- END_INCLUDE(documentum:cancel-checkout) -->
+
+<!-- BEGIN_INCLUDE(documentum:delete-version) -->
+    <documentum:delete-version>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:delete-version>
+<!-- END_INCLUDE(documentum:delete-version) -->
+
+<!-- BEGIN_INCLUDE(documentum:delete-all-versions) -->
+    <documentum:delete-all-versions>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:delete-all-versions>
+<!-- END_INCLUDE(documentum:delete-all-versions) -->
+
+<!-- BEGIN_INCLUDE(documentum:get-current) -->
+    <documentum:get-current>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:get-current>
+<!-- END_INCLUDE(documentum:get-current) -->
+
+<!-- BEGIN_INCLUDE(documentum:get-version-info) -->
+    <documentum:get-version-info>
+        <documentum:obj-identity ref="#[myVar1]"/>
+    </documentum:get-version-info>
+<!-- END_INCLUDE(documentum:get-version-info) -->
+
+<!-- BEGIN_INCLUDE(documentum:query) -->
+    <documentum:query dqlStatement="select owner_name, object_name from dm_acl">
+        <documentum:query-execution ref="#[myVar1]"/>
+    </documentum:query>
+<!-- END_INCLUDE(documentum:query) -->
+
+<!-- BEGIN_INCLUDE(documentum:create-acl) -->
+    <documentum:create-acl aclDescription="Second Acl" aclName="SecondAcl" aclType="REGULAR" aclVisibility="PUBLIC">
+        <documentum:acl-entries ref="#[payload]"/>
+    </documentum:create-acl>
+<!-- END_INCLUDE(documentum:create-acl) -->
+
+<!-- BEGIN_INCLUDE(documentum:get-acl) -->
+    <documentum:get-acl>
+        <documentum:acl-names ref="#[payload]"/>
+    </documentum:get-acl>
+<!-- END_INCLUDE(documentum:get-acl) -->
+
+<!-- BEGIN_INCLUDE(documentum:update-acl) -->
+    <documentum:update-acl aclDescription="My Description" aclName="My Name" aclType="REGULAR" aclVisibility="PRIVATE">
+        <documentum:acl-entries ref="#[payload]"/>
+    </documentum:update-acl>
+<!-- END_INCLUDE(documentum:update-acl) -->
+
+<!-- BEGIN_INCLUDE(documentum:delete-acl) -->
+    <documentum:delete-acl>
+        <documentum:acl-names ref="#[payload]"/>
+    </documentum:delete-acl>
+<!-- END_INCLUDE(documentum:delete-acl) -->
+
+<!-- BEGIN_INCLUDE(documentum:apply-acl) -->
+    <documentum:apply-acl>
+        <documentum:object-identity ref="#[myVar1]"/>
+        <documentum:acl-identity ref="#[myVar2]"/>
+    </documentum:apply-acl>
+<!-- END_INCLUDE(documentum:apply-acl) -->
+
+<!-- BEGIN_INCLUDE(documentum:get-acls) -->
+	<documentum:get-acls/>
+<!-- END_INCLUDE(documentum:get-acls) -->

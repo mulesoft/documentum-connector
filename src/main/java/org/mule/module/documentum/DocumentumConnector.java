@@ -194,7 +194,7 @@ public class DocumentumConnector {
     /**
      * Create Folder
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-folder}
      *
      * @param folderName of the folder to create.
      * @param folderPath path to an existing folder in the content server.
@@ -211,7 +211,7 @@ public class DocumentumConnector {
     /**
      * Create Path
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-path}
      *
      * @param folderPath path to create in the content server.
      * @return the ObjectIdentity.
@@ -244,7 +244,7 @@ public class DocumentumConnector {
     /**
      * Update Document
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:update-document}
      *
      * @param objectIdentity the ObjectIdentity of the object to update.
      * @param newContentFilePath the path to file with the new content.
@@ -265,7 +265,7 @@ public class DocumentumConnector {
     /**
      * Update Folder
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:update-folder}
      *
      * @param objectIdentity the ObjectIdentity of the object to update.
      * @param newProperties a map with the new properties.
@@ -284,7 +284,7 @@ public class DocumentumConnector {
     /**
      * Delete Object
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:delete-object}
      *
      * @param objectIdentity the ObjectIdentity of the object to delete.
      * @return ObjectIdentity if the deletion was successful.
@@ -299,7 +299,7 @@ public class DocumentumConnector {
     /**
      * Copy Object
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:copy-object}
      *
      * @param objectIdentity identify the object to copy.
      * @param folderIdentity identify the folder to copy to.
@@ -315,7 +315,7 @@ public class DocumentumConnector {
     /**
      * Move Object
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:move-object}
      *
      * @param objectIdentity identify the object to move.
      * @param toFolderIdentity identify the folder to move from.
@@ -332,7 +332,7 @@ public class DocumentumConnector {
     /**
      * Get checkout info
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-checkout-info}
      *
      * @param objIdentity identify the object to get the checkout info.
      * @return the CheckoutInfo.
@@ -347,7 +347,7 @@ public class DocumentumConnector {
     /**
      * Checkout
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:checkout}
      *
      * @param objIdentity identify the object to checkout.
      * @return the ObjectIdentity.
@@ -362,7 +362,7 @@ public class DocumentumConnector {
     /**
      * Checkin
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:checkin}
      *
      * @param objIdentity identify the object to checkin.
      * @param newContentPath the path to the file with the new content.
@@ -383,7 +383,7 @@ public class DocumentumConnector {
     /**
      * Cancel Checkout
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:cancel-checkout}
      *
      * @param objIdentity identify the object to cancel the checkout.
      * @return ObjectIdentity if the cancellation was successful.
@@ -398,7 +398,7 @@ public class DocumentumConnector {
     /**
      * Delete Version
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:delete-version}
      *
      * @param objIdentity identify the object to delete.
      * @return ObjectIdentity if the deletion was successful.
@@ -428,7 +428,7 @@ public class DocumentumConnector {
     /**
      * Get Current
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-current}
      *
      * @param objIdentity identify the object to get the current version.
      * @return the ObjectIdentity.
@@ -443,7 +443,7 @@ public class DocumentumConnector {
     /**
      * Get Version Info
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-version-info}
      *
      * @param objIdentity identify the object to get the version info.
      * @return the VersionInfo.
@@ -458,7 +458,7 @@ public class DocumentumConnector {
     /**
      * Query
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:query}
      *
      * @param dqlStatement a DQL query.
      * @param queryExecution used in order to make paginated queries.
@@ -474,7 +474,7 @@ public class DocumentumConnector {
     /**
      * Create Acl
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-acl}
      *
      * @param aclName the name of the acl.
      * @param aclDescription the description of the acl.
@@ -494,7 +494,7 @@ public class DocumentumConnector {
     /**
      * Get Acl
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-acl}
      *
      * @param aclNames the names of the acls.
      * @return the AclPackage.
@@ -510,7 +510,7 @@ public class DocumentumConnector {
     /**
      * Update Acl
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:update-acl}
      *
      * @param aclName the name of the acl.
      * @param aclDescription the description of the acl.
@@ -530,7 +530,7 @@ public class DocumentumConnector {
     /**
      * Delete Acl
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:delete-acl}
      *
      * @param aclNames the names of the acls.
      * @return a list with names of the deleted acls.
@@ -546,10 +546,10 @@ public class DocumentumConnector {
     /**
      * Apply Acl
      *
-     * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:apply-acl}
      *
-     * @param objectIdentity .
-     * @param aclIdentity .
+     * @param objectIdentity the object identity to receive the Acl.
+     * @param aclIdentity the acl identity to apply to the object identity.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      * @throws ServiceException .
@@ -558,6 +558,22 @@ public class DocumentumConnector {
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity applyAcl(ObjectIdentity objectIdentity, AclIdentity aclIdentity) throws ServiceException, SerializableException {
         return getObjectClient().applyAcl(objectIdentity, aclIdentity);
+    }
+    
+    /**
+     * Get Acls
+     *
+     * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-acls}
+     *
+     * @return the AclPackage.
+     * @throws CoreServiceException_Exception .
+     * @throws SerializableException .
+     * @throws ServiceException .
+     */
+    @Processor
+    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
+    public AclPackage getAcls() throws ServiceException, SerializableException, CoreServiceException_Exception {
+        return getAccessControlClient().getAcls(getQueryClient());
     }
     
     public String getApiUrl() {

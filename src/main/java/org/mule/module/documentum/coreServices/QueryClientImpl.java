@@ -54,16 +54,10 @@ public class QueryClientImpl extends Client implements QueryClient {
         }
     }
     
-    private PassthroughQuery createQuery(String dqlStatement) {
-        PassthroughQuery query = new PassthroughQuery();
-        query.setQueryString(dqlStatement);
-        query.getRepositories().add(getRepositoryName());
-        return query;
-    }
-    
     private QueryExecution createQueryExecution(CacheStrategyType cacheStrategyType) {
         QueryExecution queryEx = new QueryExecution();
         queryEx.setCacheStrategyType(cacheStrategyType);
+        queryEx.setMaxResultCount(Integer.MAX_VALUE);
         return queryEx;
     }
     

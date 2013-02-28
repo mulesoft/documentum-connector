@@ -34,6 +34,7 @@ import com.emc.documentum.fs.datamodel.core.content.DataHandlerContent;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.profiles.Profile;
+import com.emc.documentum.fs.datamodel.core.query.PassthroughQuery;
 
 public abstract class Client {
     
@@ -106,6 +107,13 @@ public abstract class Client {
         OperationOptions operationOptions = new OperationOptions();
         operationOptions.getProfiles().add(profile); 
         return operationOptions;
+    }
+    
+    protected PassthroughQuery createQuery(String dqlStatement) {
+        PassthroughQuery query = new PassthroughQuery();
+        query.setQueryString(dqlStatement);
+        query.getRepositories().add(getRepositoryName());
+        return query;
     }
 
 }

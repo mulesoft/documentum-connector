@@ -43,13 +43,13 @@ return queryExecution;]]></scripting:text>
             </scripting:script>
         </scripting:component>
         <set-variable variableName="queryEx" value="#[payload:]" doc:name="queryExecution"/>
-        <documentum:query config-ref="Documentum" dqlStatement="select r_object_id, object_name from dm_cabinet" doc:name="Documentum">
+        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum">
             <documentum:query-execution ref="#[queryEx]"/>
         </documentum:query>
-        <documentum:query config-ref="Documentum" dqlStatement="select r_object_id, object_name from dm_cabinet" doc:name="Documentum">
+        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum">
             <documentum:query-execution ref="#[queryEx]"/>
         </documentum:query>
-        <documentum:query config-ref="Documentum" dqlStatement="select r_object_id, object_name from dm_cabinet" doc:name="Documentum">
+        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum">
             <documentum:query-execution ref="#[queryEx]"/>
         </documentum:query>
         <scripting:component doc:name="Groovy">
@@ -57,6 +57,57 @@ return queryExecution;]]></scripting:text>
                 <scripting:text><![CDATA[return payload.getDataPackage().getDataObjects();]]></scripting:text>
             </scripting:script>
         </scripting:component>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+    <flow name="CreateAcl" doc:name="CreateAcl">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="createAcl" doc:name="HTTP"/>
+        <scripting:component doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import java.util.ArrayList;
+import java.util.List;
+import com.emc.documentum.fs.datamodel.core.Permission;
+import com.emc.documentum.fs.datamodel.core.PermissionType;
+import com.emc.documentum.fs.datamodel.core.acl.AclEntry;
+import com.emc.documentum.fs.datamodel.core.acl.AccessType;
+
+Permission basicReadPermission = new Permission();
+basicReadPermission.setName("READ");
+basicReadPermission.setType(PermissionType.BASIC);
+
+Permission basicDeletePermission = new Permission();
+basicDeletePermission.setName("DELETE");
+basicDeletePermission.setType(PermissionType.BASIC);
+
+List<AclEntry> entryList = new ArrayList<AclEntry>();
+
+AclEntry aclEntry = new AclEntry();
+aclEntry.setAccessType(AccessType.PERMIT);
+aclEntry.setAccessor("dm_world");
+List<Permission> permissionList = new ArrayList<Permission>();
+permissionList.add(basicReadPermission);
+aclEntry.getPermissions().addAll(permissionList);
+
+AclEntry aclEntry1 = new AclEntry();
+aclEntry1.setAccessType(AccessType.PERMIT);
+aclEntry1.setAccessor("dm_owner");
+List<Permission> permissionList1 = new ArrayList<Permission>();
+permissionList1.add(basicDeletePermission);
+aclEntry1.getPermissions().addAll(permissionList);
+
+entryList.add(aclEntry);
+entryList.add(aclEntry1);
+
+return entryList;]]></scripting:text>
+            </scripting:script>
+        </scripting:component>
+        <documentum:create-acl config-ref="Documentum" aclDescription="Second Acl" aclName="SecondAcl" aclType="REGULAR" aclVisibility="PUBLIC" doc:name="Documentum">
+            <documentum:acl-entries ref="#[payload]"/>
+        </documentum:create-acl>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+    <flow name="GetAcls" doc:name="GetAcls">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="getAcls" doc:name="HTTP"/>
+        <documentum:get-acls config-ref="Documentum" doc:name="Documentum"/>
         <json:object-to-json-transformer doc:name="Object to JSON"/>
     </flow>
 </mule>

@@ -20,6 +20,7 @@ import com.emc.documentum.fs.datamodel.core.acl.AclEntry;
 import com.emc.documentum.fs.datamodel.core.acl.AclPackage;
 import com.emc.documentum.fs.datamodel.core.acl.AclType;
 import com.emc.documentum.fs.datamodel.core.acl.AclVisibility;
+import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
 import com.emc.documentum.fs.services.core.acl.ServiceException;
 
@@ -32,5 +33,7 @@ public interface AccessControlClient {
     public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception;
     
     public List<String> deleteAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception;
+    
+    public AclPackage getAcls(QueryClient queryClient) throws ServiceException, SerializableException, CoreServiceException_Exception;
 
 }
