@@ -24,18 +24,15 @@ import com.emc.documentum.fs.services.core.acl.ServiceException;
 
 public class DocumentumConnectorTestDriver {
     
-    private static final String USER = "User";
+    private static final String USER = "user";
     private static final String PASSWORD = "password";
     private static final String REPOSITORY = "repository";
     private static final String SERVER = "http://localhost:9080/";
-    private static final String APIURL = "/services/";
     private DocumentumConnector connector;
     
     @Before
     public void init() throws ConnectionException, MuleException {
         connector = new DocumentumConnector();
-        connector.init();
-        connector.setApiUrl(APIURL);
         connector.connect(USER, PASSWORD, REPOSITORY, SERVER);
     }
     

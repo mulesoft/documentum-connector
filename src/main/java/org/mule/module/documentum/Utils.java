@@ -36,29 +36,21 @@ import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.profiles.Profile;
 import com.emc.documentum.fs.datamodel.core.query.PassthroughQuery;
 
-public abstract class Client {
+public class Utils {
     
-    protected String target;
-    protected ServiceContext serviceContext;
-    
-    protected Client(String target, ServiceContext serviceContext) {
-        this.target = target;
-        this.serviceContext = serviceContext;
-    }
-    
-    protected String getRepositoryName() {
+    public static String getRepositoryName(ServiceContext serviceContext) {
         return ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getRepositoryName();
     }
     
-    protected String getUserName() {
+    public static String getUserName(ServiceContext serviceContext) {
         return ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getUserName();
     }
     
-    protected String getPassword() {
+    public static String getPassword(ServiceContext serviceContext) {
         return ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getPassword();
     }
 
-    protected void addContent(DataObject dataObject, ContentTransferMode transferMode, byte[] byteArray) {
+    public static void addContent(DataObject dataObject, ContentTransferMode transferMode, byte[] byteArray) {
         if (transferMode == ContentTransferMode.MTOM) {
             dataObject.getContents().add(getDataHandlerContent(byteArray));
         }
@@ -67,7 +59,7 @@ public abstract class Client {
         }
     }
     
-    protected DataHandlerContent getDataHandlerContent(byte[] byteArray) {
+    public static DataHandlerContent getDataHandlerContent(byte[] byteArray) {
         DataSource byteDataSource = new ByteDataSource(byteArray);
         DataHandler dataHandler = new DataHandler(byteDataSource);
         DataHandlerContent dataHandlerContent = new DataHandlerContent();
@@ -75,13 +67,13 @@ public abstract class Client {
         return dataHandlerContent;
     }
 
-    protected BinaryContent getBinaryContent(byte[] byteArray) {
+    public static BinaryContent getBinaryContent(byte[] byteArray) {
         BinaryContent binaryContent = new BinaryContent();
         binaryContent.setValue(byteArray);
         return binaryContent;
     }
     
-    protected byte[] fileToByteArray(File file) throws IOException {
+    public static byte[] fileToByteArray(File file) throws IOException {
         byte[] byteArray = new byte[(int) file.length()];
         InputStream fis = new FileInputStream(file);
         fis.read(byteArray);
@@ -89,13 +81,13 @@ public abstract class Client {
         return byteArray;
     }
     
-    protected ObjectIdentitySet createObjectIdentitySet(ObjectIdentity objectIdentity) {
+    public static ObjectIdentitySet createObjectIdentitySet(ObjectIdentity objectIdentity) {
         ObjectIdentitySet objIdSet = new ObjectIdentitySet();
         objIdSet.getIdentities().add(objectIdentity);
         return objIdSet;
     }
     
-    protected OperationOptions createOperationOptions(List<Profile> profiles) {
+    public static OperationOptions createOperationOptions(List<Profile> profiles) {
         OperationOptions operationOptions = new OperationOptions();
         for(Profile profile: profiles){
             operationOptions.getProfiles().add(profile); 
@@ -103,16 +95,16 @@ public abstract class Client {
         return operationOptions;
     }
     
-    protected OperationOptions createOperationOptions(Profile profile) {
+    public static OperationOptions createOperationOptions(Profile profile) {
         OperationOptions operationOptions = new OperationOptions();
         operationOptions.getProfiles().add(profile); 
         return operationOptions;
     }
     
-    protected PassthroughQuery createQuery(String dqlStatement) {
+    public static PassthroughQuery createQuery(String dqlStatement, ServiceContext serviceContext) {
         PassthroughQuery query = new PassthroughQuery();
         query.setQueryString(dqlStatement);
-        query.getRepositories().add(getRepositoryName());
+        query.getRepositories().add(getRepositoryName(serviceContext));
         return query;
     }
 

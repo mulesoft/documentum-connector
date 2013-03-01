@@ -82,28 +82,28 @@
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/AccessControlService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/AccessControlService.wsdl</wsdlLocation>
+									<wsdl>${basedir}/src/main/resources/wsdl/6.6/AccessControlService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/6.6/AccessControlService.wsdl</wsdlLocation>
 	   							</wsdlOption>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/QueryService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/QueryService.wsdl</wsdlLocation>
+									<wsdl>${basedir}/src/main/resources/wsdl/6.6/QueryService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/6.6/QueryService.wsdl</wsdlLocation>
 	   							</wsdlOption>
 	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/AgentService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/AgentService.wsdl</wsdlLocation>
+									<wsdl>${basedir}/src/main/resources/wsdl/6.6/AgentService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/6.6/AgentService.wsdl</wsdlLocation>
 	   							</wsdlOption>
 	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/ContextRegistryService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/ContextRegistryService.wsdl</wsdlLocation>
+									<wsdl>${basedir}/src/main/resources/wsdl/6.6/ContextRegistryService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/6.6/ContextRegistryService.wsdl</wsdlLocation>
 	   							</wsdlOption>
 	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/ObjectService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/ObjectService.wsdl</wsdlLocation>
+									<wsdl>${basedir}/src/main/resources/wsdl/6.6/ObjectService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/6.6/ObjectService.wsdl</wsdlLocation>
 	   							</wsdlOption>
 	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/VersionControlService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/VersionControlService.wsdl</wsdlLocation>
+									<wsdl>${basedir}/src/main/resources/wsdl/6.6/VersionControlService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/6.6/VersionControlService.wsdl</wsdlLocation>
 	   							</wsdlOption>
 							</wsdlOptions>
 						</configuration>
@@ -113,13 +113,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-	            <groupId>com.mycila.maven-license-plugin</groupId>
-	            <artifactId>maven-license-plugin</artifactId>
-	            <configuration>
-	                <header>LICENSE_HEADER.txt</header>
-	            </configuration>
-	        </plugin>
 		</plugins>
 	</build>
 	-->

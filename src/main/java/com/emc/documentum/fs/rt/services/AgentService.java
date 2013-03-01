@@ -24,7 +24,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "AgentService", 
-                  wsdlLocation = "classpath:wsdl/AgentService.wsdl",
+                  wsdlLocation = "classpath:wsdl/6.6/AgentService.wsdl",
                   targetNamespace = "http://services.rt.fs.documentum.emc.com/") 
 public class AgentService extends Service {
 
@@ -33,11 +33,11 @@ public class AgentService extends Service {
     public final static QName SERVICE = new QName("http://services.rt.fs.documentum.emc.com/", "AgentService");
     public final static QName AgentServicePort = new QName("http://services.rt.fs.documentum.emc.com/", "AgentServicePort");
     static {
-        URL url = AgentService.class.getClassLoader().getResource("wsdl/AgentService.wsdl");
+        URL url = AgentService.class.getClassLoader().getResource("wsdl/6.6/AgentService.wsdl");
         if (url == null) {
             java.util.logging.Logger.getLogger(AgentService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/AgentService.wsdl");
+                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/6.6/AgentService.wsdl");
         }       
         WSDL_LOCATION = url;
     }

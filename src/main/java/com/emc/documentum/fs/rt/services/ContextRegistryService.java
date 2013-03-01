@@ -24,7 +24,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "ContextRegistryService", 
-                  wsdlLocation = "classpath:wsdl/ContextRegistryService.wsdl",
+                  wsdlLocation = "classpath:wsdl/6.6/ContextRegistryService.wsdl",
                   targetNamespace = "http://services.rt.fs.documentum.emc.com/") 
 public class ContextRegistryService extends Service {
 
@@ -33,11 +33,11 @@ public class ContextRegistryService extends Service {
     public final static QName SERVICE = new QName("http://services.rt.fs.documentum.emc.com/", "ContextRegistryService");
     public final static QName ContextRegistryServicePort = new QName("http://services.rt.fs.documentum.emc.com/", "ContextRegistryServicePort");
     static {
-        URL url = ContextRegistryService.class.getClassLoader().getResource("wsdl/ContextRegistryService.wsdl");
+        URL url = ContextRegistryService.class.getClassLoader().getResource("wsdl/6.6/ContextRegistryService.wsdl");
         if (url == null) {
             java.util.logging.Logger.getLogger(ContextRegistryService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/ContextRegistryService.wsdl");
+                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/6.6/ContextRegistryService.wsdl");
         }       
         WSDL_LOCATION = url;
     }

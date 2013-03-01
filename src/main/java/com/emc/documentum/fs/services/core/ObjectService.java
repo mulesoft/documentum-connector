@@ -24,7 +24,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "ObjectService", 
-                  wsdlLocation = "classpath:wsdl/ObjectService.wsdl",
+                  wsdlLocation = "classpath:wsdl/6.6/ObjectService.wsdl",
                   targetNamespace = "http://core.services.fs.documentum.emc.com/") 
 public class ObjectService extends Service {
 
@@ -33,11 +33,11 @@ public class ObjectService extends Service {
     public final static QName SERVICE = new QName("http://core.services.fs.documentum.emc.com/", "ObjectService");
     public final static QName ObjectServicePort = new QName("http://core.services.fs.documentum.emc.com/", "ObjectServicePort");
     static {
-        URL url = ObjectService.class.getClassLoader().getResource("wsdl/ObjectService.wsdl");
+        URL url = ObjectService.class.getClassLoader().getResource("wsdl/6.6/ObjectService.wsdl");
         if (url == null) {
             java.util.logging.Logger.getLogger(ObjectService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/ObjectService.wsdl");
+                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/6.6/ObjectService.wsdl");
         }       
         WSDL_LOCATION = url;
     }

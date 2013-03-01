@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.mule.api.ConnectionException;
-import org.mule.api.MuleException;
-import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Connector;
@@ -28,18 +26,17 @@ import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
-import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.module.documentum.coreServices.AccessControlClient;
-import org.mule.module.documentum.coreServices.AccessControlClientImpl;
-import org.mule.module.documentum.coreServices.ObjectClient;
-import org.mule.module.documentum.coreServices.ObjectClientImpl;
-import org.mule.module.documentum.coreServices.QueryClient;
-import org.mule.module.documentum.coreServices.QueryClientImpl;
-import org.mule.module.documentum.coreServices.VersionControlClient;
-import org.mule.module.documentum.coreServices.VersionControlClientImpl;
+import org.mule.module.documentum.coreservices.AccessControlClient;
+import org.mule.module.documentum.coreservices.AccessControlClientImpl;
+import org.mule.module.documentum.coreservices.ObjectClient;
+import org.mule.module.documentum.coreservices.ObjectClientImpl;
+import org.mule.module.documentum.coreservices.QueryClient;
+import org.mule.module.documentum.coreservices.QueryClientImpl;
+import org.mule.module.documentum.coreservices.VersionControlClient;
+import org.mule.module.documentum.coreservices.VersionControlClientImpl;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
@@ -54,7 +51,6 @@ import com.emc.documentum.fs.datamodel.core.acl.AclVisibility;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
-import com.emc.documentum.fs.datamodel.core.query.QueryExecution;
 import com.emc.documentum.fs.datamodel.core.query.QueryResult;
 import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
@@ -73,10 +69,7 @@ public class DocumentumConnector {
     /**
      * The relative URL where all API calls are made.
      */
-    @Configurable
-    @Optional
-    @Default("/services/")
-    private String apiUrl;
+    private static final String APIURL = "/services/";
     
     /**
      * URL of the DFS server API
@@ -114,17 +107,6 @@ public class DocumentumConnector {
     private VersionControlClient versionControlClient;
     
     /**
-     * This method initiates the Documentum client
-     * 
-     * @throws MuleException
-     */
-    @Start
-    public void init() throws MuleException {
-        identity = new RepositoryIdentity();
-        context = new ServiceContext();
-    }
-    
-    /**
      * Connect
      *
      * @param username A username
@@ -135,6 +117,8 @@ public class DocumentumConnector {
      */
     @Connect
     public void connect(@ConnectionKey String username, @Password String password, String repository, String server) throws ConnectionException {
+        identity = new RepositoryIdentity();
+        context = new ServiceContext();
         identity.setUserName(username);
         identity.setPassword(password);
         identity.setRepositoryName(repository);
@@ -147,10 +131,6 @@ public class DocumentumConnector {
      */
     @Disconnect
     public void disconnect() {
-        context.getIdentities().remove(identity);
-        identity.setUserName(null);
-        identity.setPassword(null);
-        identity.setRepositoryName(null);
         accessControlClient = null;
         objectClient = null;
         queryClient = null;
@@ -162,7 +142,7 @@ public class DocumentumConnector {
      */
     @ValidateConnection
     public boolean isConnected() {
-        return (identity.getUserName()!=null && identity.getPassword()!=null && identity.getRepositoryName()!=null);
+        return (accessControlClient!=null || objectClient!=null || queryClient!=null || versionControlClient!=null);
     }
 
     /**
@@ -170,7 +150,7 @@ public class DocumentumConnector {
      */
     @ConnectionIdentifier
     public String connectionId() {
-        return ((Integer) identity.hashCode()).toString();
+        return identity.getUserName();
     }
 
     /**
@@ -461,14 +441,13 @@ public class DocumentumConnector {
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:query}
      *
      * @param dqlStatement a DQL query.
-     * @param queryExecution used in order to make paginated queries.
      * @return the QueryResult.
      * @throws SerializableException .
      */
     @Processor
     @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public QueryResult query(String dqlStatement, @Optional QueryExecution queryExecution) throws SerializableException {
-        return getQueryClient().query(dqlStatement, queryExecution);
+    public QueryResult query(String dqlStatement) throws SerializableException {
+        return getQueryClient().query(dqlStatement);
     }
     
     /**
@@ -577,11 +556,7 @@ public class DocumentumConnector {
     }
     
     public String getApiUrl() {
-        return apiUrl;
-    }
-
-    public void setApiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
+        return APIURL;
     }
 
     public String getServer() {
@@ -615,12 +590,16 @@ public class DocumentumConnector {
     public void setContext(ServiceContext context) {
         this.context = context;
     }
+    
+    public String getTarget() {
+        return getServer() + getApiUrl();
+    }
 
     public AccessControlClient getAccessControlClient() {
         if (accessControlClient != null) {
             return accessControlClient;
         }
-        accessControlClient = new AccessControlClientImpl(server + apiUrl, context);
+        accessControlClient = new AccessControlClientImpl(getTarget(), context);
         return accessControlClient;
     }
 
@@ -628,7 +607,7 @@ public class DocumentumConnector {
         if (objectClient != null) {
             return objectClient;
         }
-        objectClient = new ObjectClientImpl(server + apiUrl, context);
+        objectClient = new ObjectClientImpl(getTarget(), context);
         return objectClient;
     }
 
@@ -636,7 +615,7 @@ public class DocumentumConnector {
         if (queryClient != null) {
             return queryClient;
         }
-        queryClient = new QueryClientImpl(server + apiUrl, context);
+        queryClient = new QueryClientImpl(getTarget(), context);
         return queryClient;
     }
 
@@ -644,7 +623,7 @@ public class DocumentumConnector {
         if (versionControlClient != null) {
             return versionControlClient;
         }
-        versionControlClient = new VersionControlClientImpl(server + apiUrl, context);
+        versionControlClient = new VersionControlClientImpl(getTarget(), context);
         return versionControlClient;
     }
     

@@ -29,34 +29,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
     </flow>
     <flow name="Query" doc:name="Query">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="query" doc:name="HTTP"/>
-        <scripting:component doc:name="Groovy">
-            <scripting:script engine="Groovy">
-                <scripting:text><![CDATA[import com.emc.documentum.fs.datamodel.core.query.QueryExecution;
-import com.emc.documentum.fs.datamodel.core.CacheStrategyType;
-
-QueryExecution queryExecution = new QueryExecution();
-queryExecution.setStartingIndex(0);
-queryExecution.setMaxResultCount(5);
-queryExecution.setCacheStrategyType(CacheStrategyType.BASIC_FILE_CACHE_STRATEGY);
-
-return queryExecution;]]></scripting:text>
-            </scripting:script>
-        </scripting:component>
-        <set-variable variableName="queryEx" value="#[payload:]" doc:name="queryExecution"/>
-        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum">
-            <documentum:query-execution ref="#[queryEx]"/>
-        </documentum:query>
-        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum">
-            <documentum:query-execution ref="#[queryEx]"/>
-        </documentum:query>
-        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum">
-            <documentum:query-execution ref="#[queryEx]"/>
-        </documentum:query>
-        <scripting:component doc:name="Groovy">
-            <scripting:script engine="Groovy">
-                <scripting:text><![CDATA[return payload.getDataPackage().getDataObjects();]]></scripting:text>
-            </scripting:script>
-        </scripting:component>
+        <documentum:query config-ref="Documentum" dqlStatement="select owner_name, object_name from dm_acl" doc:name="Documentum"/>
         <json:object-to-json-transformer doc:name="Object to JSON"/>
     </flow>
     <flow name="CreateAcl" doc:name="CreateAcl">

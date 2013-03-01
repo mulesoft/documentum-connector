@@ -19,7 +19,6 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.namespace.QName;
 import javax.xml.soap.*;
 
-import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 
 import java.util.Set;
@@ -75,9 +74,9 @@ public class HeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
                 SOAPElement identity = sc.addChildElement("Identities", "", "http://context.core.datamodel.fs.documentum.emc.com/");
                 identity.addAttribute(new QName("xsi:type"), "RepositoryIdentity");
-                identity.addAttribute(new QName("password"), ((RepositoryIdentity) (context.getIdentities().get(0))).getPassword());
-                identity.addAttribute(new QName("repositoryName"), ((RepositoryIdentity) (context.getIdentities().get(0))).getRepositoryName());
-                identity.addAttribute(new QName("userName"), ((RepositoryIdentity) (context.getIdentities().get(0))).getUserName());
+                identity.addAttribute(new QName("password"), Utils.getPassword(context));
+                identity.addAttribute(new QName("repositoryName"), Utils.getRepositoryName(context));
+                identity.addAttribute(new QName("userName"), Utils.getUserName(context));
                 identity.addAttribute(new QName("xmlns:xsi"), "http://www.w3.org/2001/XMLSchema-instance");
 
             } catch (Exception e) {

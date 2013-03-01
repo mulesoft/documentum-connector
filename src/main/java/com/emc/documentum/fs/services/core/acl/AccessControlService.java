@@ -24,7 +24,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "AccessControlService", 
-                  wsdlLocation = "classpath:wsdl/AccessControlService.wsdl",
+                  wsdlLocation = "classpath:wsdl/6.6/AccessControlService.wsdl",
                   targetNamespace = "http://acl.core.services.fs.documentum.emc.com/") 
 public class AccessControlService extends Service {
 
@@ -33,11 +33,11 @@ public class AccessControlService extends Service {
     public final static QName SERVICE = new QName("http://acl.core.services.fs.documentum.emc.com/", "AccessControlService");
     public final static QName AccessControlServicePort = new QName("http://acl.core.services.fs.documentum.emc.com/", "AccessControlServicePort");
     static {
-        URL url = AccessControlService.class.getClassLoader().getResource("wsdl/AccessControlService.wsdl");
+        URL url = AccessControlService.class.getClassLoader().getResource("wsdl/6.6/AccessControlService.wsdl");
         if (url == null) {
             java.util.logging.Logger.getLogger(AccessControlService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/AccessControlService.wsdl");
+                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/6.6/AccessControlService.wsdl");
         }       
         WSDL_LOCATION = url;
     }

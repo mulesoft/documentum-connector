@@ -103,9 +103,7 @@
 <!-- END_INCLUDE(documentum:get-version-info) -->
 
 <!-- BEGIN_INCLUDE(documentum:query) -->
-    <documentum:query dqlStatement="select owner_name, object_name from dm_acl">
-        <documentum:query-execution ref="#[myVar1]"/>
-    </documentum:query>
+    <documentum:query dqlStatement="select owner_name, object_name from dm_acl"/>
 <!-- END_INCLUDE(documentum:query) -->
 
 <!-- BEGIN_INCLUDE(documentum:create-acl) -->

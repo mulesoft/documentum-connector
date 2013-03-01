@@ -24,7 +24,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "VersionControlService", 
-                  wsdlLocation = "classpath:wsdl/VersionControlService.wsdl",
+                  wsdlLocation = "classpath:wsdl/6.6/VersionControlService.wsdl",
                   targetNamespace = "http://core.services.fs.documentum.emc.com/") 
 public class VersionControlService extends Service {
 
@@ -33,11 +33,11 @@ public class VersionControlService extends Service {
     public final static QName SERVICE = new QName("http://core.services.fs.documentum.emc.com/", "VersionControlService");
     public final static QName VersionControlServicePort = new QName("http://core.services.fs.documentum.emc.com/", "VersionControlServicePort");
     static {
-        URL url = VersionControlService.class.getClassLoader().getResource("wsdl/VersionControlService.wsdl");
+        URL url = VersionControlService.class.getClassLoader().getResource("wsdl/6.6/VersionControlService.wsdl");
         if (url == null) {
             java.util.logging.Logger.getLogger(VersionControlService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/VersionControlService.wsdl");
+                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/6.6/VersionControlService.wsdl");
         }       
         WSDL_LOCATION = url;
     }
