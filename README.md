@@ -1,4 +1,11 @@
-documentum-connector
-====================
+Documentum Connector
+The Documentum Connector provides an easy way to integrate with Documentum services.
 
-Documentum is an enterprise content management platform. Documentum provides management capabilities for all types of content. The core of Documentum is a repository in which the content is stored securely under compliance rules and a unified environment, although content may reside on multiple servers and physical storage devices within a networked environment. Documentum provides a suite of services, such as document management, collaboration, search, content classification, input management, Business Process Management (BPM), customer communication management, and Web content management.
+Known limitations
+The connector can only authenticate via username and password (Basic Authentication).
+
+Installation and Usage
+For information about usage and installation you can check our documentation at http://mulesoft.github.com/documentum-connector.
+
+Reporting Issues
+We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link https://github.com/mulesoft/documentum-connector/issues.
