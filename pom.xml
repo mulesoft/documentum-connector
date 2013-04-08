@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-documentum</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>mule-module</packaging>
-    <name>Mule Cloud Connector</name>
+    <name>Mule Documentum Connector</name>
     
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
