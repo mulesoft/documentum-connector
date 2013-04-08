@@ -17,9 +17,7 @@
     <properties>
         <junit.version>4.9</junit.version>
         <mockito.version>1.8.2</mockito.version>
-        <mule.devkit.version>3.3.2</mule.devkit.version>
         <cxf.version>2.5.1</cxf.version>
-        <mule.version>3.3.0</mule.version>
         <jdk.version>1.6</jdk.version>
         <category>Standard</category>
         <licensePath>LICENSE.md</licensePath>
