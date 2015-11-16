@@ -17,26 +17,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.mule.api.ConnectionException;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.ValidateConnection;
-import org.mule.api.annotations.display.Password;
-import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.api.annotations.ReconnectOn;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.module.documentum.coreservices.AccessControlClient;
-import org.mule.module.documentum.coreservices.AccessControlClientImpl;
-import org.mule.module.documentum.coreservices.ObjectClient;
-import org.mule.module.documentum.coreservices.ObjectClientImpl;
-import org.mule.module.documentum.coreservices.QueryClient;
-import org.mule.module.documentum.coreservices.QueryClientImpl;
-import org.mule.module.documentum.coreservices.VersionControlClient;
-import org.mule.module.documentum.coreservices.VersionControlClientImpl;
 
 import com.emc.documentum.fs.datamodel.core.CheckoutInfo;
 import com.emc.documentum.fs.datamodel.core.ObjectIdentity;
@@ -49,108 +34,29 @@ import com.emc.documentum.fs.datamodel.core.acl.AclPackage;
 import com.emc.documentum.fs.datamodel.core.acl.AclType;
 import com.emc.documentum.fs.datamodel.core.acl.AclVisibility;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
-import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
-import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.query.QueryResult;
 import com.emc.documentum.fs.services.core.SerializableException;
 import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
 import com.emc.documentum.fs.services.core.acl.ServiceException;
 
 /**
- * Documentum Cloud Connector.
- * The Documentum Connector will allow to use the DFS SOAP API. 
- * Almost every operation that can be done via the API can be done thru this connector.
+ * Documentum Cloud Connector. The Documentum Connector will allow to use the DFS SOAP API. Almost every operation that can be done via the API can be done thru this connector.
  * 
  * @author MuleSoft, Inc.
  */
-@Connector(name="documentum", schemaVersion="1.0", friendlyName="Documentum")
+@Connector(name = "documentum", schemaVersion = "1.0", friendlyName = "Documentum", minMuleVersion = "3.6")
+@ReconnectOn(exceptions = DocumentumConnectorException.class)
 public class DocumentumConnector {
-    
-    /**
-     * The relative URL where all API calls are made.
-     */
-    private static final String APIURL = "/services/";
-    
-    /**
-     * URL of the DFS server API
-     */
-    private String server;
-    
-    /**
-     * Repository Identity
-     */
-    private RepositoryIdentity identity;
-    
-    /**
-     * Service Context
-     */
-    private ServiceContext context;
-    
-    /**
-     * Access Control Client
-     */
-    private AccessControlClient accessControlClient;
-    
-    /**
-     * Object Client
-     */
-    private ObjectClient objectClient;
-    
-    /**
-     * Query Client
-     */
-    private QueryClient queryClient;
-    
-    /**
-     * Version Control Client
-     */
-    private VersionControlClient versionControlClient;
-    
-    /**
-     * Connect
-     *
-     * @param username A username
-     * @param password A password
-     * @param repository A repository
-     * @param server A server
-     * @throws ConnectionException
-     */
-    @Connect
-    public void connect(@ConnectionKey String username, @Password String password, String repository, String server) throws ConnectionException {
-        identity = new RepositoryIdentity();
-        context = new ServiceContext();
-        identity.setUserName(username);
-        identity.setPassword(password);
-        identity.setRepositoryName(repository);
-        context.getIdentities().add(identity);
-        this.setServer(server);
+
+    @org.mule.api.annotations.Config
+    private Config config;
+
+    public Config getConfig() {
+        return config;
     }
 
-    /**
-     * Disconnect
-     */
-    @Disconnect
-    public void disconnect() {
-        accessControlClient = null;
-        objectClient = null;
-        queryClient = null;
-        versionControlClient = null;
-    }
-
-    /**
-     * Are we connected
-     */
-    @ValidateConnection
-    public boolean isConnected() {
-        return (accessControlClient!=null || objectClient!=null || queryClient!=null || versionControlClient!=null);
-    }
-
-    /**
-     * Connection Identifier
-     */
-    @ConnectionIdentifier
-    public String connectionId() {
-        return identity.getUserName();
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
     /**
@@ -158,387 +64,424 @@ public class DocumentumConnector {
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param filePath path to an existing file in the local system.
-     * @param folderPath path to an existing folder in the content server.
-     * @param transferMode the transfer mode.
+     * @param filePath
+     *            path to an existing file in the local system.
+     * @param folderPath
+     *            path to an existing folder in the content server.
+     * @param transferMode
+     *            the transfer mode.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity createDocument(String filePath, String folderPath, @Optional @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException {
-        return getObjectClient().createObject("dm_document", filePath, null, folderPath, transferMode);
+    public ObjectIdentity createDocument(String filePath, String folderPath, @Default("MTOM") ContentTransferMode transferMode) throws IOException, SerializableException {
+        return getConfig().getObjectClient().createObject("dm_document", filePath, null, folderPath, transferMode);
     }
-    
+
     /**
      * Create Folder
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-folder}
      *
-     * @param folderName of the folder to create.
-     * @param folderPath path to an existing folder in the content server.
+     * @param folderName
+     *            of the folder to create.
+     * @param folderPath
+     *            path to an existing folder in the content server.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createFolder(String folderName, String folderPath) throws IOException, SerializableException {
-        return getObjectClient().createObject("dm_folder", null, folderName, folderPath, null);
+        return getConfig().getObjectClient().createObject("dm_folder", null, folderName, folderPath, null);
     }
-    
+
     /**
      * Create Path
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-path}
      *
-     * @param folderPath path to create in the content server.
+     * @param folderPath
+     *            path to create in the content server.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity createPath(String folderPath) throws SerializableException {
-        return getObjectClient().createPath(folderPath);
+        return getConfig().getObjectClient().createPath(folderPath);
     }
-    
+
     /**
      * Get Object
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param objectIdentity the ObjectIdentity of the object to download.
-     * @param outputPath download path plus the fileName.
-     * @param transferMode the transfer mode.
+     * @param objectIdentity
+     *            the ObjectIdentity of the object to download.
+     * @param outputPath
+     *            download path plus the fileName.
+     * @param transferMode
+     *            the transfer mode.
      * @return the File.
      * @throws SerializableException .
      * @throws IOException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public File getObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, String outputPath, ContentTransferMode transferMode) throws SerializableException, IOException {
-        return getObjectClient().getObject(objectIdentity, outputPath, transferMode);
+    public File getObject(@Default("#[payload]") ObjectIdentity objectIdentity, String outputPath, ContentTransferMode transferMode) throws SerializableException, IOException {
+        return getConfig().getObjectClient().getObject(objectIdentity, outputPath, transferMode);
     }
-    
+
     /**
      * Update Document
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:update-document}
      *
-     * @param objectIdentity the ObjectIdentity of the object to update.
-     * @param newContentFilePath the path to file with the new content.
-     * @param transferMode the transfer mode.
-     * @param newProperties a map with the new properties.
-     * @param oldParentFolder the old parent folder ObjectIdentity.
-     * @param newParentFolder the new parent folder ObjectIdentity.
+     * @param objectIdentity
+     *            the ObjectIdentity of the object to update.
+     * @param newContentFilePath
+     *            the path to file with the new content.
+     * @param transferMode
+     *            the transfer mode.
+     * @param newProperties
+     *            a map with the new properties.
+     * @param oldParentFolder
+     *            the old parent folder ObjectIdentity.
+     * @param newParentFolder
+     *            the new parent folder ObjectIdentity.
      * @return the ObjectIdentity.
      * @throws IOException .
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity updateDocument(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, @Optional String newContentFilePath, @Optional @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
-        return getObjectClient().updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder, transferMode);
+    public ObjectIdentity updateDocument(@Default("#[payload]") ObjectIdentity objectIdentity, @Optional String newContentFilePath,
+            @Default("MTOM") ContentTransferMode transferMode, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder,
+            @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
+        return getConfig().getObjectClient().updateObject(objectIdentity, "dm_document", newContentFilePath, newProperties, oldParentFolder, newParentFolder, transferMode);
     }
-    
+
     /**
      * Update Folder
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:update-folder}
      *
-     * @param objectIdentity the ObjectIdentity of the object to update.
-     * @param newProperties a map with the new properties.
-     * @param oldParentFolder the old parent folder ObjectIdentity.
-     * @param newParentFolder the new parent folder ObjectIdentity.
+     * @param objectIdentity
+     *            the ObjectIdentity of the object to update.
+     * @param newProperties
+     *            a map with the new properties.
+     * @param oldParentFolder
+     *            the old parent folder ObjectIdentity.
+     * @param newParentFolder
+     *            the new parent folder ObjectIdentity.
      * @return the ObjectIdentity.
      * @throws IOException .
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity updateFolder(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder, @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
-        return getObjectClient().updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder, null);
+    public ObjectIdentity updateFolder(@Default("#[payload]") ObjectIdentity objectIdentity, @Optional Map<String, String> newProperties, @Optional ObjectIdentity oldParentFolder,
+            @Optional ObjectIdentity newParentFolder) throws SerializableException, IOException {
+        return getConfig().getObjectClient().updateObject(objectIdentity, "dm_folder", null, newProperties, oldParentFolder, newParentFolder, null);
     }
-    
+
     /**
      * Delete Object
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:delete-object}
      *
-     * @param objectIdentity the ObjectIdentity of the object to delete.
+     * @param objectIdentity
+     *            the ObjectIdentity of the object to delete.
      * @return ObjectIdentity if the deletion was successful.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity deleteObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity) throws SerializableException {
-        return getObjectClient().deleteObject(objectIdentity);
+    public ObjectIdentity deleteObject(@Default("#[payload]") ObjectIdentity objectIdentity) throws SerializableException {
+        return getConfig().getObjectClient().deleteObject(objectIdentity);
     }
-    
+
     /**
      * Copy Object
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:copy-object}
      *
-     * @param objectIdentity identify the object to copy.
-     * @param folderIdentity identify the folder to copy to.
+     * @param objectIdentity
+     *            identify the object to copy.
+     * @param folderIdentity
+     *            identify the folder to copy to.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity copyObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity folderIdentity) throws SerializableException {
-        return getObjectClient().copyObject(objectIdentity, folderIdentity);
+    public ObjectIdentity copyObject(@Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity folderIdentity) throws SerializableException {
+        return getConfig().getObjectClient().copyObject(objectIdentity, folderIdentity);
     }
-    
+
     /**
      * Move Object
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:move-object}
      *
-     * @param objectIdentity identify the object to move.
-     * @param toFolderIdentity identify the folder to move from.
-     * @param fromFolderIdentity identify the folder to move to.
+     * @param objectIdentity
+     *            identify the object to move.
+     * @param toFolderIdentity
+     *            identify the folder to move from.
+     * @param fromFolderIdentity
+     *            identify the folder to move to.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity moveObject(@Optional @Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity toFolderIdentity, ObjectIdentity fromFolderIdentity) throws SerializableException {
-        return getObjectClient().moveObject(objectIdentity, toFolderIdentity, fromFolderIdentity);
+    public ObjectIdentity moveObject(@Default("#[payload]") ObjectIdentity objectIdentity, ObjectIdentity toFolderIdentity, ObjectIdentity fromFolderIdentity)
+            throws SerializableException {
+        return getConfig().getObjectClient().moveObject(objectIdentity, toFolderIdentity, fromFolderIdentity);
     }
-    
+
     /**
      * Get checkout info
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-checkout-info}
      *
-     * @param objIdentity identify the object to get the checkout info.
+     * @param objIdentity
+     *            identify the object to get the checkout info.
      * @return the CheckoutInfo.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public CheckoutInfo getCheckoutInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().getCheckoutInfo(objIdentity);
+    public CheckoutInfo getCheckoutInfo(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().getCheckoutInfo(objIdentity);
     }
-    
+
     /**
      * Checkout
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:checkout}
      *
-     * @param objIdentity identify the object to checkout.
+     * @param objIdentity
+     *            identify the object to checkout.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity checkout(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().checkout(objIdentity);
+    public ObjectIdentity checkout(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().checkout(objIdentity);
     }
-    
+
     /**
      * Checkin
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:checkin}
      *
-     * @param objIdentity identify the object to checkin.
-     * @param newContentPath the path to the file with the new content.
-     * @param versionStrategy the strategy to do the checkin.
-     * @param labels the labels of this checkin.
-     * @param isRetainLock specifies whether the object is to remain checked out and locked by the user after the new version is saved.
-     * @param transferMode the transfer mode.
+     * @param objIdentity
+     *            identify the object to checkin.
+     * @param newContentPath
+     *            the path to the file with the new content.
+     * @param versionStrategy
+     *            the strategy to do the checkin.
+     * @param labels
+     *            the labels of this checkin.
+     * @param isRetainLock
+     *            specifies whether the object is to remain checked out and locked by the user after the new version is saved.
+     * @param transferMode
+     *            the transfer mode.
      * @return the ObjectIdentity.
      * @throws IOException .
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity checkin(@Optional @Default("#[payload]") ObjectIdentity objIdentity, String newContentPath, @Optional @Default("NEXT_MINOR") VersionStrategy versionStrategy, List<String> labels, @Optional @Default("false") boolean isRetainLock, @Optional @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, IOException {
-        return getVersionControlClient().checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock, transferMode);
+    public ObjectIdentity checkin(@Default("#[payload]") ObjectIdentity objIdentity, String newContentPath, @Default("NEXT_MINOR") VersionStrategy versionStrategy,
+            List<String> labels, @Default("false") boolean isRetainLock, @Default("MTOM") ContentTransferMode transferMode) throws SerializableException, IOException {
+        return getConfig().getVersionControlClient().checkin(objIdentity, newContentPath, versionStrategy, labels, isRetainLock, transferMode);
     }
-    
+
     /**
      * Cancel Checkout
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:cancel-checkout}
      *
-     * @param objIdentity identify the object to cancel the checkout.
+     * @param objIdentity
+     *            identify the object to cancel the checkout.
      * @return ObjectIdentity if the cancellation was successful.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity cancelCheckout(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().cancelCheckout(objIdentity);
+    public ObjectIdentity cancelCheckout(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().cancelCheckout(objIdentity);
     }
-    
+
     /**
      * Delete Version
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:delete-version}
      *
-     * @param objIdentity identify the object to delete.
+     * @param objIdentity
+     *            identify the object to delete.
      * @return ObjectIdentity if the deletion was successful.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity deleteVersion(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().deleteVersion(objIdentity);
+    public ObjectIdentity deleteVersion(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().deleteVersion(objIdentity);
     }
-    
+
     /**
      * Delete All Versions
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-document}
      *
-     * @param objIdentity identify the object to delete.
+     * @param objIdentity
+     *            identify the object to delete.
      * @return ObjectIdentity if the deletion was successful.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity deleteAllVersions(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().deleteAllVersions(objIdentity);
+    public ObjectIdentity deleteAllVersions(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().deleteAllVersions(objIdentity);
     }
-    
+
     /**
      * Get Current
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-current}
      *
-     * @param objIdentity identify the object to get the current version.
+     * @param objIdentity
+     *            identify the object to get the current version.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public ObjectIdentity getCurrent(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().getCurrent(objIdentity);
+    public ObjectIdentity getCurrent(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().getCurrent(objIdentity);
     }
-    
+
     /**
      * Get Version Info
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-version-info}
      *
-     * @param objIdentity identify the object to get the version info.
+     * @param objIdentity
+     *            identify the object to get the version info.
      * @return the VersionInfo.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public VersionInfo getVersionInfo(@Optional @Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
-        return getVersionControlClient().getVersionInfo(objIdentity);
+    public VersionInfo getVersionInfo(@Default("#[payload]") ObjectIdentity objIdentity) throws SerializableException {
+        return getConfig().getVersionControlClient().getVersionInfo(objIdentity);
     }
-    
+
     /**
      * Query
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:query}
      *
-     * @param dqlStatement a DQL query.
+     * @param dqlStatement
+     *            a DQL query.
      * @return the QueryResult.
      * @throws SerializableException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public QueryResult query(String dqlStatement) throws SerializableException {
-        return getQueryClient().query(dqlStatement);
+        return getConfig().getQueryClient().query(dqlStatement);
     }
-    
+
     /**
      * Create Acl
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:create-acl}
      *
-     * @param aclName the name of the acl.
-     * @param aclDescription the description of the acl.
-     * @param aclEntries the entries of the acl.
-     * @param aclVisibility the visibility of the acl.
-     * @param aclType the type of the acl.
+     * @param aclName
+     *            the name of the acl.
+     * @param aclDescription
+     *            the description of the acl.
+     * @param aclEntries
+     *            the entries of the acl.
+     * @param aclVisibility
+     *            the visibility of the acl.
+     * @param aclType
+     *            the type of the acl.
      * @return the Acl.
      * @throws CoreServiceException_Exception .
      * @throws ServiceException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public Acl createAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {
-        return getAccessControlClient().createAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
+    public Acl createAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException,
+            CoreServiceException_Exception {
+        return getConfig().getAccessControlClient().createAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
     }
-    
+
     /**
      * Get Acl
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:get-acl}
      *
-     * @param aclNames the names of the acls.
+     * @param aclNames
+     *            the names of the acls.
      * @return the AclPackage.
      * @throws CoreServiceException_Exception .
      * @throws ServiceException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public AclPackage getAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
-        return getAccessControlClient().getAcl(aclNames);
+        return getConfig().getAccessControlClient().getAcl(aclNames);
     }
-    
+
     /**
      * Update Acl
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:update-acl}
      *
-     * @param aclName the name of the acl.
-     * @param aclDescription the description of the acl.
-     * @param aclEntries the entries of the acl.
-     * @param aclVisibility the visibility of the acl.
-     * @param aclType the type of the acl.
+     * @param aclName
+     *            the name of the acl.
+     * @param aclDescription
+     *            the description of the acl.
+     * @param aclEntries
+     *            the entries of the acl.
+     * @param aclVisibility
+     *            the visibility of the acl.
+     * @param aclType
+     *            the type of the acl.
      * @return the Acl.
      * @throws CoreServiceException_Exception .
      * @throws ServiceException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
-    public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException, CoreServiceException_Exception {
-        return getAccessControlClient().updateAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
+    public Acl updateAcl(String aclName, String aclDescription, List<AclEntry> aclEntries, AclVisibility aclVisibility, AclType aclType) throws ServiceException,
+            CoreServiceException_Exception {
+        return getConfig().getAccessControlClient().updateAcl(aclName, aclDescription, aclEntries, aclVisibility, aclType);
     }
-    
+
     /**
      * Delete Acl
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:delete-acl}
      *
-     * @param aclNames the names of the acls.
+     * @param aclNames
+     *            the names of the acls.
      * @return a list with names of the deleted acls.
      * @throws CoreServiceException_Exception .
      * @throws ServiceException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public List<String> deleteAcl(List<String> aclNames) throws ServiceException, CoreServiceException_Exception {
-        return getAccessControlClient().deleteAcl(aclNames);
+        return getConfig().getAccessControlClient().deleteAcl(aclNames);
     }
-    
+
     /**
      * Apply Acl
      *
      * {@sample.xml ../../../doc/documentum.xml.sample documentum:apply-acl}
      *
-     * @param objectIdentity the object identity to receive the Acl.
-     * @param aclIdentity the acl identity to apply to the object identity.
+     * @param objectIdentity
+     *            the object identity to receive the Acl.
+     * @param aclIdentity
+     *            the acl identity to apply to the object identity.
      * @return the ObjectIdentity.
      * @throws SerializableException .
      * @throws ServiceException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public ObjectIdentity applyAcl(ObjectIdentity objectIdentity, AclIdentity aclIdentity) throws ServiceException, SerializableException {
-        return getObjectClient().applyAcl(objectIdentity, aclIdentity);
+        return getConfig().getObjectClient().applyAcl(objectIdentity, aclIdentity);
     }
-    
+
     /**
      * Get Acls
      *
@@ -550,81 +493,8 @@ public class DocumentumConnector {
      * @throws ServiceException .
      */
     @Processor
-    @InvalidateConnectionOn(exception = DocumentumConnectorException.class)
     public AclPackage getAcls() throws ServiceException, SerializableException, CoreServiceException_Exception {
-        return getAccessControlClient().getAcls(getQueryClient());
-    }
-    
-    public String getApiUrl() {
-        return APIURL;
+        return getConfig().getAccessControlClient().getAcls(getConfig().getQueryClient());
     }
 
-    public String getServer() {
-        return server;
-    }
-
-    public void setServer(String server) {
-        if (!server.startsWith("http://")) {
-            server = "http://" + server;
-        }
-        
-        if (server.endsWith("/")) {
-            server = server.substring(0, server.length() - 1);
-        }
-        
-        this.server = server;
-    }
-
-    public RepositoryIdentity getIdentity() {
-        return identity;
-    }
-    
-    public void setIdentity(RepositoryIdentity identity) {
-        this.identity = identity;
-    }
-    
-    public ServiceContext getContext() {
-        return context;
-    }
-    
-    public void setContext(ServiceContext context) {
-        this.context = context;
-    }
-    
-    public String getTarget() {
-        return getServer() + getApiUrl();
-    }
-
-    public AccessControlClient getAccessControlClient() {
-        if (accessControlClient != null) {
-            return accessControlClient;
-        }
-        accessControlClient = new AccessControlClientImpl(getTarget(), context);
-        return accessControlClient;
-    }
-
-    public ObjectClient getObjectClient() {
-        if (objectClient != null) {
-            return objectClient;
-        }
-        objectClient = new ObjectClientImpl(getTarget(), context);
-        return objectClient;
-    }
-
-    public QueryClient getQueryClient() {
-        if (queryClient != null) {
-            return queryClient;
-        }
-        queryClient = new QueryClientImpl(getTarget(), context);
-        return queryClient;
-    }
-
-    public VersionControlClient getVersionControlClient() {
-        if (versionControlClient != null) {
-            return versionControlClient;
-        }
-        versionControlClient = new VersionControlClientImpl(getTarget(), context);
-        return versionControlClient;
-    }
-    
 }

@@ -13,21 +13,25 @@
 
 package org.mule.module.documentum;
 
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.MessageContext;
+import java.security.SecureRandom;
+import java.util.Set;
+
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.soap.SOAPPart;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 
-import java.util.Set;
-import java.security.SecureRandom;
-
 public class HeaderHandler implements SOAPHandler<SOAPMessageContext> {
-    
+
     ServiceContext context;
-    
+
     public HeaderHandler(ServiceContext context) {
         this.context = context;
     }
@@ -70,7 +74,8 @@ public class HeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 secureRandom.setSeed(seed);
                 String random = String.valueOf(secureRandom.nextLong());
 
-                sc.addAttribute(new QName("token"), (new StringBuilder("temporary/127.0.0.1-")).append(String.valueOf(System.currentTimeMillis())).append("-").append(random).toString());
+                sc.addAttribute(new QName("token"), (new StringBuilder("temporary/127.0.0.1-")).append(String.valueOf(System.currentTimeMillis())).append("-").append(random)
+                        .toString());
 
                 SOAPElement identity = sc.addChildElement("Identities", "", "http://context.core.datamodel.fs.documentum.emc.com/");
                 identity.addAttribute(new QName("xsi:type"), "RepositoryIdentity");

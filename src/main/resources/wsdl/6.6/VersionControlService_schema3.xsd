@@ -21,7 +21,7 @@
     <xs:attribute name="isInternal" type="xs:boolean" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="Property" abstract="true">
+  <xs:complexType name="Property" abstract="false">
     <xs:sequence/>
     <xs:attribute name="name" type="xs:string" use="required"/>
     <xs:attribute name="isTransient" type="xs:boolean" use="required"/>

@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-documentum</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>2.0.0</version>
     <packaging>mule-module</packaging>
     <name>Mule Documentum Connector</name>
-    
+
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.7.2</version>
     </parent>
 
     <properties>
         <junit.version>4.9</junit.version>
         <mockito.version>1.8.2</mockito.version>
-        <cxf.version>2.5.1</cxf.version>
+        <cxf.version>2.7.15</cxf.version>
         <jdk.version>1.6</jdk.version>
-        <category>Standard</category>
+        <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
-    
-	<repositories>
-	  <repository>
-	    <id>mule-ee-snapshot</id>
-	    <name>EE Repository Snapshots</name>	
-	    <url> https://repository.mulesoft.org/nexus/content/repositories/snapshots </url>
-	    <layout>default</layout>
-	  </repository>
-	  <repository>
-	    <id>mule-ee</id>
-	    <name>EE Repository Releases</name>	
-	    <url> https://repository.mulesoft.org/nexus/content/repositories/releases </url>
-	    <layout>default</layout>
-	  </repository>
-	</repositories>
+
+    <repositories>
+        <repository>
+            <id>mule-ee-snapshot</id>
+            <name>EE Repository Snapshots</name>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/snapshots</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>mule-ee</id>
+            <name>EE Repository Releases</name>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
     <scm>
         <connection>scm:git:git://github.com:mulesoft/documentum-connector.git</connection>
@@ -45,73 +46,79 @@
     </scm>
 
     <dependencies>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-cxf</artifactId>
-			<version>${mule.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-databinding-jaxb</artifactId>
-			<version>${cxf.version}</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-cxf</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-databinding-jaxb</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb.patch</groupId>
+            <artifactId>openejb-cxf-bundle</artifactId>
+            <version>2.5.2</version>
+        </dependency>
     </dependencies>
-    
-    <!--
+
+
     <build>
-	   	<plugins>
-	       	<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>${cxf.version}</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<configuration>
-						<defaultOptions>
-					    	<bindingFiles>
-					        	<bindingFile>${basedir}/src/main/resources/wsdl/binding.xml</bindingFile>
-					    	</bindingFiles>
-					      	<noAddressBinding>true</noAddressBinding>
-					  	</defaultOptions>
-							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
-							<wsdlOptions>
-								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/6.6/AccessControlService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/6.6/AccessControlService.wsdl</wsdlLocation>
-	   							</wsdlOption>
-								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/6.6/QueryService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/6.6/QueryService.wsdl</wsdlLocation>
-	   							</wsdlOption>
-	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/6.6/AgentService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/6.6/AgentService.wsdl</wsdlLocation>
-	   							</wsdlOption>
-	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/6.6/ContextRegistryService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/6.6/ContextRegistryService.wsdl</wsdlLocation>
-	   							</wsdlOption>
-	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/6.6/ObjectService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/6.6/ObjectService.wsdl</wsdlLocation>
-	   							</wsdlOption>
-	   							<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/6.6/VersionControlService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/6.6/VersionControlService.wsdl</wsdlLocation>
-	   							</wsdlOption>
-							</wsdlOptions>
-						</configuration>
-						<goals>
-							<goal>wsdl2java</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-	-->
-	
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <!-- This is so it work with the DEV Kit -->
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                        <configuration>
+                            <defaultOptions>
+                                <bindingFiles>
+                                    <bindingFile>${basedir}/src/main/resources/wsdl/binding.xml</bindingFile>
+                                </bindingFiles>
+                                <noAddressBinding>true</noAddressBinding>
+                            </defaultOptions>
+                            <!--<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>-->
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/6.6/AccessControlService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/6.6/AccessControlService.wsdl</wsdlLocation>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/6.6/QueryService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/6.6/QueryService.wsdl</wsdlLocation>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/6.6/AgentService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/6.6/AgentService.wsdl</wsdlLocation>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/6.6/ContextRegistryService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/6.6/ContextRegistryService.wsdl</wsdlLocation>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/6.6/ObjectService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/6.6/ObjectService.wsdl</wsdlLocation>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/6.6/VersionControlService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/6.6/VersionControlService.wsdl</wsdlLocation>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>

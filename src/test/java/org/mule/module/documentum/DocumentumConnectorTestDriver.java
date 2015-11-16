@@ -23,22 +23,25 @@ import com.emc.documentum.fs.services.core.acl.CoreServiceException_Exception;
 import com.emc.documentum.fs.services.core.acl.ServiceException;
 
 public class DocumentumConnectorTestDriver {
-    
+
     private static final String USER = "user";
     private static final String PASSWORD = "password";
     private static final String REPOSITORY = "repository";
     private static final String SERVER = "http://localhost:9080/";
-    private DocumentumConnector connector;
-    
+    private static Config config;
+
     @Before
     public void init() throws ConnectionException, MuleException {
-        connector = new DocumentumConnector();
-        connector.connect(USER, PASSWORD, REPOSITORY, SERVER);
+        config = new Config();
+        config.connect(USER, PASSWORD, REPOSITORY, SERVER);
     }
-    
+
     @Test
     public void testGetAcls() throws ServiceException, CoreServiceException_Exception, SerializableException {
+        DocumentumConnector connector = new DocumentumConnector();
+
+        connector.setConfig(config);
         connector.getAcls();
     }
-    
+
 }

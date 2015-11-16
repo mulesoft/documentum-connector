@@ -31,21 +31,21 @@ import com.emc.documentum.fs.datamodel.core.OperationOptions;
 import com.emc.documentum.fs.datamodel.core.content.BinaryContent;
 import com.emc.documentum.fs.datamodel.core.content.ContentTransferMode;
 import com.emc.documentum.fs.datamodel.core.content.DataHandlerContent;
-import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
+import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
 import com.emc.documentum.fs.datamodel.core.profiles.Profile;
 import com.emc.documentum.fs.datamodel.core.query.PassthroughQuery;
 
 public class Utils {
-    
+
     public static String getRepositoryName(ServiceContext serviceContext) {
         return ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getRepositoryName();
     }
-    
+
     public static String getUserName(ServiceContext serviceContext) {
         return ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getUserName();
     }
-    
+
     public static String getPassword(ServiceContext serviceContext) {
         return ((RepositoryIdentity) (serviceContext.getIdentities().get(0))).getPassword();
     }
@@ -53,12 +53,11 @@ public class Utils {
     public static void addContent(DataObject dataObject, ContentTransferMode transferMode, byte[] byteArray) {
         if (transferMode == ContentTransferMode.MTOM) {
             dataObject.getContents().add(getDataHandlerContent(byteArray));
-        }
-        else if (transferMode == ContentTransferMode.BASE_64) {
+        } else if (transferMode == ContentTransferMode.BASE_64) {
             dataObject.getContents().add(getBinaryContent(byteArray));
         }
     }
-    
+
     public static DataHandlerContent getDataHandlerContent(byte[] byteArray) {
         DataSource byteDataSource = new ByteDataSource(byteArray);
         DataHandler dataHandler = new DataHandler(byteDataSource);
@@ -72,7 +71,7 @@ public class Utils {
         binaryContent.setValue(byteArray);
         return binaryContent;
     }
-    
+
     public static byte[] fileToByteArray(File file) throws IOException {
         byte[] byteArray = new byte[(int) file.length()];
         InputStream fis = new FileInputStream(file);
@@ -80,27 +79,27 @@ public class Utils {
         fis.close();
         return byteArray;
     }
-    
+
     public static ObjectIdentitySet createObjectIdentitySet(ObjectIdentity objectIdentity) {
         ObjectIdentitySet objIdSet = new ObjectIdentitySet();
         objIdSet.getIdentities().add(objectIdentity);
         return objIdSet;
     }
-    
+
     public static OperationOptions createOperationOptions(List<Profile> profiles) {
         OperationOptions operationOptions = new OperationOptions();
-        for(Profile profile: profiles){
-            operationOptions.getProfiles().add(profile); 
+        for (Profile profile : profiles) {
+            operationOptions.getProfiles().add(profile);
         }
         return operationOptions;
     }
-    
+
     public static OperationOptions createOperationOptions(Profile profile) {
         OperationOptions operationOptions = new OperationOptions();
-        operationOptions.getProfiles().add(profile); 
+        operationOptions.getProfiles().add(profile);
         return operationOptions;
     }
-    
+
     public static PassthroughQuery createQuery(String dqlStatement, ServiceContext serviceContext) {
         PassthroughQuery query = new PassthroughQuery();
         query.setQueryString(dqlStatement);
