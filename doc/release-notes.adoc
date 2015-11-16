@@ -1,0 +1,50 @@
+
+= GitHub Connector Release Notes
+:keywords: release notes, documentum, connector
+
+*Community*
+
+Anypoint Connector for Documentum provides an easy way to integrate with Documentum services.
+
+Guide: link:/mule-user-guide/v/3.7/documentum-connector[Documentum Connector]
+
+=== Version 2.0.0 - November 16, 2015
+
+=== Contents
+
+. Compatibility
+. Features
+. Fixed in this Release
+. Known Issues
+. Support Resources
+
+Release Notes for version 2.0.0 of the Documentum Connector. These Release Notes accompany the link:/mule-user-guide/v/3.7/documentum-connector[Documentum Connector Documentation Guide].
+
+=== Compatibility
+The Documentum Connector is compatible with:
+
+|===
+|Application/Service|Version
+|Mule Runtime|3.6.x or higher
+|Documentum API|6.6
+|Java|1.7.0_x
+|Anypoint Studio|5.2 or higher
+|===
+
+=== Features
+
+* *Test Connectivity* to enable an early test of the connection when configuring the connector.
+
+* *DataWeave* support.
+
+=== Fixed in this Release
+
+None.
+
+=== Known Issues
+
+None.
+
+=== Support Resources
+
+None.

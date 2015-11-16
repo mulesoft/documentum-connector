@@ -1,0 +1,9 @@
+
+= Documentum Connector User Guide
+:keywords: anypoint studio, esb, connector, Documentum
+
+== Wow! This documentation needs some tough love...
+
+* Want to contribute to the *user guide*? Follow link:http://mulesoft.github.io/connector-certification-docs/basic/files/user-manual.adoc[this template] and get started!
+
+* Want to add your *own magic* to the connector's code? Go to link:http://mulesoft.github.io/connector-certification-docs/contr/index.html[Contributing to Anypoint Community Connectors] and learn how you can also be a part of it.

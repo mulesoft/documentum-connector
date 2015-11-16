@@ -1,7 +1,25 @@
-*.class
-*.jar
+# maven
+/target
+
+# IntelliJ
+.idea
+*.iml
+*.ipr
+*.iws
+
+# eclipse
+.classpath
 .settings
 .project
-.classpath
-.idea
-target
+.factorypath
+
+# OS X
+.DS_Store
+
+# Linux
+.bin
+
+# Credentials
+automation-credentials.properties
+interop-testdata-override.xml
+interop-testdata.xml
