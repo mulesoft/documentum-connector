@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.mule.modules</groupId>
-    <artifactId>mule-module-documentum</artifactId>
-    <version>2.0.0</version>
-    <packaging>mule-module</packaging>
-    <name>Mule Documentum Connector</name>
 
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
@@ -14,57 +8,23 @@
         <version>3.7.2</version>
     </parent>
 
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>mule-module</packaging>
+
+    <name>Mule Documentum Connector</name>
+    <groupId>org.mule.modules</groupId>
+    <artifactId>mule-module-documentum</artifactId>
+    <version>2.0.0</version>
+
     <properties>
         <junit.version>4.9</junit.version>
         <mockito.version>1.8.2</mockito.version>
         <cxf.version>2.7.15</cxf.version>
-        <jdk.version>1.6</jdk.version>
+        <jdk.version>1.7</jdk.version>
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>mule-ee-snapshot</id>
-            <name>EE Repository Snapshots</name>
-            <url>https://repository.mulesoft.org/nexus/content/repositories/snapshots</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>mule-ee</id>
-            <name>EE Repository Releases</name>
-            <url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-
-    <scm>
-        <connection>scm:git:git://github.com:mulesoft/documentum-connector.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/documentum-connector.git</developerConnection>
-        <url>http://github.com/mulesoft/documentum-connector</url>
-    </scm>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-cxf</artifactId>
-            <version>${mule.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-databinding-jaxb</artifactId>
-            <version>${cxf.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.openejb.patch</groupId>
-            <artifactId>openejb-cxf-bundle</artifactId>
-            <version>2.5.2</version>
-        </dependency>
-    </dependencies>
-
 
     <build>
         <plugins>
@@ -75,7 +35,6 @@
                 <executions>
                     <execution>
                         <phase>validate</phase>
-                        <!-- This is so it work with the DEV Kit -->
                         <goals>
                             <goal>wsdl2java</goal>
                         </goals>
@@ -86,7 +45,6 @@
                                 </bindingFiles>
                                 <noAddressBinding>true</noAddressBinding>
                             </defaultOptions>
-                            <!--<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>-->
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/wsdl/6.6/AccessControlService.wsdl</wsdl>
@@ -120,5 +78,53 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-cxf</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-databinding-jaxb</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb.patch</groupId>
+            <artifactId>openejb-cxf-bundle</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
+            <url>http://repository.mulesoft.org/releases/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Repository</name>
+            <url>http://repository-master.mulesoft.org/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshot Repository</name>
+            <url>http://repository-master.mulesoft.org/snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/documentum-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/documentum-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/documentum-connector</url>
+    </scm>
 
 </project>

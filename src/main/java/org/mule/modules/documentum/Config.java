@@ -5,7 +5,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-package org.mule.module.documentum;
+package org.mule.modules.documentum;
 
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Connect;
@@ -16,14 +16,14 @@ import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.components.ConnectionManagement;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.param.ConnectionKey;
-import org.mule.module.documentum.coreservices.AccessControlClient;
-import org.mule.module.documentum.coreservices.AccessControlClientImpl;
-import org.mule.module.documentum.coreservices.ObjectClient;
-import org.mule.module.documentum.coreservices.ObjectClientImpl;
-import org.mule.module.documentum.coreservices.QueryClient;
-import org.mule.module.documentum.coreservices.QueryClientImpl;
-import org.mule.module.documentum.coreservices.VersionControlClient;
-import org.mule.module.documentum.coreservices.VersionControlClientImpl;
+import org.mule.modules.documentum.coreservices.AccessControlClient;
+import org.mule.modules.documentum.coreservices.AccessControlClientImpl;
+import org.mule.modules.documentum.coreservices.ObjectClient;
+import org.mule.modules.documentum.coreservices.ObjectClientImpl;
+import org.mule.modules.documentum.coreservices.QueryClient;
+import org.mule.modules.documentum.coreservices.QueryClientImpl;
+import org.mule.modules.documentum.coreservices.VersionControlClient;
+import org.mule.modules.documentum.coreservices.VersionControlClientImpl;
 
 import com.emc.documentum.fs.datamodel.core.context.RepositoryIdentity;
 import com.emc.documentum.fs.datamodel.core.context.ServiceContext;
