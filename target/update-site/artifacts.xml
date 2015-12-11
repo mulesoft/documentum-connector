@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='file:/Users/marianoquintela/Documents/ClonedRepos/documentum-connector/target/update-site/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1449864527125'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='2'>
+    <artifact classifier='osgi.bundle' id='org.mule.tooling.ui.contribution.documentum.3.6.0' version='2.0.0.201512111708'>
+      <properties size='3'>
+        <property name='artifact.size' value='19535045'/>
+        <property name='download.size' value='19535045'/>
+        <property name='download.md5' value='7c693a5acbce17c3d850abd75f7c7c08'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.mule.tooling.ui.extension.documentum.3.6.0' version='2.0.0.201512111708'>
+      <properties size='4'>
+        <property name='artifact.size' value='15935'/>
+        <property name='download.size' value='15935'/>
+        <property name='download.md5' value='f6a16ad41f8e94f51848b8d31b277bcf'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

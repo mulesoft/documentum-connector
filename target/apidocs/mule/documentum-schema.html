@@ -1,0 +1,1928 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule Documentum Connector." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+<title>
+
+  DocumentumConnector
+
+
+| Mule Documentum Connector
+
+</title>
+<link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../", "../assets/");
+</script>
+<script src="../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule Documentum Connector</span>
+    
+    <ul id="header-tabs" class="mule">
+    
+    	<li id="guide"><a href="../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="searchContainer" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../')"
+                      onkeyup="return search_changed(event, false, '../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+<div class="g-unit" id="all-content">
+
+<div id="api-info-block">
+
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF MODULE DATA ======== -->
+
+<div id="jd-header">
+    org.mule.modules
+<h1>mule-module-documentum</h1>
+
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+
+
+<div class="jd-tagdata">
+      <table class="jd-tagtable">
+        <tbody><tr>
+          <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/documentum</td>
+        </tr><tr>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/documentum/current/mule-documentum.xsd&nbsp;&nbsp;(<a href="documentum-schema.html">View Schema</a>)</td>
+        </tr>
+<tr>
+          <th>Schema Version</th><td>1.0</td>
+        </tr>
+<tr>
+          <th>Minimum Mule Version</th><td>3.6</td>
+        </tr>
+    </tbody></table>
+  </div>
+
+<div class="jd-descr">
+<h2>Schema</h2>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;xs:schema xmlns:ns2=&quot;http://www.mulesoft.org/schema/mule/devkit&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; targetNamespace=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot;&gt;
+  &lt;xs:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot;&gt;&lt;/xs:import&gt;
+  &lt;xs:import namespace=&quot;http://www.springframework.org/schema/beans&quot; schemaLocation=&quot;http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;&lt;/xs:import&gt;
+  &lt;xs:import namespace=&quot;http://www.mulesoft.org/schema/mule/core&quot; schemaLocation=&quot;http://www.mulesoft.org/schema/mule/core/current/mule.xsd&quot;&gt;&lt;/xs:import&gt;
+  &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; substitutionGroup=&quot;mule:abstract-extension&quot; name=&quot;config&quot;&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:complexContent&gt;
+        &lt;xs:extension base=&quot;mule:abstractExtensionType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element type=&quot;mule:poolingProfileType&quot; minOccurs=&quot;0&quot; name=&quot;connection-pooling-profile&quot;&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;Characteristics of the connection pool.&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element minOccurs=&quot;0&quot; ref=&quot;mule:abstract-reconnection-strategy&quot;&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;Reconnection strategy that defines how Mule should handle a connection failure.&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;name&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Give a name to this configuration so it can be later referenced by config-ref.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;username&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;A username&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;password&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;A password&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;repository&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;A repository&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;server&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;A server&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+        &lt;/xs:extension&gt;
+      &lt;/xs:complexContent&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateDocumentType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-document&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Create Document&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreateDocumentType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;filePath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;path to an existing file in the local system.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;folderPath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;path to an existing folder in the content server.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;ContentTransferModeEnumType&quot; use=&quot;optional&quot; default=&quot;MTOM&quot; name=&quot;transferMode&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the transfer mode.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateFolderType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-folder&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Create Folder&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreateFolderType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;folderName&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;of the folder to create.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;folderPath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;path to an existing folder in the content server.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreatePathType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-path&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Create Path&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreatePathType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;folderPath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;path to create in the content server.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetObjectType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-object&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get Object&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;ObjectIdObjectType&quot;&gt;
+    &lt;xs:sequence&gt;&lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;id&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;PropertySetObjectType&quot;&gt;
+    &lt;xs:sequence&gt;&lt;/xs:sequence&gt;
+    &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;isInternal&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;ObjectKeyObjectType&quot;&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;property-set&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;PropertySetObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;objectType&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;ObjectPathObjectType&quot;&gt;
+    &lt;xs:sequence&gt;&lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;path&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;QualificationObjectType&quot;&gt;
+    &lt;xs:sequence&gt;&lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;string&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;QualificationValueTypeEnumType&quot; use=&quot;optional&quot; name=&quot;qualificationValueType&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;objectType&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;CompositeObjectIdObjectType&quot;&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;property-set&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;PropertySetObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;objectType&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;ObjectIdentityObjectType&quot;&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-id&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-key&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectKeyObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-path&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectPathObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;qualification&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;QualificationObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;composite-object-id&quot;&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:complexContent&gt;
+            &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;CompositeObjectIdObjectType&quot;&gt;&lt;/xs:extension&gt;
+          &lt;/xs:complexContent&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;stringUri&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;ObjectIdentityTypeEnumType&quot; use=&quot;optional&quot; name=&quot;valueType&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;repositoryName&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;GetObjectType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the ObjectIdentity of the object to download.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;outputPath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;download path plus the fileName.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;ContentTransferModeEnumType&quot; use=&quot;required&quot; name=&quot;transferMode&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the transfer mode.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;UpdateDocumentType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;update-document&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Update Document&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;UpdateDocumentType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the ObjectIdentity of the object to update.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;new-properties&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;a map with the new properties.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;new-property&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; name=&quot;key&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;old-parent-folder&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the old parent folder ObjectIdentity.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;new-parent-folder&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the new parent folder ObjectIdentity.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;newContentFilePath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the path to file with the new content.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;ContentTransferModeEnumType&quot; use=&quot;optional&quot; default=&quot;MTOM&quot; name=&quot;transferMode&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the transfer mode.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;UpdateFolderType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;update-folder&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Update Folder&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;UpdateFolderType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the ObjectIdentity of the object to update.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;new-properties&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;a map with the new properties.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;new-property&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; name=&quot;key&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;old-parent-folder&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the old parent folder ObjectIdentity.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;new-parent-folder&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the new parent folder ObjectIdentity.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteObjectType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-object&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Delete Object&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteObjectType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the ObjectIdentity of the object to delete.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CopyObjectType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;copy-object&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Copy Object&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CopyObjectType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to copy.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;folder-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the folder to copy to.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;MoveObjectType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;move-object&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Move Object&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;MoveObjectType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to move.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;to-folder-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the folder to move from.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;from-folder-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the folder to move to.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetCheckoutInfoType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-checkout-info&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get checkout info&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetCheckoutInfoType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to get the checkout info.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CheckoutType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;checkout&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Checkout&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CheckoutType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to checkout.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CheckinType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;checkin&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Checkin&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CheckinType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to checkin.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;labels&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the labels of this checkin.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;label&quot;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:simpleContent&gt;
+                      &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                      &lt;/xs:extension&gt;
+                    &lt;/xs:simpleContent&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;newContentPath&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the path to the file with the new content.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;VersionStrategyEnumType&quot; use=&quot;optional&quot; default=&quot;NEXT_MINOR&quot; name=&quot;versionStrategy&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the strategy to do the checkin.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; default=&quot;false&quot; name=&quot;isRetainLock&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;specifies whether the object is to remain checked out and locked by the user after the new version is saved.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;ContentTransferModeEnumType&quot; use=&quot;optional&quot; default=&quot;MTOM&quot; name=&quot;transferMode&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the transfer mode.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CancelCheckoutType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;cancel-checkout&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Cancel Checkout&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CancelCheckoutType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to cancel the checkout.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteVersionType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-version&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Delete Version&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteVersionType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to delete.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteAllVersionsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-all-versions&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Delete All Versions&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteAllVersionsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to delete.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetCurrentType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-current&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get Current&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetCurrentType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to get the current version.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetVersionInfoType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-version-info&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get Version Info&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetVersionInfoType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;obj-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;identify the object to get the version info.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;QueryType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;query&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Query&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;QueryType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;dqlStatement&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;a DQL query.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateAclType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-acl&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Create Acl&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;AclEntryObjectType&quot;&gt;
+    &lt;xs:sequence&gt;&lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;accessor&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;AccessTypeEnumType&quot; use=&quot;optional&quot; name=&quot;accessType&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;CreateAclType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;acl-entries&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the entries of the acl.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;acl-entry&quot;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:complexContent&gt;
+                      &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;AclEntryObjectType&quot;&gt;
+                        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                      &lt;/xs:extension&gt;
+                    &lt;/xs:complexContent&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;aclName&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the name of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;aclDescription&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the description of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;AclVisibilityEnumType&quot; use=&quot;required&quot; name=&quot;aclVisibility&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the visibility of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;AclTypeEnumType&quot; use=&quot;required&quot; name=&quot;aclType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the type of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetAclType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-acl&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get Acl&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetAclType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;acl-names&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the names of the acls.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;acl-name&quot;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:simpleContent&gt;
+                      &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                      &lt;/xs:extension&gt;
+                    &lt;/xs:simpleContent&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;UpdateAclType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;update-acl&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Update Acl&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;UpdateAclType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;acl-entries&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the entries of the acl.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;acl-entry&quot;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:complexContent&gt;
+                      &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;AclEntryObjectType&quot;&gt;
+                        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                      &lt;/xs:extension&gt;
+                    &lt;/xs:complexContent&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;aclName&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the name of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;aclDescription&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the description of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;AclVisibilityEnumType&quot; use=&quot;required&quot; name=&quot;aclVisibility&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the visibility of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; type=&quot;AclTypeEnumType&quot; use=&quot;required&quot; name=&quot;aclType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the type of the acl.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteAclType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-acl&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Delete Acl&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteAclType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;acl-names&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the names of the acls.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;acl-name&quot;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:simpleContent&gt;
+                      &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                      &lt;/xs:extension&gt;
+                    &lt;/xs:simpleContent&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;ApplyAclType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;apply-acl&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Apply Acl&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;AclIdentityObjectType&quot;&gt;
+    &lt;xs:sequence&gt;&lt;/xs:sequence&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;domain&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;name&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;repositoryName&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+    &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+      &lt;xs:annotation&gt;
+        &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+      &lt;/xs:annotation&gt;
+    &lt;/xs:attribute&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name=&quot;ApplyAclType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;object-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the object identity to receive the Acl.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;ObjectIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;acl-identity&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;the acl identity to apply to the object identity.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:complexContent&gt;
+                &lt;xs:extension xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; base=&quot;AclIdentityObjectType&quot;&gt;&lt;/xs:extension&gt;
+              &lt;/xs:complexContent&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/documentum&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetAclsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-acls&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get Acls&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetAclsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name=&quot;AclTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for AclType.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;AclType&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;REGULAR&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;TEMPLATE&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;TEMPLATE_INSTANCE&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;REGULAR&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;TEMPLATE&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;TEMPLATE_INSTANCE&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;QualificationValueTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for QualificationValueType.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;QualificationValueType&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;UNDEFINED&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;STRING&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;UNDEFINED&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;STRING&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;AccessTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for AccessType.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;AccessType&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;PERMIT&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;RESTRICT&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;REQUIRE_GROUP&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;REQUIRE_GROUP_SET&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;PERMIT&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;RESTRICT&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;REQUIRE_GROUP&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;REQUIRE_GROUP_SET&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;VersionStrategyEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for VersionStrategy.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;VersionStrategy&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;IMPLIED&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;NEXT_MAJOR&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;NEXT_MINOR&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;SAME_VERSION&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;BRANCH_VERSION&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;IMPLIED&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;NEXT_MAJOR&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;NEXT_MINOR&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;SAME_VERSION&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;BRANCH_VERSION&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;AclVisibilityEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for AclVisibility.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;AclVisibility&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;PRIVATE&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;PUBLIC&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;PRIVATE&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;PUBLIC&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;ObjectIdentityTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for ObjectIdentityType.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;ObjectIdentityType&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;UNDEFINED&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;OBJECT_ID&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;OBJECT_KEY&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;OBJECT_PATH&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;QUALIFICATION&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;COMPOSITE_OBJECT_ID&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;STRING_URI&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;UNDEFINED&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;OBJECT_ID&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;OBJECT_KEY&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;OBJECT_PATH&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;QUALIFICATION&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;COMPOSITE_OBJECT_ID&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;STRING_URI&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;ContentTransferModeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;Java class for ContentTransferMode.
+
+&amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+&amp;lt;p&amp;gt;
+&amp;lt;pre&amp;gt;
+&amp;amp;lt;simpleType name=&quot;ContentTransferMode&quot;&amp;gt;
+&amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchemastring&quot;&amp;gt;
+&amp;amp;lt;enumeration value=&quot;BASE64&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;MTOM&quot;/&amp;gt;
+&amp;amp;lt;enumeration value=&quot;UCF&quot;/&amp;gt;
+&amp;amp;lt;/restriction&amp;gt;
+&amp;amp;lt;/simpleType&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;BASE_64&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;MTOM&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;UCF&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;OnNoTokenPolicyEnumType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;EXCEPTION&quot;&gt;&lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;STOP_FLOW&quot;&gt;&lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;integerType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:integer&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;decimalType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:decimal&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;floatType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:float&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;doubleType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:double&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;dateTimeType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:dateTime&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;longType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:long&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;byteType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:byte&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;booleanType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:boolean&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;anyUriType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:anyURI&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;charType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:minLength value=&quot;1&quot;&gt;&lt;/xs:minLength&gt;
+          &lt;xs:maxLength value=&quot;1&quot;&gt;&lt;/xs:maxLength&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</pre>
+</div><!-- jd-descr -->
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>

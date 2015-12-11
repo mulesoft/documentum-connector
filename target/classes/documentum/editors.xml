@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/documentum" prefix="documentum">
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Documentum" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric"></global-cloud-connector>
+  <nested caption="" description="" localId="connection-pooling-profile" abstract="true">
+    <radioBoolean name="defaultPoolingProfile" caption="Use default connection pool configuration" description="Use default connection pool configuration." fillLine="true"></radioBoolean>
+    <radioBoolean name="customPoolingProfile" caption="Define connection pool configuration" description="Define connection pool configuration." fillLine="true"></radioBoolean>
+    <integer defaultValue="5" min="-1" step="0" name="maxActive" caption="Max active" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="5" min="-1" step="0" name="maxIdle" caption="Max idle" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <enum defaultValue="INITIALISE_ONE" name="initialisationPolicy" caption="Initialisation policy" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="INITIALISE_NONE"></option>
+      <option value="INITIALISE_ONE"></option>
+      <option value="INITIALISE_ALL"></option>
+    </enum>
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" name="exhaustedAction" caption="Exhausted action" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="WHEN_EXHAUSTED_WAIT"></option>
+      <option value="WHEN_EXHAUSTED_FAIL"></option>
+      <option value="WHEN_EXHAUSTED_GROW"></option>
+    </enum>
+    <integer defaultValue="5" min="-1" step="0" name="maxWait" caption="Max wait" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="1800000" min="-1" step="0" name="minEvictionMillis" caption="Min eviction (ms)" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="-1" min="-1" step="0" name="evictionCheckIntervalMillis" caption="Eviction check interval (ms)" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+  </nested>
+  <nested caption="" description="" localId="reconnectionStrategyElement" abstract="true">
+    <label name="connectionLabel" caption="Define how mule should attempt to handle a connection failure" description=""></label>
+    <radioBoolean name="noReconnection" caption="Do not use a Reconnection strategy" description="Disable reconection strategy" fillLine="true"></radioBoolean>
+    <radioBoolean name="standardReconnection" caption="Standard Reconnection" description="A reconnection strategy that allows the user to configure how many times a reconnection should be attempted and how long to wait between attempts." fillLine="true"></radioBoolean>
+    <integer defaultValue="2000" min="1" max="2147483647" step="1" name="reconnectionFrequency" caption="Frequency (ms)" description="How often (in ms) to reconnect" controlled="standardReconnection" indented="true"></integer>
+    <integer defaultValue="2" min="1" max="2147483647" step="1" name="reconnectionAttemps" caption="Reconnection Attempts" description="How many reconnection attempts to make" controlled="standardReconnection,!reconnectForever" indented="true"></integer>
+    <boolean name="reconnectForever" caption="Reconnect Forever" description="A reconnection strategy that retries an infinite number of times at the specified frequency." supportsExpressions="false" controlled="standardReconnection" indented="true"></boolean>
+    <radioBoolean name="customReconnection" caption="Custom Reconnection" description="A user-defined reconnection strategy." fillLine="true"></radioBoolean>
+    <classname name="class" caption="Class" description="A class that implements the RetryPolicyTemplate interface." controlled="customReconnection" indented="true"></classname>
+    <childElement allowMultiple="true" name="http://www.springframework.org/schema/beans/property" caption="Properties" description="Property elements." controlled="customReconnection"></childElement>
+  </nested>
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Documentum: Configuration" description="Global Configuration configuration information." icon="icons/small/documentum-connector-24x16.png" localId="config" image="icons/large/documentum-connector-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/documentum/parentConfig" connectivityTesting="on" connectivityTestingLabel="Test Connection..." metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Documentum configuration properties.">
+      <group id="documentumGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="connection" caption="Connection">
+        <string name="username" caption="Username" description="A username." required="true" javaType="java.lang.String"></string>
+        <password name="password" caption="Password" description="A password." required="true" javaType="java.lang.String"></password>
+        <string name="repository" caption="Repository" description="A repository." required="true" javaType="java.lang.String"></string>
+        <string name="server" caption="Server" description="A server." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Pooling Profile" description="Pooling profile options.">
+      <group id="poolingProfile" caption="Pooling Profile">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/documentum/connection-pooling-profile" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Reconnection" description="Reconnection options.">
+      <group id="reconnectionStrategies" caption="Strategies">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/core/reconnectionStrategyElement" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.HTTPTransactionValuePersistence"></childElement>
+        <childElement allowSubTypes="true" allowedSubTypes="http://www.mulesoft.org/schema/mule/core/reconnect,http://www.mulesoft.org/schema/mule/core/reconnect-custom-strategy,http://www.mulesoft.org/schema/mule/core/reconnect-forever" name="http://www.mulesoft.org/schema/mule/core/abstractReconnectionStrategy" caption="" description="" visibleInDialog="false"></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractdocumentumconnectorgeneric" description="Interact with Documentum." icon="icons/small/documentum-connector-24x16.png" localId="abstractDocumentumConnectorGeneric" image="icons/large/documentum-connector-48x32.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractDocumentumConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/documentum/config" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.6.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.documentum" caption="Documentum" description="Documentum Cloud Connector. The Documentum Connector will allow to use the DFS SOAP API. Almost every operation that can be done via the API can be done thru this connector." icon="icons/small/documentum-connector-24x16.png" localId="documentum-connector" image="icons/large/documentum-connector-48x32.png" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="documentumConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Documentum operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" versions="[3.6.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/apply-acl" modeLabel="Apply acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/cancel-checkout" modeLabel="Cancel checkout"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/checkin" modeLabel="Checkin"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/checkout" modeLabel="Checkout"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/copy-object" modeLabel="Copy object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/create-acl" modeLabel="Create acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/create-document" modeLabel="Create document"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/create-folder" modeLabel="Create folder"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/create-path" modeLabel="Create path"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/delete-acl" modeLabel="Delete acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/delete-all-versions" modeLabel="Delete all versions"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/delete-object" modeLabel="Delete object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/delete-version" modeLabel="Delete version"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/get-acl" modeLabel="Get acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/get-acls" modeLabel="Get acls"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/get-checkout-info" modeLabel="Get checkout info"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/get-current" modeLabel="Get current"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/get-object" modeLabel="Get object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/get-version-info" modeLabel="Get version info"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/move-object" modeLabel="Move object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/query" modeLabel="Query"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/update-acl" modeLabel="Update acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/update-document" modeLabel="Update document"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/documentum/update-folder" modeLabel="Update folder"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Apply Acl" icon="icons/small/documentum-connector-24x16.png" localId="apply-acl" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="true" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/acl-identity" caption="Acl Identity Reference" required="true" javaType="com.emc.documentum.fs.datamodel.core.acl.AclIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Cancel Checkout" icon="icons/small/documentum-connector-24x16.png" localId="cancel-checkout" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Checkin" icon="icons/small/documentum-connector-24x16.png" localId="checkin" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <string name="newContentPath" caption="New Content Path" description="The path to the file with the new content." required="true" javaType="java.lang.String"></string>
+        <enum defaultValue="MTOM" allowsCustom="true" name="transferMode" caption="Transfer Mode" description="The transfer mode." supportsExpressions="true" required="false" javaType="com.emc.documentum.fs.datamodel.core.content.ContentTransferMode">
+          <option value="BASE_64"></option>
+          <option value="MTOM"></option>
+          <option value="UCF"></option>
+        </enum>
+        <enum defaultValue="NEXT_MINOR" allowsCustom="true" name="versionStrategy" caption="Version Strategy" description="The strategy to do the checkin." supportsExpressions="true" required="false" javaType="com.emc.documentum.fs.datamodel.core.VersionStrategy">
+          <option value="BRANCH_VERSION"></option>
+          <option value="IMPLIED"></option>
+          <option value="NEXT_MAJOR"></option>
+          <option value="NEXT_MINOR"></option>
+          <option value="SAME_VERSION"></option>
+        </enum>
+        <boolean defaultValue="false" name="isRetainLock" caption="Is Retain Lock" description="Specifies whether the object is to remain checked out and locked by the user after the new version is saved." supportsExpressions="true" required="false" javaType="boolean"></boolean>
+        <element-controller-list listName="labels" localName="checkin-labels" itemName="label" caption="Labels" description="The labels of this checkin." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Checkout" icon="icons/small/documentum-connector-24x16.png" localId="checkout" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Copy Object" icon="icons/small/documentum-connector-24x16.png" localId="copy-object" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/folder-identity" caption="Folder Identity Reference" required="true" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.acl.Acl" caption="Create Acl" icon="icons/small/documentum-connector-24x16.png" localId="create-acl" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="aclDescription" caption="Acl Description" description="The description of the acl." required="true" javaType="java.lang.String"></string>
+        <string name="aclName" caption="Acl Name" description="The name of the acl." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="aclType" caption="Acl Type" description="The type of the acl." supportsExpressions="true" required="true" javaType="com.emc.documentum.fs.datamodel.core.acl.AclType">
+          <option value="REGULAR"></option>
+          <option value="TEMPLATE"></option>
+          <option value="TEMPLATE_INSTANCE"></option>
+        </enum>
+        <enum allowsCustom="true" name="aclVisibility" caption="Acl Visibility" description="The visibility of the acl." supportsExpressions="true" required="true" javaType="com.emc.documentum.fs.datamodel.core.acl.AclVisibility">
+          <option value="PRIVATE"></option>
+          <option value="PUBLIC"></option>
+        </enum>
+        <element-controller-listOfPojo listName="acl-entries" localName="create-acl-acl-entries" itemName="acl-entry" caption="Acl Entries" description="The entries of the acl." javaType="java.util.List&lt;com.emc.documentum.fs.datamodel.core.acl.AclEntry&gt;"></element-controller-listOfPojo>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Create Document" icon="icons/small/documentum-connector-24x16.png" localId="create-document" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="filePath" caption="File Path" description="Path to an existing file in the local system." required="true" javaType="java.lang.String"></string>
+        <string name="folderPath" caption="Folder Path" description="Path to an existing folder in the content server." required="true" javaType="java.lang.String"></string>
+        <enum defaultValue="MTOM" allowsCustom="true" name="transferMode" caption="Transfer Mode" description="The transfer mode." supportsExpressions="true" required="false" javaType="com.emc.documentum.fs.datamodel.core.content.ContentTransferMode">
+          <option value="BASE_64"></option>
+          <option value="MTOM"></option>
+          <option value="UCF"></option>
+        </enum>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Create Folder" icon="icons/small/documentum-connector-24x16.png" localId="create-folder" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="folderName" caption="Folder Name" description="Of the folder to create." required="true" javaType="java.lang.String"></string>
+        <string name="folderPath" caption="Folder Path" description="Path to an existing folder in the content server." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Create Path" icon="icons/small/documentum-connector-24x16.png" localId="create-path" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="folderPath" caption="Folder Path" description="Path to create in the content server." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.String&gt;" caption="Delete Acl" icon="icons/small/documentum-connector-24x16.png" localId="delete-acl" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <element-controller-list listName="acl-names" localName="delete-acl-acl-names" itemName="acl-name" caption="Acl Names" description="The names of the acls." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Delete All Versions" icon="icons/small/documentum-connector-24x16.png" localId="delete-all-versions" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Delete Object" icon="icons/small/documentum-connector-24x16.png" localId="delete-object" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Delete Version" icon="icons/small/documentum-connector-24x16.png" localId="delete-version" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.acl.AclPackage" caption="Get Acl" icon="icons/small/documentum-connector-24x16.png" localId="get-acl" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <element-controller-list listName="acl-names" localName="get-acl-acl-names" itemName="acl-name" caption="Acl Names" description="The names of the acls." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.acl.AclPackage" caption="Get Acls" icon="icons/small/documentum-connector-24x16.png" localId="get-acls" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.CheckoutInfo" caption="Get Checkout Info" icon="icons/small/documentum-connector-24x16.png" localId="get-checkout-info" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Get Current" icon="icons/small/documentum-connector-24x16.png" localId="get-current" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.io.File" caption="Get Object" icon="icons/small/documentum-connector-24x16.png" localId="get-object" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <string name="outputPath" caption="Output Path" description="Download path plus the fileName." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="transferMode" caption="Transfer Mode" description="The transfer mode." supportsExpressions="true" required="true" javaType="com.emc.documentum.fs.datamodel.core.content.ContentTransferMode">
+          <option value="BASE_64"></option>
+          <option value="MTOM"></option>
+          <option value="UCF"></option>
+        </enum>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.VersionInfo" caption="Get Version Info" icon="icons/small/documentum-connector-24x16.png" localId="get-version-info" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/obj-identity" caption="Obj Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Move Object" icon="icons/small/documentum-connector-24x16.png" localId="move-object" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/to-folder-identity" caption="To Folder Identity Reference" required="true" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/from-folder-identity" caption="From Folder Identity Reference" required="true" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.query.QueryResult" caption="Query" icon="icons/small/documentum-connector-24x16.png" localId="query" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="dqlStatement" caption="Dql Statement" description="A DQL query." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.acl.Acl" caption="Update Acl" icon="icons/small/documentum-connector-24x16.png" localId="update-acl" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="aclDescription" caption="Acl Description" description="The description of the acl." required="true" javaType="java.lang.String"></string>
+        <string name="aclName" caption="Acl Name" description="The name of the acl." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="aclType" caption="Acl Type" description="The type of the acl." supportsExpressions="true" required="true" javaType="com.emc.documentum.fs.datamodel.core.acl.AclType">
+          <option value="REGULAR"></option>
+          <option value="TEMPLATE"></option>
+          <option value="TEMPLATE_INSTANCE"></option>
+        </enum>
+        <enum allowsCustom="true" name="aclVisibility" caption="Acl Visibility" description="The visibility of the acl." supportsExpressions="true" required="true" javaType="com.emc.documentum.fs.datamodel.core.acl.AclVisibility">
+          <option value="PRIVATE"></option>
+          <option value="PUBLIC"></option>
+        </enum>
+        <element-controller-listOfPojo listName="acl-entries" localName="update-acl-acl-entries" itemName="acl-entry" caption="Acl Entries" description="The entries of the acl." javaType="java.util.List&lt;com.emc.documentum.fs.datamodel.core.acl.AclEntry&gt;"></element-controller-listOfPojo>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Update Document" icon="icons/small/documentum-connector-24x16.png" localId="update-document" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <string name="newContentFilePath" caption="New Content File Path" description="The path to file with the new content." required="false" javaType="java.lang.String"></string>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/old-parent-folder" caption="Old Parent Folder Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/new-parent-folder" caption="New Parent Folder Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <enum defaultValue="MTOM" allowsCustom="true" name="transferMode" caption="Transfer Mode" description="The transfer mode." supportsExpressions="true" required="false" javaType="com.emc.documentum.fs.datamodel.core.content.ContentTransferMode">
+          <option value="BASE_64"></option>
+          <option value="MTOM"></option>
+          <option value="UCF"></option>
+        </enum>
+        <element-controller-map mapName="new-properties" localName="update-document-new-properties" itemName="new-property" caption="New Properties" description="A map with the new properties." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.emc.documentum.fs.datamodel.core.ObjectIdentity" caption="Update Folder" icon="icons/small/documentum-connector-24x16.png" localId="update-folder" image="icons/large/documentum-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/documentum/abstractDocumentumConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <childElement inplace="true" allowMultiple="false" defaultValue="#[payload]" name="http://www.mulesoft.org/schema/mule/documentum/object-identity" caption="Object Identity Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/old-parent-folder" caption="Old Parent Folder Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/new-parent-folder" caption="New Parent Folder Reference" required="false" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentity"></childElement>
+        <element-controller-map mapName="new-properties" localName="update-folder-new-properties" itemName="new-property" caption="New Properties" description="A map with the new properties." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <nested xmlname="acl-identity" caption="" description="" localId="acl-identity" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Acl Identity Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="domain" caption="Domain" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="name" caption="Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="composite-object-id" caption="" description="" localId="composite-object-id" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Composite Object Id Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/property-set" caption="Property Set Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.properties.PropertySet"></childElement>
+    <string name="objectType" caption="Object Type" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="folder-identity" caption="" description="" localId="folder-identity" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Folder Identity Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="from-folder-identity" caption="" description="" localId="from-folder-identity" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="From Folder Identity Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="new-parent-folder" caption="" description="" localId="new-parent-folder" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="New Parent Folder Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="obj-identity" caption="" description="" localId="obj-identity" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Obj Identity Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="object-id" caption="" description="" localId="object-id" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Object Id Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="id" caption="Id" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="object-identity" caption="" description="" localId="object-identity" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Object Identity Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="object-key" caption="" description="" localId="object-key" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Object Key Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/property-set" caption="Property Set Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.properties.PropertySet"></childElement>
+    <string name="objectType" caption="Object Type" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="object-path" caption="" description="" localId="object-path" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Object Path Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="path" caption="Path" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="old-parent-folder" caption="" description="" localId="old-parent-folder" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Old Parent Folder Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="property-set" caption="" description="" localId="property-set" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Property Set Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <boolean name="isInternal" caption="Is Internal" description="" supportsExpressions="true" required="false" controlled="complex" javaType="boolean"></boolean>
+  </nested>
+  <nested xmlname="qualification" caption="" description="" localId="qualification" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Qualification Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="string" caption="String" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="qualificationValueType" caption="Qualification Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.QualificationValueType">
+      <option value="STRING"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="objectType" caption="Object Type" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+  <nested xmlname="to-folder-identity" caption="" description="" localId="to-folder-identity" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="To Folder Identity Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-id" caption="Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectId"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-key" caption="Object Key Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectKey"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/object-path" caption="Object Path Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectPath"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/qualification" caption="Qualification Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.Qualification"></childElement>
+    <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/documentum/composite-object-id" caption="Composite Object Id Reference" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.CompositeObjectId"></childElement>
+    <string name="stringUri" caption="String Uri" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <enum allowsCustom="true" name="valueType" caption="Value Type" description="" supportsExpressions="true" required="false" controlled="complex" javaType="com.emc.documentum.fs.datamodel.core.ObjectIdentityType">
+      <option value="COMPOSITE_OBJECT_ID"></option>
+      <option value="OBJECT_ID"></option>
+      <option value="OBJECT_KEY"></option>
+      <option value="OBJECT_PATH"></option>
+      <option value="QUALIFICATION"></option>
+      <option value="STRING_URI"></option>
+      <option value="UNDEFINED"></option>
+    </enum>
+    <string name="repositoryName" caption="Repository Name" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+</namespace>

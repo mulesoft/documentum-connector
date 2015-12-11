@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+
+    (c) 2003-2012 MuleSoft, Inc. This software is protected under international
+    copyright law. All use of this software is subject to MuleSoft's Master
+    Subscription Agreement (or other Terms of Service) separately entered
+    into between you and MuleSoft. If such an agreement is not in
+    place, you may not use the software.
+
+-->
+
+<xs:schema version="1.0" targetNamespace="http://acl.core.services.fs.documentum.emc.com/" xmlns:tns="http://acl.core.services.fs.documentum.emc.com/" xmlns:ns1="http://acl.core.datamodel.fs.documentum.emc.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://rt.fs.documentum.emc.com/">
+
+  <xs:import namespace="http://acl.core.datamodel.fs.documentum.emc.com/" schemaLocation="AccessControlService_schema4.xsd"/>
+
+  <xs:import namespace="http://rt.fs.documentum.emc.com/" schemaLocation="AccessControlService_schema1.xsd"/>
+
+  <xs:element name="CoreServiceException" type="tns:CoreServiceException"/>
+
+  <xs:element name="create" type="tns:create"/>
+
+  <xs:element name="createResponse" type="tns:createResponse"/>
+
+  <xs:element name="delete" type="tns:delete"/>
+
+  <xs:element name="deleteResponse" type="tns:deleteResponse"/>
+
+  <xs:element name="get" type="tns:get"/>
+
+  <xs:element name="getResponse" type="tns:getResponse"/>
+
+  <xs:element name="update" type="tns:update"/>
+
+  <xs:element name="updateResponse" type="tns:updateResponse"/>
+
+  <xs:complexType name="delete">
+    <xs:sequence>
+      <xs:element name="aclIdentities" type="ns1:AclIdentity" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="deleteResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="CoreServiceException">
+    <xs:sequence>
+      <xs:element name="exceptionBean" type="ns2:DfsExceptionHolder" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+      <xs:element name="messageArgs" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="messageId" type="xs:string" minOccurs="0"/>
+      <xs:element name="stackTraceAsString" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="update">
+    <xs:sequence>
+      <xs:element name="aclPackage" type="ns1:AclPackage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateResponse">
+    <xs:sequence>
+      <xs:element name="return" type="ns1:AclPackage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="create">
+    <xs:sequence>
+      <xs:element name="aclPackage" type="ns1:AclPackage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createResponse">
+    <xs:sequence>
+      <xs:element name="return" type="ns1:AclPackage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="get">
+    <xs:sequence>
+      <xs:element name="aclIdentities" type="ns1:AclIdentity" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getResponse">
+    <xs:sequence>
+      <xs:element name="return" type="ns1:AclPackage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

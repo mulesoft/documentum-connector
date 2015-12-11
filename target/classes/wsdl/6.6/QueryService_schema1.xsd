@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+
+    (c) 2003-2012 MuleSoft, Inc. This software is protected under international
+    copyright law. All use of this software is subject to MuleSoft's Master
+    Subscription Agreement (or other Terms of Service) separately entered
+    into between you and MuleSoft. If such an agreement is not in
+    place, you may not use the software.
+
+-->
+
+<xs:schema version="1.0" targetNamespace="http://schema.core.datamodel.fs.documentum.emc.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="DataType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STRING"/>
+      <xs:enumeration value="SHORT"/>
+      <xs:enumeration value="INTEGER"/>
+      <xs:enumeration value="LONG"/>
+      <xs:enumeration value="DOUBLE"/>
+      <xs:enumeration value="DATE"/>
+      <xs:enumeration value="BOOLEAN"/>
+      <xs:enumeration value="OBJECT_ID"/>
+      <xs:enumeration value="CUSTOM"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
