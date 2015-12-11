@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule Documentum Connector." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../../../../../../../favicon.ico" />
+<title>
+
+  ObjectServicePort
+
+
+| Mule Documentum Connector
+
+</title>
+<link href="../../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../../../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../../../../../../../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../../../../../../../", "../../../../../../../assets/");
+</script>
+<script src="../../../../../../../assets/mule-developer-reference.js" type="text/javascript"></script>
+<script src="../../../../../../../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../../../../../../../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule Documentum Connector</span>
+    
+    <ul id="header-tabs" class="">
+    
+    	<li id="guide"><a href="../../../../../../../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../../../../../../../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../../../../../../../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="searchContainer" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../../../../../../../')"
+                      onkeyup="return search_changed(event, false, '../../../../../../../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links">
+                <a href="../../../../../../../java/packages.html"  >Package Index</a> |
+                <a href="../../../../../../../java/classes.html" >Class Index</a>
+              </div>
+              <ul>
+                
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/package-summary.html">com.emc.documentum.fs.datamodel.core</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/acl/package-summary.html">com.emc.documentum.fs.datamodel.core.acl</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/acl/holders/package-summary.html">com.emc.documentum.fs.datamodel.core.acl.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/acl/transformers/package-summary.html">com.emc.documentum.fs.datamodel.core.acl.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/content/package-summary.html">com.emc.documentum.fs.datamodel.core.content</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/content/transformers/package-summary.html">com.emc.documentum.fs.datamodel.core.content.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/context/package-summary.html">com.emc.documentum.fs.datamodel.core.context</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/holders/package-summary.html">com.emc.documentum.fs.datamodel.core.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/profiles/package-summary.html">com.emc.documentum.fs.datamodel.core.profiles</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/properties/package-summary.html">com.emc.documentum.fs.datamodel.core.properties</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/properties/holders/package-summary.html">com.emc.documentum.fs.datamodel.core.properties.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/properties/transformers/package-summary.html">com.emc.documentum.fs.datamodel.core.properties.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/query/package-summary.html">com.emc.documentum.fs.datamodel.core.query</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/schema/package-summary.html">com.emc.documentum.fs.datamodel.core.schema</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/transformers/package-summary.html">com.emc.documentum.fs.datamodel.core.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/rt/package-summary.html">com.emc.documentum.fs.rt</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/rt/services/package-summary.html">com.emc.documentum.fs.rt.services</a></li>
+    <li class="selected api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/services/core/package-summary.html">com.emc.documentum.fs.services.core</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/com/emc/documentum/fs/services/core/acl/package-summary.html">com.emc.documentum.fs.services.core.acl</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/package-summary.html">org.mule.modules.documentum</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/adapter/package-summary.html">org.mule.modules.documentum.adapter</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/adapters/package-summary.html">org.mule.modules.documentum.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/agents/package-summary.html">org.mule.modules.documentum.agents</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/config/package-summary.html">org.mule.modules.documentum.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/connectivity/package-summary.html">org.mule.modules.documentum.connectivity</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/coreservices/package-summary.html">org.mule.modules.documentum.coreservices</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/devkit/package-summary.html">org.mule.modules.documentum.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/pooling/package-summary.html">org.mule.modules.documentum.pooling</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../../java/org/mule/modules/documentum/processors/package-summary.html">org.mule.modules.documentum.processors</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+            <ul>
+              
+    <li><h2>Interfaces</h2>
+      <ul>
+          <li class="selected api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/ObjectServicePort.html">ObjectServicePort</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/QueryServicePort.html">QueryServicePort</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/VersionControlServicePort.html">VersionControlServicePort</a></li>
+      </ul>
+    </li>
+              
+    <li><h2>Classes</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CancelCheckout.html">CancelCheckout</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CancelCheckoutResponse.html">CancelCheckoutResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Checkin.html">Checkin</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CheckinResponse.html">CheckinResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Checkout.html">Checkout</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CheckoutResponse.html">CheckoutResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Copy.html">Copy</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CopyResponse.html">CopyResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Create.html">Create</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CreatePath.html">CreatePath</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CreatePathResponse.html">CreatePathResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/CreateResponse.html">CreateResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Delete.html">Delete</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/DeleteAllVersions.html">DeleteAllVersions</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/DeleteAllVersionsResponse.html">DeleteAllVersionsResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/DeleteResponse.html">DeleteResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/DeleteVersion.html">DeleteVersion</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/DeleteVersionResponse.html">DeleteVersionResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Execute.html">Execute</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/ExecuteResponse.html">ExecuteResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Get.html">Get</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetCheckoutInfo.html">GetCheckoutInfo</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetCheckoutInfoResponse.html">GetCheckoutInfoResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetCurrent.html">GetCurrent</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetCurrentResponse.html">GetCurrentResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetObjectContentUrls.html">GetObjectContentUrls</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetObjectContentUrlsResponse.html">GetObjectContentUrlsResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetResponse.html">GetResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetVersionInfo.html">GetVersionInfo</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/GetVersionInfoResponse.html">GetVersionInfoResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Move.html">Move</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/MoveResponse.html">MoveResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/ObjectFactory.html">ObjectFactory</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/ObjectService.html">ObjectService</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/QueryService.html">QueryService</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Update.html">Update</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/UpdateResponse.html">UpdateResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/Validate.html">Validate</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/ValidateResponse.html">ValidateResponse</a></li>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/VersionControlService.html">VersionControlService</a></li>
+      </ul>
+    </li>
+              
+              
+              
+    <li><h2>Exceptions</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></li>
+      </ul>
+    </li>
+              
+            </ul><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links">
+            <a href="../../../../../../../packages.html"  >Package Index</a> | 
+            <a href="../../../../../../../classes.html" >Class Index</a>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("../../../../../../../");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="api-info-block">
+
+
+
+
+<div class="sum-details-links">
+
+
+</div><!-- end sum-details-links -->
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF CLASS DATA ======== -->
+
+<div id="jd-header">
+    public
+     
+     
+    
+    interface
+<h1>ObjectServicePort</h1>
+
+
+
+  
+  
+  
+
+
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+<table class="jd-inheritance-table">
+
+
+    <tr>
+        
+        <td colspan="1" class="jd-inheritance-class-cell">com.emc.documentum.fs.services.core.ObjectServicePort</td>
+    </tr>
+    
+
+</table>
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Class Overview</h2>
+<p>This class was generated by Apache CXF 2.7.15
+ 2015-12-11T17:08:21.019-03:00
+ Generated source version: 2.7.15
+ 
+</p>
+
+
+
+
+
+</div><!-- jd-descr -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Summary</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#copy(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.ObjectLocation, com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)">copy</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> fromObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectLocation.html">ObjectLocation</a> targetLocation, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> modifyObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</nobr>
+        
+        <div class="jd-descrdiv">The copy operation copies a set of repository objects from one location to another, either within a single
+ repository, or from one repository to another.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#create(com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)">create</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> dataPackage, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</nobr>
+        
+        <div class="jd-descrdiv">Creates a set of new repository objects based on the DataObject instances contained in a DataPackage passed to
+ the operation.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentity.html">ObjectIdentity</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#createPath(com.emc.documentum.fs.datamodel.core.ObjectPath, java.lang.String)">createPath</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectPath.html">ObjectPath</a> objectPath, String repositoryName)</nobr>
+        
+        <div class="jd-descrdiv">The createPath operation creates a folder structure (from the cabinet down) in a repository.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#delete(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.OperationOptions)">delete</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> objectsToDelete, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</nobr>
+        
+        <div class="jd-descrdiv">Operation deletes a set of objects from the repository.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#get(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.OperationOptions)">get</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> forObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</nobr>
+        
+        <div class="jd-descrdiv">The get operation retrieves a set of objects from the repository based on the contents of an ObjectIdentitySet.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            List&lt;<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectContentSet.html">ObjectContentSet</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#getObjectContentUrls(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet)">getObjectContentUrls</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> forObjects)</nobr>
+        
+        <div class="jd-descrdiv">Returns an array of ContentUrl objects based on specified object identities.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#move(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.ObjectLocation, com.emc.documentum.fs.datamodel.core.ObjectLocation, com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)">move</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> fromObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectLocation.html">ObjectLocation</a> sourceLocation, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectLocation.html">ObjectLocation</a> targetLocation, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> modifyObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</nobr>
+        
+        <div class="jd-descrdiv">The move operation moves a set of repository objects from one location into another, and provides the optional
+ capability of updating the repository objects as they are moved.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#update(com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)">update</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> dataPackage, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</nobr>
+        
+        <div class="jd-descrdiv">The update operation updates a set of repository objects using data supplied in a set of DataObject instances
+ passed in a DataPackage.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ValidationInfoSet.html">ValidationInfoSet</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../../com/emc/documentum/fs/services/core/ObjectServicePort.html#validate(com.emc.documentum.fs.datamodel.core.DataPackage)">validate</a></span>(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> dataPackage)</nobr>
+        
+        <div class="jd-descrdiv">The validate operation validates a set of DataObject instances against repository data dictionary rules, testing
+ whether the DataObject instances represent valid repository objects, and whether the DataObject properties
+ represent valid repository properties.</div>
+  
+  </td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+</div><!-- jd-descr (summary) -->
+
+<!-- Details -->
+
+
+
+
+
+
+
+
+<!-- XML Attributes -->
+
+
+<!-- Enum Values -->
+
+
+<!-- Constants -->
+
+
+<!-- Fields -->
+
+
+<!-- Public ctors -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<!-- Protected ctors -->
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+<!-- Public methdos -->
+
+<h2>Public Methods</h2>
+
+
+
+<A NAME="copy(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.ObjectLocation, com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a>
+      </span>
+      <span class="sympad">copy</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> fromObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectLocation.html">ObjectLocation</a> targetLocation, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> modifyObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The copy operation copies a set of repository objects from one location to another, either within a single
+ repository, or from one repository to another. During the copy operation, the service can optionally make
+ modifications to the objects being copied.<p>
+ 
+ Note: For the service to copy an object from one repository to another, the ServiceContext must be set up to
+ provide the service with access to both repositories. This can be done by setting up a separate
+ RepositoryIdentity for each repository, or by use of a BasicIdentity, which provides default user credentials for
+ multiple repositories. For more information on RepositoryIdentity and BasicIdentity, see DFS Development Guide,
+ Identities, page 48.
+ 
+ <p>Note: DataPackage can contain operation specific properties.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>fromObjects</td>
+          <td>Is a set of identities pointing to objects that must be copied.</td>
+        </tr>
+        <tr>
+          <th>targetLocation</td>
+          <td>Contains an ObjectIdentity that identifies the location (a cabinet or folder) into which
+                          the repository objects are to be copied. If objects do not require a "parent" location.
+                          Location object can be used to specify target repository.</td>
+        </tr>
+        <tr>
+          <th>modifyObjects</td>
+          <td>Optional package of data objects that need to be modified during a copy.  It is not
+                          necessary to have as many "modify objects" as "from identities".  During processing of
+                          each "from identity", data object with the same identity will be used to change the
+                          attributes and relationships for the new object.</td>
+        </tr>
+        <tr>
+          <th>options</td>
+          <td>An object containing profiles and properties that specify operation behaviors. If this object
+                    is null, default operation behaviors will take effect.
+                    It can contain CopyProfile that will modify the behaviour of the operation.
+                    OperationOptions can also contain PropertyProfile, ContentProfile, PermissionProfile,
+                    RelationshipProfile that will be used to populate the returned DataPackage. Also it can
+                    contain ContentTransferProfile to specify the specifics of content transfer.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>target DataPackage with a list of objects created. By default, it will only return
+         ObjectIdentity of the DataObjects with no ReferenceRelations. PropertyProfile and
+         ContentProfile settings can be used to specify what data is populated.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="create(com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a>
+      </span>
+      <span class="sympad">create</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> dataPackage, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a set of new repository objects based on the DataObject instances contained in a DataPackage passed to
+ the operation. Because each DataObject represents a new repository object, its ObjectIdentity is populated with
+ only a repository name. Content Server assigns a unique object identifier when the object is created in the
+ repository.
+ 
+ To create an object in a specific location, or to create objects that have relationships to one another defined
+ in the repository, the client can define Relationship instances in a DataObject passed to the operation. The most
+ common example of this would be to create a Relationship between a newly created document and the folder in which
+ it is to be created.
+ All specified related objects are also created.  All content is automatically imported.
+ 
+ Note: DataPackage can contain operation specific properties.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>dataPackage</td>
+          <td>Contains DataObjects that will be created</td>
+        </tr>
+        <tr>
+          <th>options</td>
+          <td>An object containing profiles and properties that specify operation behaviors. If this object
+                    is null, default operation behaviors will take effect.
+                    OperationOptions can contain PropertyProfile, ContentProfile, PermissionProfile,
+                    RelationshipProfile that will be used to populate the returned DataPackage. Also it can
+                    contain ContentTransferProfile to specify the specifics of content transfer.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>target DataPackage with a list of objects created. By default, it will only return
+         ObjectIdentity of the DataObjects with no ReferenceRelations.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createPath(com.emc.documentum.fs.datamodel.core.ObjectPath, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentity.html">ObjectIdentity</a>
+      </span>
+      <span class="sympad">createPath</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectPath.html">ObjectPath</a> objectPath, String repositoryName)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The createPath operation creates a folder structure (from the cabinet down) in a repository. Notice that only
+ "object_name" property will be set for each object.<p>
+ If any of the folders specified in the path exist, no exception is thrown. This allows you to use the operation
+ to create the complete path, or to add new folders to an existing path.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>objectPath</td>
+          <td>Contains a String in the form "/cabinetName/folderName..." that describes the complete
+                        path to create.</td>
+        </tr>
+        <tr>
+          <th>repositoryName</td>
+          <td>The repository name where the objects will be created.  </td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>Returns the ObjectIdentity of the final object in the path. For example, if the path is
+         "/cabinetName/childFolder1/childFolder2", the operation will return the ObjectIdentity of childFolder2.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="delete(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.OperationOptions)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        void
+      </span>
+      <span class="sympad">delete</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> objectsToDelete, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Operation deletes a set of objects from the repository. By default, for each object that it deletes, it deletes
+ all versions. The specific behaviors of the delete operation are controlled by a DeleteProfile, which should be
+ passed to the operation as part of OperationOptions.<p>
+ 
+ <p>Note: DataPackage can contain operation specific properties</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>objectsToDelete</td>
+          <td>A collection of ObjectIdentity instances that uniquely identify repository objects to be
+                        deleted.</td>
+        </tr>
+        <tr>
+          <th>options</td>
+          <td>An object containing profiles and properties that specify operation behaviors. If this object
+                    is null, default operation behaviors will take effect.
+                    It can contain DeleteProfile that will modify the behaviour of the operation.
+                    OperationOptions can also contain PropertyProfile, ContentProfile, PermissionProfile,
+                    RelationshipProfile that will be used to populate the returned DataPackage. Also it can
+                    contain ContentTransferProfile to specify the specifics of content transfer.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="get(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.OperationOptions)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a>
+      </span>
+      <span class="sympad">get</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> forObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The get operation retrieves a set of objects from the repository based on the contents of an ObjectIdentitySet.
+ The get operation always returns the version of the object specified by ObjectIdentity; if the ObjectIdentity
+ identifies a non-CURRENT version, the get operation returns the non-CURRENT version. The operation will also
+ return related objects if instructed to do so by RelationshipProfile settings.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>forObjects</td>
+          <td>Contains a list of ObjectIdentity instances specifying the repository objects to be retrieved.</td>
+        </tr>
+        <tr>
+          <th>options</td>
+          <td>An object containing profiles and properties that specify operation behaviors. If this object
+                    is null, default operation behaviors will take effect.
+                    OperationOptions can contain PropertyProfile, ContentProfile, PermissionProfile,
+                    RelationshipProfile that will be used to populate the returned DataPackage. Also it can
+                    contain ContentTransferProfile to specify the specifics of content transfer.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>fully populated DataObjects and their ReferenceRelations in case filter mode is not
+         defined.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getObjectContentUrls(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        List&lt;<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectContentSet.html">ObjectContentSet</a>&gt;
+      </span>
+      <span class="sympad">getObjectContentUrls</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> forObjects)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns an array of ContentUrl objects based on specified object identities.  Notice that more than one
+ ContentUrl can be returned per object identity.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>forObjects</td>
+          <td>A collection of ObjectIdentity instances for which to obtain UrlContent objects.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>List<ObjectContentSet>  each ObjectContentSet contains a list of UrlContent objects.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="move(com.emc.documentum.fs.datamodel.core.ObjectIdentitySet, com.emc.documentum.fs.datamodel.core.ObjectLocation, com.emc.documentum.fs.datamodel.core.ObjectLocation, com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a>
+      </span>
+      <span class="sympad">move</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectIdentitySet.html">ObjectIdentitySet</a> fromObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectLocation.html">ObjectLocation</a> sourceLocation, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ObjectLocation.html">ObjectLocation</a> targetLocation, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> modifyObjects, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The move operation moves a set of repository objects from one location into another, and provides the optional
+ capability of updating the repository objects as they are moved. The move operation will only move the CURRENT
+ version of an object. If passed an ObjectIdentity that identifies a non-CURRENT object, the operation will throw
+ an exception (unless non-CURRENT objects are specifically permitted by a MoveProfile).<p>
+ 
+ <p>Note: Move from one repository into another repository is not permitted.
+          DataPackage can contain operation specific properties.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>fromObjects</td>
+          <td>A collection of ObjectIdentity instances that identify the repository objects to be moved.</td>
+        </tr>
+        <tr>
+          <th>sourceLocation</td>
+          <td>Contains an ObjectIdentity that identifies the location (a cabinet or folder) from which
+                       the repository objects are to be moved.</td>
+        </tr>
+        <tr>
+          <th>targetLocation</td>
+          <td>Contains an ObjectIdentity that identifies the location (a cabinet or folder) into which
+                       the repository objects are to be moved.</td>
+        </tr>
+        <tr>
+          <th>modifyObjects</td>
+          <td>Optionally contains a set of DataObject instances that contain modifications (such as
+                       changes to property values, content, or relationships) to all or some of the repository
+                       objects being moved. The ObjectIdentity of each DataObject must uniquely identify one of
+                       the moved objects. The modifications supplied in the DataObject are applied during the move
+                       operation.</td>
+        </tr>
+        <tr>
+          <th>options</td>
+          <td>An object containing profiles and properties that specify operation behaviors. If this object
+                    is null, default operation behaviors will take effect.
+                    It can contain MoveProfile that will modify the behaviour of the operation.
+                    OperationOptions can also contain PropertyProfile, ContentProfile, PermissionProfile,
+                    RelationshipProfile that will be used to populate the returned DataPackage. Also it can
+                    contain ContentTransferProfile to specify the specifics of content transfer.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a DataPackage containing one DataObject for each repository object created by the move operation. By
+         default, each DataObject contains only the ObjectIdentity of the created object and no other data. The
+         client can modify this behavior by using Profile objects if it requires more data about the moved objects.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="update(com.emc.documentum.fs.datamodel.core.DataPackage, com.emc.documentum.fs.datamodel.core.OperationOptions)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a>
+      </span>
+      <span class="sympad">update</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> dataPackage, <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/OperationOptions.html">OperationOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The update operation updates a set of repository objects using data supplied in a set of DataObject instances
+ passed in a DataPackage. The update operation will only update the CURRENT version of an object. If passed an
+ ObjectIdentity that identifies a non-CURRENT object, the operation will throw an exception. The updated
+ repository object will be saved as the CURRENT version.
+ 
+ The ObjectIdentity of each DataObject passed to the update operation must uniquely identify an existing
+ repository object. The DataObject instances can contain updates to properties, content, and relationships, and
+ only needs to include data that requires update.
+ 
+ If a DataObject contains ReferenceRelationship instances, the corresponding relationships are created or updated
+ in the repository. The update operation can also remove existing relationships. It can therefore be used,
+ for example, to unlink an object from a folder and link it into another folder. If the DataObject contains
+ ObjectRelationship instances, then the related objects are either updated or created, depending on whether they
+ already exist in the repository. If the object does not exist, it is created; if it does exist, it is updated.
+ 
+ Updates all data object in the data package using the specified target repository. All specified related objects
+ are also updated.  All content is automatically saved as CURRENT as well.
+ 
+ Note: DataPackage can contain operation specific properties</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>dataPackage</td>
+          <td>A collection of DataObject instances that contain modifications to repository objects. The
+                    ObjectIdentity of each DataObject instance must uniquely identity the repository object to
+                    update. The DataObject instance need only contain data that is to be modified on the
+                    repository object; data that is to remain unchanged need not be supplied.</td>
+        </tr>
+        <tr>
+          <th>options</td>
+          <td>An object containing profiles and properties that specify operation behaviors. If this object
+                    is null, default operation behaviors will take effect.
+                    OperationOptions can contain PropertyProfile, ContentProfile, PermissionProfile,
+                    RelationshipProfile that will be used to populate the returned DataPackage. Also it can
+                    contain ContentTransferProfile to specify the specifics of content transfer.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>DataPackage, which by default is populated with DataObject instances that contain only an ObjectIdentity.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="validate(com.emc.documentum.fs.datamodel.core.DataPackage)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        <a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/ValidationInfoSet.html">ValidationInfoSet</a>
+      </span>
+      <span class="sympad">validate</span>
+      <span class="normal">(<a href="../../../../../../../java/com/emc/documentum/fs/datamodel/core/DataPackage.html">DataPackage</a> dataPackage)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The validate operation validates a set of DataObject instances against repository data dictionary rules, testing
+ whether the DataObject instances represent valid repository objects, and whether the DataObject properties
+ represent valid repository properties.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>dataPackage</td>
+          <td>A collection of DataObject instances to be validated by the operation.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a ValidationInfoSet, which contains a list of ValidationInfo objects. Each ValidationInfo contains a
+          DataObject and a list of any ValidationIssue instances that were raised by the operation. A
+          ValidationIssue can be of enum type ERROR or WARNING.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../../../java/com/emc/documentum/fs/services/core/SerializableException.html">SerializableException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+
+
+
+<!-- ========= END OF CLASS DATA ========= -->
+<A NAME="navbar_top"></A>
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>
