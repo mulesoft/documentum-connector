@@ -132,7 +132,7 @@ public class Config {
     }
 
     public void setServer(String server) {
-        if (!server.startsWith("http://")) {
+        if (!(server.startsWith("http://") || server.startsWith("https://"))) {
             server = "http://" + server;
         }
 
